@@ -10,7 +10,7 @@
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <style>
 :root{--bg:#08080a;--bg2:#0f0f12;--card:#141417;--card-hover:#1a1a1e;--text:#fafafa;--text2:#a0a0a5;--muted:#606065;--border:#252528;--red:#ff2d55;--orange:#ff9500;--blue:#0a84ff;--purple:#bf5af2;--green:#30d158;--gold:#ffd700;--gold2:#ffb800}
-[data-theme="light"]{--bg:#fafafa;--bg2:#f0f0f2;--card:#ffffff;--card-hover:#f5f5f7;--text:#1d1d1f;--text2:#6e6e73;--muted:#86868b;--border:#d2d2d7}
+[data-theme="light"]{--bg:#fafafa;--bg2:#f0f0f2;--card:#ffffff;--card-hover:#f5f5f7;--text:#1d1d1f;--text2:#494949;--muted:#6e6e73;--border:#d2d2d7;--red:#d62839;--orange:#c75000;--blue:#0066cc;--purple:#8b44ac;--green:#1a8754;--gold:#b8860b;--gold2:#996515}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
 .container{max-width:1400px;margin:0 auto;padding:0 24px}
@@ -46,8 +46,9 @@ body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-h
 .badge.rug{background:rgba(255,45,85,0.15);color:var(--red)}
 .badge.hack{background:rgba(255,149,0,0.15);color:var(--orange)}
 .badge.collapse{background:rgba(191,90,242,0.15);color:var(--purple)}
-.phoenix-badge{position:absolute;top:12px;left:12px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;padding:4px 8px;border-radius:5px;font-size:0.65rem;font-weight:700;display:flex;align-items:center;gap:4px}
+.phoenix-badge{position:absolute;top:12px;left:12px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;padding:4px 8px;border-radius:5px;font-size:0.65rem;font-weight:700;display:flex;align-items:center;gap:4px;z-index:2}
 .card-name{font-size:1.3rem;font-weight:700;margin-bottom:4px;padding-right:80px}
+.phoenix-card .card-name{padding-top:28px}
 .card-meta{font-family:'IBM Plex Mono';font-size:0.75rem;color:var(--muted);margin-bottom:10px}
 .card-desc{font-size:0.9rem;color:var(--text2);margin-bottom:14px;line-height:1.5}
 .card-amount{font-family:'IBM Plex Mono';font-size:1.3rem;font-weight:700;color:var(--red)}
@@ -93,14 +94,31 @@ body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-h
 .modal-section-title.gold{color:var(--gold)}
 .modal-section-title.green{color:var(--green)}
 .modal-text{color:var(--text2);line-height:1.6;font-size:0.95rem}
-.loot-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;color:var(--text2);font-size:0.9rem}
-.loot-icon{color:var(--gold);font-size:1rem}
+.alpha-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;color:var(--text2);font-size:0.9rem}
+.alpha-icon{color:var(--gold);font-size:1rem}
 .execution-step{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px}
 .step-num{background:var(--green);color:#000;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;flex-shrink:0}
 .step-text{color:var(--text2);font-size:0.9rem}
 .concept-box{background:linear-gradient(135deg,rgba(255,215,0,0.1),rgba(255,184,0,0.05));border:1px solid rgba(255,215,0,0.3);border-radius:10px;padding:16px;margin:12px 0}
 .concept-name{font-size:1.4rem;font-weight:800;color:var(--gold);margin-bottom:8px}
+.concept-tagline{font-size:0.85rem;color:var(--text2);font-style:italic;margin-bottom:10px}
 .concept-desc{color:var(--text2);font-size:0.9rem;line-height:1.5}
+.modal-section.orange{background:rgba(255,149,0,0.08);border:1px solid rgba(255,149,0,0.2)}
+.modal-section.blue{background:rgba(10,132,255,0.08);border:1px solid rgba(10,132,255,0.2)}
+.modal-section-title.orange{color:var(--orange)}
+.modal-section-title.blue{color:var(--blue)}
+.people-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-top:10px}
+.person-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px}
+.person-role{font-size:0.6rem;text-transform:uppercase;color:var(--muted);margin-bottom:2px;letter-spacing:0.05em}
+.person-name{font-size:0.85rem;font-weight:600;color:var(--text)}
+.protocol-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.protocol-tag{background:var(--bg);border:1px solid var(--border);padding:4px 10px;border-radius:5px;font-family:'IBM Plex Mono';font-size:0.7rem;color:var(--text2)}
+.risk-list{margin-top:10px}
+.risk-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;color:var(--text2);font-size:0.85rem}
+.risk-icon{color:var(--red)}
+.monetization-box{background:var(--green);color:#000;padding:14px;border-radius:8px;margin-top:12px}
+.monetization-title{font-size:0.7rem;text-transform:uppercase;font-weight:700;opacity:0.8;margin-bottom:6px}
+.monetization-text{font-size:0.85rem;line-height:1.5}
 .bags-cta{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;padding:16px 24px;border-radius:10px;text-align:center;margin-top:20px;cursor:pointer;font-weight:700;font-size:1rem;display:block;text-decoration:none;transition:all 0.2s}
 .bags-cta:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(255,215,0,0.3)}
 .score-display{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
@@ -276,34 +294,56 @@ return(<>
 
 {selected.lessons&&<div className="modal-section">
 <div className="modal-section-title">📚 Lessons</div>
-{selected.lessons.map((l,i)=><div key={i} className="loot-item"><span>→</span>{l}</div>)}
+{selected.lessons.map((l,i)=><div key={i} className="alpha-item"><span>→</span>{l}</div>)}
 </div>}
 
 {selected.phoenix?.enabled&&<>
+{selected.phoenix.valueProposition&&<div className="modal-section orange">
+<div className="modal-section-title orange">💡 The Value Proposition</div>
+<div className="modal-text">{selected.phoenix.valueProposition}</div>
+</div>}
+
 <div className="modal-section gold">
-<div className="modal-section-title gold">💎 The Loot (What To Steal)</div>
-{selected.phoenix.theLoot.map((l,i)=><div key={i} className="loot-item"><span className="loot-icon">💎</span>{l}</div>)}
+<div className="modal-section-title gold">💎 The Alpha (What To Extract)</div>
+{selected.phoenix.theAlpha.map((l,i)=><div key={i} className="alpha-item"><span className="alpha-icon">💎</span>{l}</div>)}
 </div>
+
+{selected.phoenix.keyPeople&&<div className="modal-section">
+<div className="modal-section-title">👥 Key People & Investors</div>
+<div className="people-grid">{selected.phoenix.keyPeople.map((p,i)=><div key={i} className="person-card"><div className="person-role">{p.role}</div><div className="person-name">{p.name}</div></div>)}</div>
+</div>}
 
 <div className="modal-section">
 <div className="modal-section-title">📈 Market Today</div>
 <div className="modal-text">{selected.phoenix.marketToday}</div>
+{selected.phoenix.protocols&&<div className="protocol-tags">{selected.phoenix.protocols.map((p,i)=><span key={i} className="protocol-tag">{p}</span>)}</div>}
 </div>
 
 <div className="concept-box">
-<div className="concept-name">💡 {selected.phoenix.concept.name}</div>
+<div className="concept-name">🔮 {selected.phoenix.concept.name}</div>
+{selected.phoenix.concept.tagline&&<div className="concept-tagline">"{selected.phoenix.concept.tagline}"</div>}
 <div className="concept-desc">{selected.phoenix.concept.description}</div>
 </div>
 
 <div className="modal-section green">
 <div className="modal-section-title green">🚀 Execution Plan</div>
-{selected.phoenix.executionPlan.map((step,i)=><div key={i} className="execution-step"><span className="step-num">{i+1}</span><span className="step-text">{step}</span></div>)}
+{selected.phoenix.executionPlan.map((step,i)=><div key={i} className="execution-step"><span className="step-num">{i+1}</span><span className="step-text">{typeof step==='object'?step.step:step}</span></div>)}
 </div>
 
 <div className="modal-section">
 <div className="modal-section-title">💰 Tokenomics</div>
 <div className="modal-text">{selected.phoenix.tokenomics}</div>
 </div>
+
+{selected.phoenix.monetization&&<div className="monetization-box">
+<div className="monetization-title">💵 Revenue Model</div>
+<div className="monetization-text">{selected.phoenix.monetization}</div>
+</div>}
+
+{selected.phoenix.risks&&<div className="modal-section">
+<div className="modal-section-title">⚠️ Key Risks</div>
+<div className="risk-list">{selected.phoenix.risks.map((r,i)=><div key={i} className="risk-item"><span className="risk-icon">⚠️</span>{r}</div>)}</div>
+</div>}
 
 <a href={BAGS_REFERRAL} target="_blank" className="bags-cta">🚀 Launch This Idea on Bags →</a>
 </>}

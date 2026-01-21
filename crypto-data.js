@@ -2,49 +2,52 @@
 const BAGS_REFERRAL = "https://bags.fm/?ref=cryptograveyrd";
 
 const cryptoCorpses = [
-{id:1,name:"Internet Computer (ICP)",category:"L1 Blockchain",launchDate:"2021-05",deathDate:"2021-05",amount:45000000000,description:"Launched at $750, crashed to $3. Insiders dumped on retail.",fullDescription:"Dfinity's Internet Computer launched with unprecedented hype, reaching $45 billion on day one.",causeOfDeath:"VCs who got tokens at cents dumped immediately. Price crashed 99.5%.",tags:["insider-dump","vc-exit"],type:"collapse",lessons:["Check unlock schedules","Launch valuations are peak delusion"],
-phoenix:{enabled:true,score:{rebuild:3,market:4,fairLaunch:5},
-theLoot:["Decentralized compute is a real need","Enterprise adoption was growing","Canister smart contracts innovative","VC dumps killed trust, not the tech"],
-marketToday:"Cloud computing $500B+ market. AWS/GCP dominate. Decentralized alternatives gaining traction. Gap for fair-launched compute.",
-concept:{name:"FAIR COMPUTE",description:"Decentralized compute network. 100% fair launch. No VC. Community-owned infrastructure for AI/web hosting."},
-executionPlan:["Fork compute concepts with fair tokenomics","Target AI devs priced out of GPU clouds","Launch on Bags with no presale","Build node operator community"],
-tokenomics:"100% fair launch. No team tokens. Revenue from compute fees to stakers."}},
+{id:1,name:"Internet Computer (ICP)",category:"L1 Blockchain",launchDate:"2021-05",deathDate:"2021-05",amount:45000000000,description:"Launched at $750, crashed to $3. Insiders dumped on retail.",fullDescription:"Dfinity's Internet Computer launched with unprecedented hype, reaching $45 billion on day one.",causeOfDeath:"VCs who got tokens at cents dumped immediately. Price crashed 99.5%. Retail bought the top while insiders exit-liquified.",tags:["insider-dump","vc-exit"],type:"collapse",lessons:["Check unlock schedules before buying ANYTHING","Launch valuations represent peak delusion, not value","VC entry prices vs retail prices = guaranteed dump","Good tech doesn't save bad tokenomics"],
+phoenix:{enabled:true,score:{rebuild:4,market:5,fairLaunch:5},
+valueProposition:"Dfinity promised to replace AWS/GCP with decentralized cloud computing. The tech was genuinely innovative - canister smart contracts, reverse gas model, web-speed finality. Enterprise adoption was actually growing before the dump destroyed trust.",
+theAlpha:["Decentralized compute is a real and growing need","AI boom creating massive GPU/compute demand","Canister smart contracts were genuinely innovative","VC dumps killed trust, not the underlying technology","100% fair launch eliminates the dump problem entirely"],
+keyPeople:[{role:"Founder",name:"Dominic Williams"},{role:"Investor",name:"Andreessen Horowitz"},{role:"Investor",name:"Polychain Capital"}],
+marketToday:"Cloud computing is $500B+ market. AWS/GCP dominate with 60%+ margins. AI compute demand exploding - GPU costs up 300% since ChatGPT. Decentralized alternatives gaining traction: Akash, Render, io.net.",
+protocols:["Akash","Render","io.net","Golem"],
+concept:{name:"COMPUTE FAIR",tagline:"The cloud that can't dump on you",description:"Decentralized GPU compute network. 100% fair launch - zero VC tokens. Node operators provide GPUs, earn fees. Users pay 40-60% less than AWS for AI inference. Community owns the infrastructure."},
+executionPlan:["Launch node operator program - target 100 GPUs month one","Build simple API matching AWS/GCP for easy migration","Fair launch token on Bags - earned by operators and users","Focus on AI inference market first","Scale to training workloads after proving reliability"],
+tokenomics:"100% fair launch. No team tokens, no VC allocation. Earned through: providing compute (70%), using compute (20%), governance (10%). Revenue from fees to stakers.",
+monetization:"10% platform fee on compute transactions. At 1000 GPUs doing $100/day = $3.65M/year protocol revenue distributed to token holders.",
+risks:["Cold start problem - need supply and demand simultaneously","Nvidia/cloud provider moats are strong","Decentralized compute UX historically poor"]}},
 
-{id:2,name:"Terra/LUNA",category:"L1 Blockchain",launchDate:"2018-04",deathDate:"2022-05",amount:40000000000,description:"Algorithmic stablecoin death spiral wiped out $40B.",fullDescription:"Terra was built around UST, an algorithmic stablecoin. 20% APY on Anchor attracted massive deposits.",causeOfDeath:"UST lost peg, algorithm minted trillions of LUNA. Crashed from $119 to $0.00001.",tags:["death-spiral","stablecoin"],type:"collapse",lessons:["Algo stablecoins are fragile","20% stable APY is unsustainable"],
-phoenix:{enabled:true,score:{rebuild:4,market:5,fairLaunch:3},
-theLoot:["Stablecoin demand is massive ($150B+)","Yield on stables attracts capital","L1 integration created sticky ecosystem","Problem was uncollateralized design"],
-marketToday:"USDT/USDC dominate but centralized. Gap for decentralized, over-collateralized stable with real 5-8% yield.",
-concept:{name:"PHOENIX STABLE",description:"Over-collateralized stablecoin. Sustainable 5-8% yield from real DeFi, not inflation."},
-executionPlan:["Build over-collateralized vaults (150%+)","Yield from lending/LP only","Transparent on-chain reserves","Fair launch on Bags"],
-tokenomics:"Governance token fair launched. Yield from protocol fees. No fake APY."}},
+{id:2,name:"Terra/LUNA",category:"L1 Blockchain",launchDate:"2018-04",deathDate:"2022-05",amount:40000000000,description:"Algorithmic stablecoin death spiral wiped out $40B.",fullDescription:"Terra was built around UST, an algorithmic stablecoin. 20% APY on Anchor attracted massive deposits.",causeOfDeath:"UST lost peg, algorithm minted trillions of LUNA trying to defend. LUNA crashed from $119 to $0.00001 in days. The 20% yield was subsidized - reserves depleted, spiral began.",tags:["death-spiral","stablecoin"],type:"collapse",lessons:["Algorithmic stables without collateral are fragile","20% 'stable' yield is always a red flag","Reflexive mechanisms spiral both directions","150%+ collateralization needed for survival"],
+phoenix:{enabled:true,score:{rebuild:4,market:5,fairLaunch:4},
+valueProposition:"Terra proved massive demand exists for decentralized stablecoins - UST hit $18B market cap. Simple 'deposit and earn' UX attracted non-crypto natives. Ecosystem integration across 100+ apps made it sticky.",
+theAlpha:["$18B UST at peak proved decentralized stable demand","Simple UX attracted millions of non-DeFi users","The PROBLEM was undercollateralization, not the concept","Over-collateralized designs (DAI, LUSD) survived the crash","Real 5-8% yield is achievable from actual DeFi activity"],
+keyPeople:[{role:"Founder",name:"Do Kwon"},{role:"Founder",name:"Daniel Shin"},{role:"Investor",name:"Pantera Capital"},{role:"Investor",name:"Galaxy Digital"}],
+marketToday:"Stablecoin market is $150B+ and growing. USDT/USDC dominate but are centralized - Tether froze $1B+ in 2023. Gap for decentralized, over-collateralized stable with sustainable yield. Ethena's USDe showing demand.",
+protocols:["MakerDAO","Liquity","Ethena","Frax"],
+concept:{name:"FORTRESS",tagline:"The stablecoin that survives the next crash",description:"150%+ over-collateralized stablecoin backed by diversified crypto. Sustainable 5-7% APY from real sources: Aave lending, Uniswap LP fees, liquid staking. No algorithmic minting. No fake APY. Just math that works."},
+executionPlan:["Launch with ETH/stETH collateral vaults at 150% minimum","Yield aggregation from Aave, Compound, Lido","MEV-protected liquidation engine","Fair launch governance on Bags - no VC allocation","Cross-chain expansion after $50M TVL"],
+tokenomics:"Governance token fair launched. No yield from inflation. Protocol fees (0.5% mint/redeem) distributed to stakers. Emergency shutdown controlled by governance.",
+monetization:"0.5% fee on mint/redeem, 10% of yield generated. At $100M TVL with 6% yield = $600K/year protocol revenue.",
+risks:["Smart contract risk on yield sources","Collateral price crashes in black swan","Competition from established players like MakerDAO"]}},
 
 {id:3,name:"FTX",category:"Exchange",launchDate:"2019-05",deathDate:"2022-11",amount:32000000000,description:"SBF stole $8B customer funds. 25 years prison.",fullDescription:"FTX became third-largest exchange. SBF secretly funneled deposits to Alameda.",causeOfDeath:"CoinDesk exposed Alameda. Binance triggered bank run. SBF sentenced 25 years.",tags:["fraud","customer-funds"],type:"rug",lessons:["Never trust exchanges without proof of reserves"],phoenix:{enabled:false}},
 
 {id:4,name:"Three Arrows Capital",category:"Hedge Fund",launchDate:"2012-01",deathDate:"2022-07",amount:18000000000,description:"Overleveraged hedge fund collapsed.",fullDescription:"3AC managed $18B. Su Zhu and Kyle Davies borrowed without collateral.",causeOfDeath:"LUNA collapse destroyed 3AC. They ghosted creditors and fled.",tags:["leverage","contagion"],type:"collapse",lessons:["Excessive leverage amplifies losses"],phoenix:{enabled:false}},
 
-{id:5,name:"Anchor Protocol",category:"DeFi",launchDate:"2021-03",deathDate:"2022-05",amount:17000000000,description:"20% stable yield attracted $17B. Killed Terra.",fullDescription:"Anchor offered 20% APY on UST. At peak held $17 billion.",causeOfDeath:"Yield was subsidized. When reserves ran out, death spiral began.",tags:["unsustainable-yield","terra"],type:"collapse",lessons:["20% stable yield is impossible"],
-phoenix:{enabled:true,score:{rebuild:4,market:5,fairLaunch:4},
-theLoot:["Simple UX attracted billions","One-click deposit was killer feature","Users want stable yield without complexity","Yield source was fake - real yield achievable"],
-marketToday:"DeFi yield fragmented. Users want simple 'deposit and earn'. Real 5-10% yields exist but hard to access.",
-concept:{name:"REAL YIELD VAULT",description:"Aggregated yield from battle-tested protocols. No ponzinomics. Target 5-8% sustainable APY."},
-executionPlan:["Aggregate yield from top Solana protocols","Transparent strategy dashboard","Auto-compound optimized","Fair launch governance on Bags"],
-tokenomics:"No yield from inflation. Protocol fee on profits only. Governance controls allocation."}},
+{id:5,name:"Anchor Protocol",category:"DeFi",launchDate:"2021-03",deathDate:"2022-05",amount:17000000000,description:"20% stable yield attracted $17B. Killed Terra.",fullDescription:"Anchor offered 20% APY on UST. At peak held $17 billion.",causeOfDeath:"Yield was subsidized at $5M/day burn rate. When reserves ran out, death spiral began.",tags:["unsustainable-yield","terra"],type:"collapse",lessons:["20% stable yield is mathematically impossible","Subsidized yield isn't real - it's marketing spend","Check where yield actually comes from","Simple UX hid broken mechanics"],phoenix:{enabled:false}},
 
-{id:6,name:"Celsius Network",category:"Lending",launchDate:"2017-06",deathDate:"2022-07",amount:12000000000,description:"18% yields while gambling funds. CEO arrested.",fullDescription:"Celsius offered 18% APY. CEO Mashinsky attacked banks while losing customer funds.",causeOfDeath:"Froze $8B in withdrawals. $1.2B hole revealed. Mashinsky arrested.",tags:["ponzi","yield-fraud"],type:"rug",lessons:["Yields above market = unsustainable risk"],
-phoenix:{enabled:true,score:{rebuild:4,market:4,fairLaunch:4},
-theLoot:["Users want to earn on idle crypto","CeFi UX was excellent","Problem was opacity and fraud","Decentralized lending works (Aave, Compound)"],
-marketToday:"CeFi lending dead. DeFi lending thriving but complex. Gap for simple, transparent lending with great UX.",
-concept:{name:"TRANSPARENT LEND",description:"Decentralized lending with real-time proof of reserves. All positions on-chain. Simple UX."},
-executionPlan:["Build non-custodial lending pools","Real-time dashboard showing all loans","Liquidation bot incentives","Fair launch on Bags"],
-tokenomics:"Protocol fees to stakers. No yield promises - earnings from actual borrow demand."}},
+{id:6,name:"Celsius Network",category:"CeFi Lending",launchDate:"2017-06",deathDate:"2022-07",amount:12000000000,description:"18% yields while gambling funds. CEO arrested.",fullDescription:"Celsius offered 18% APY. CEO Mashinsky attacked banks while secretly losing customer funds on risky DeFi plays.",causeOfDeath:"Froze $8B in withdrawals. $1.2B hole revealed. Mashinsky arrested for fraud. Users lost billions.",tags:["fraud","yield-fraud"],type:"rug",lessons:["Yields above market rate = hidden risk","CeFi opacity enables fraud","Charismatic CEOs are red flags not features","If you don't control keys, you don't control crypto"],
+phoenix:{enabled:true,score:{rebuild:4,market:4,fairLaunch:5},
+valueProposition:"Celsius proved users genuinely want yield on idle crypto. Simple mobile UX attracted millions of non-DeFi users. 'Unbank yourself' messaging resonated. At peak, $25B+ in assets under management.",
+theAlpha:["Users genuinely want yield on idle crypto","Simple mobile UX attracted millions","Problem was opacity and fraud, not the concept","Decentralized lending works - Aave has $10B+ TVL","Trust through transparency, not charisma"],
+keyPeople:[{role:"Founder",name:"Alex Mashinsky"},{role:"Investor",name:"WestCap"},{role:"Investor",name:"CDPQ"},{role:"Investor",name:"Tether"}],
+marketToday:"CeFi lending is dead - BlockFi, Celsius, Voyager all bankrupt. DeFi lending thriving but complex for normies. Aave, Compound have billions but require wallet setup, gas management. Gap: Aave-level security with Celsius-level UX.",
+protocols:["Aave","Compound","Morpho","Spark"],
+concept:{name:"GLASS VAULT",tagline:"See everything. Trust nothing. Earn anyway.",description:"Non-custodial lending aggregator with radical transparency. Your keys, always. Real-time dashboard showing exactly where funds are deployed. No black box. Yield from battle-tested protocols only. Mobile app simplicity, DeFi security."},
+executionPlan:["Build non-custodial vault contracts - users always control withdrawal","Integrate with Aave, Compound, Morpho - only battle-tested protocols","Real-time transparency dashboard - every position visible","Mobile app with one-tap deposit/withdraw","Fair launch governance on Bags"],
+tokenomics:"Governance token controls fee switch and strategy allocation. 0.1% management fee on TVL distributed to stakers. No yield from inflation - pure revenue share.",
+monetization:"0.1% annual fee on TVL + 5% of yield generated. At $500M TVL earning 5% = $1.75M/year protocol revenue.",
+risks:["Smart contract risk on underlying protocols","Yield compression over time","Competition from protocol-native apps"]}},
 
-{id:7,name:"BlockFi",category:"Lending",launchDate:"2017-08",deathDate:"2022-11",amount:10000000000,description:"3AC exposure, then FTX rescue with stolen funds.",fullDescription:"BlockFi hit by 3AC collapse. FTX rescue paid with stolen funds.",causeOfDeath:"3AC default plus FTX collapse = bankruptcy.",tags:["contagion","ftx"],type:"collapse",lessons:["Don't accept rescue from shady entities"],
-phoenix:{enabled:true,score:{rebuild:3,market:4,fairLaunch:4},
-theLoot:["BTC-collateralized loans have demand","Institutional interest was growing","Counterparty risk killed it, not model","Decentralized version eliminates SPOF"],
-marketToday:"BTC holders want to borrow without selling. DeFi options exist but complex. Opportunity for simple BTC-backed lending.",
-concept:{name:"BTC BORROW",description:"Decentralized BTC-collateralized lending. Borrow stables against BTC. No KYC. Fully on-chain."},
-executionPlan:["Accept wBTC/tBTC as collateral","Issue loans at safe LTV (50-60%)","Transparent liquidation engine","Fair launch on Bags"],
-tokenomics:"Governance for protocol params. Revenue from borrow fees."}},
+{id:7,name:"BlockFi",category:"Lending",launchDate:"2017-08",deathDate:"2022-11",amount:10000000000,description:"3AC exposure, then FTX rescue with stolen funds.",fullDescription:"BlockFi hit by 3AC collapse. FTX rescue paid with stolen funds.",causeOfDeath:"3AC default plus FTX collapse = bankruptcy. Double-victimized by crypto's two biggest frauds.",tags:["contagion","ftx"],type:"collapse",lessons:["Counterparty risk can come from rescuers too","Being regulated doesn't mean being safe","Due diligence on partners matters"],phoenix:{enabled:false}},
 
 {id:8,name:"Mt. Gox",category:"Exchange",launchDate:"2010-07",deathDate:"2014-02",amount:8500000000,description:"Lost 850,000 BTC. Original crypto catastrophe.",fullDescription:"Mt. Gox handled 70% of BTC transactions. Years-long security breach.",causeOfDeath:"850,000 BTC stolen. Creditors waited 10+ years.",tags:["hack","legendary"],type:"hack",lessons:["Not your keys, not your coins"],phoenix:{enabled:false}},
 
@@ -52,23 +55,22 @@ tokenomics:"Governance for protocol params. Revenue from borrow fees."}},
 
 {id:10,name:"Bitfinex Hack",category:"Exchange",launchDate:"2012-01",deathDate:"2016-08",amount:4500000000,description:"119,756 BTC stolen. Hackers were married couple.",fullDescription:"Bitfinex lost 119,756 BTC. Hackers were Ilya Lichtenstein and Heather Morgan.",causeOfDeath:"DOJ arrested couple and seized $3.6B.",tags:["hack","recovered"],type:"hack",lessons:["Stolen crypto can be traced"],phoenix:{enabled:false}},
 
-{id:11,name:"Axie Infinity",category:"GameFi",launchDate:"2018-03",deathDate:"2022-06",amount:4200000000,description:"Play-to-earn became work-to-lose.",fullDescription:"2.7M daily users. Filipinos quit jobs to play. Required endless new players.",causeOfDeath:"Ponzi dynamics unsustainable. SLP crashed 95%. Ronin hack was killing blow.",tags:["gamefi","ponzinomics"],type:"collapse",lessons:["Play-to-earn requires infinite growth"],
+{id:11,name:"Axie Infinity",category:"GameFi",launchDate:"2018-03",deathDate:"2022-06",amount:4200000000,description:"Play-to-earn became work-to-lose.",fullDescription:"2.7M daily users. Filipinos quit jobs to play. Required endless new players to sustain payouts.",causeOfDeath:"Ponzi dynamics unsustainable. SLP crashed 95%. Ronin bridge hack ($625M) was killing blow. Players realized they were working, not playing.",tags:["gamefi","ponzinomics"],type:"collapse",lessons:["Game must be fun WITHOUT earning","Play-to-earn requires infinite growth","Token emissions must tie to real revenue","Two-token models can spiral quickly"],
 phoenix:{enabled:true,score:{rebuild:5,market:5,fairLaunch:4},
-theLoot:["Gaming + crypto has massive appeal","2.7M daily users proved demand","Problem was unsustainable tokenomics","Game needs to be fun FIRST"],
-marketToday:"Gaming $200B+ industry. P2E dead but 'play AND earn' rising. Mobile gaming huge opportunity.",
-concept:{name:"FAIR QUEST",description:"Mobile RPG where earning is bonus, not requirement. Cosmetic NFTs. Sustainable token sink. Fun gameplay."},
-executionPlan:["Build fun mobile game first","Earnings from cosmetics, not inflation","Token for governance + premium","Fair launch on Bags - earn by playing"],
-tokenomics:"Fixed supply. Earnings from game revenue share. Deflationary cosmetic burns."}},
+valueProposition:"Axie proved crypto gaming could achieve mainstream adoption. 2.7 million daily users earning real income. Filipino players quit jobs to play full-time. The core insight was valid: people spend enormous time in games, so let them earn while playing.",
+theAlpha:["2.7M daily users proved crypto gaming demand is REAL","Breeding mechanics created emotional attachment to NFTs","Community guilds showed power of coordinated play","Mobile gaming is $90B+ market barely touched by crypto","Battle mechanics were engaging - the game had real depth"],
+keyPeople:[{role:"Founder",name:"Trung Nguyen"},{role:"Founder",name:"Aleksander Larsen"},{role:"Investor",name:"Andreessen Horowitz"},{role:"Investor",name:"Paradigm"}],
+marketToday:"Gaming is a $200B+ industry. Mobile gaming alone is $90B. Play-to-earn is dead, but 'play-AND-earn' emerging. Successful examples: Pixels, Big Time. Gap: fair-launched mobile game where earning enhances fun.",
+protocols:["Solana Gaming","Immutable X","Arbitrum Nova"],
+concept:{name:"QUEST PROTOCOL",tagline:"The game you'd play even if tokens were worthless",description:"Mobile-first RPG where the core loop is genuinely fun. Tokens earned through gameplay but capped daily to prevent grinding culture. NFTs are cosmetic flexes, not pay-to-win. Revenue from battle passes and cosmetics - proven $50B+ market."},
+executionPlan:["Build genuinely fun mobile game first - 3 month prototype with no crypto","Soft launch to test retention - target 20% Day-30 before adding tokens","Add optional token earning - capped at $5-10/day","Fair launch governance on Bags - earned through achievements","Revenue share to stakers from cosmetic sales"],
+tokenomics:"Fixed 100M supply. No emissions - tokens from one-time achievement unlocks. Revenue from cosmetics: 70% to stakers, 20% treasury, 10% dev. 5% burn on cosmetic purchases.",
+monetization:"Battle passes ($10/season), cosmetic NFTs ($1-100), tournament entry (5% rake). Target: $2 ARPU on 500K MAU = $1M/month to token holders.",
+risks:["Mobile dev is expensive and competitive","Crypto gaming reputation damaged","App store NFT policies are restrictive"]}},
 
 {id:12,name:"OneCoin",category:"Ponzi",launchDate:"2014-01",deathDate:"2017-10",amount:4000000000,description:"No blockchain existed. Crypto Queen vanished.",fullDescription:"Ruja Ignatova promised OneCoin beats Bitcoin. No blockchain existed.",causeOfDeath:"Ruja flew to Athens 2017 and vanished. FBI $250K reward.",tags:["ponzi","fbi-wanted"],type:"rug",lessons:["Verify blockchain exists"],phoenix:{enabled:false}},
 
-{id:13,name:"Olympus DAO",category:"DeFi",launchDate:"2021-03",deathDate:"2022-01",amount:4000000000,description:"(3,3) promised 7,000% APY. Crashed 99%.",fullDescription:"Olympus pioneered (3,3) game theory with 7,000%+ APY staking.",causeOfDeath:"When confidence cracked, OHM crashed from $1,400 to under $15.",tags:["ponzinomics","defi-2.0"],type:"collapse",lessons:["7,000% APY is impossible"],
-phoenix:{enabled:true,score:{rebuild:3,market:3,fairLaunch:4},
-theLoot:["Protocol-owned liquidity is valid","Treasury management innovative","Community coordination powerful","Bonding mechanism was interesting"],
-marketToday:"POL concept lives in Velodrome. Treasury DAOs simpler now. Opportunity for sustainable treasury protocol.",
-concept:{name:"OPEN TREASURY",description:"Community treasury with transparent management. Real yield from DeFi. No insane APY. Governance over allocation."},
-executionPlan:["Launch treasury with fair distribution","Yield from LP/lending only","Weekly transparent reports","Community votes via Bags governance"],
-tokenomics:"Token = share of treasury. No rebasing. Yield distributed based on governance."}},
+{id:13,name:"Olympus DAO",category:"DeFi",launchDate:"2021-03",deathDate:"2022-01",amount:4000000000,description:"(3,3) promised 7,000% APY. Crashed 99%.",fullDescription:"Olympus pioneered (3,3) game theory with 7,000%+ APY staking.",causeOfDeath:"When confidence cracked, game theory flipped. OHM crashed from $1,400 to under $15. Memes are not monetary policy.",tags:["ponzinomics","defi-2.0"],type:"collapse",lessons:["7,000% APY is mathematically impossible","Game theory with real money leads to defection","Protocol-owned liquidity concept was innovative","Rebasing tokens are easily manipulated"],phoenix:{enabled:false}},
 
 {id:14,name:"Africrypt",category:"Ponzi",launchDate:"2019-01",deathDate:"2021-04",amount:3600000000,description:"Brothers vanished with 69,000 BTC.",fullDescription:"Cajee brothers accumulated 69,000 BTC.",causeOfDeath:"Claimed hack, told investors NOT to contact police, vanished.",tags:["exit-scam","brothers"],type:"rug",lessons:["If they say don't contact police, contact police"],phoenix:{enabled:false}},
 
@@ -76,13 +78,7 @@ tokenomics:"Token = share of treasury. No rebasing. Yield distributed based on g
 
 {id:16,name:"Genesis Trading",category:"Lending",launchDate:"2013-01",deathDate:"2023-01",amount:3000000000,description:"$2.36B exposure to 3AC.",fullDescription:"Genesis was DCG's lending arm with massive 3AC exposure.",causeOfDeath:"3AC collapse left $2.36B hole.",tags:["contagion","gemini"],type:"collapse",lessons:["Yield programs inherit counterparty risk"],phoenix:{enabled:false}},
 
-{id:17,name:"StepN",category:"GameFi",launchDate:"2021-12",deathDate:"2022-06",amount:3000000000,description:"Move-to-earn required $1,000 sneaker NFTs.",fullDescription:"Required expensive sneaker NFTs to earn GMT while walking.",causeOfDeath:"China banned app. Ponzi dynamics collapsed.",tags:["move-to-earn","ponzinomics"],type:"collapse",lessons:["$1,000 NFTs to walk is not sustainable"],
-phoenix:{enabled:true,score:{rebuild:5,market:5,fairLaunch:5},
-theLoot:["Fitness + crypto compelling","3M+ users proved demand","$1K entry barrier was insane","Sustainable: free to start, earn small"],
-marketToday:"Fitness apps huge. No dominant Web3 fitness since StepN. Health data valuable. Insurance companies interested.",
-concept:{name:"STEP FREE",description:"Move-to-earn with ZERO entry cost. Earn small amounts for walking. Premium for power users. Brand partnerships."},
-executionPlan:["Free app - no NFT required","Earn $0.10-1/day for step goals","Premium tier with boosts","Brand partnerships for revenue","Fair launch on Bags"],
-tokenomics:"Token earned through activity, burned for premium. Revenue from brands/subs, not new users."}},
+{id:17,name:"StepN",category:"GameFi",launchDate:"2021-12",deathDate:"2022-06",amount:3000000000,description:"Move-to-earn required $1,000 sneaker NFTs.",fullDescription:"Required expensive sneaker NFTs to earn GMT while walking.",causeOfDeath:"China banned app. Ponzi dynamics collapsed. 3M+ users stranded.",tags:["move-to-earn","ponzinomics"],type:"collapse",lessons:["$1,000 NFTs to walk is not sustainable","Free alternatives always win","Geographic bans can kill overnight"],phoenix:{enabled:false}},
 
 {id:18,name:"PlusToken",category:"Ponzi",launchDate:"2018-05",deathDate:"2019-06",amount:2900000000,description:"Chinese MLM with 3 million victims.",fullDescription:"Promised 10-30% monthly through fake arbitrage.",causeOfDeath:"Chinese authorities arrested 109 members.",tags:["ponzi","china"],type:"rug",lessons:["Arbitrage bot claims are fake"],phoenix:{enabled:false}},
 
@@ -90,13 +86,7 @@ tokenomics:"Token earned through activity, burned for premium. Revenue from bran
 
 {id:20,name:"Thodex",category:"Exchange",launchDate:"2017-01",deathDate:"2021-04",amount:2000000000,description:"Turkish CEO fled with $2B. 11,196 years prison.",fullDescription:"Turkey's largest exchange. CEO claimed negotiations then fled.",causeOfDeath:"400K users stranded. CEO caught, sentenced 11,196 years.",tags:["exit-scam","turkey"],type:"rug",lessons:["Watch for sudden maintenance"],phoenix:{enabled:false}},
 
-{id:21,name:"Solidly",category:"DeFi",launchDate:"2022-02",deathDate:"2022-03",amount:2000000000,description:"Andre Cronje quit. $2B TVL fled.",fullDescription:"Andre's ve(3,3) experiment attracted $2B TVL in weeks.",causeOfDeath:"Andre announced leaving crypto. Panic. TVL fled.",tags:["abandoned","andre-cronje"],type:"collapse",lessons:["Protocols dependent on one person are fragile"],
-phoenix:{enabled:true,score:{rebuild:4,market:4,fairLaunch:5},
-theLoot:["ve(3,3) model works (see Velodrome)","Protocol-owned liquidity valuable","Andre's departure killed it, not design","Needs decentralized team"],
-marketToday:"Velodrome proved ve(3,3) works ($300M+ TVL). Opportunity to bring model to Solana with fair launch.",
-concept:{name:"VELOCITY",description:"ve(3,3) DEX on Solana. Vote-escrowed tokenomics. Bribes for liquidity. Decentralized team."},
-executionPlan:["Fork Velodrome to Solana","Fair launch, no team allocation","Build diverse contributor team","Launch on Bags with governance"],
-tokenomics:"veToken model. Emissions by voters. Bribes create revenue. No founder dependency."}},
+{id:21,name:"Solidly",category:"DeFi",launchDate:"2022-02",deathDate:"2022-03",amount:2000000000,description:"Andre Cronje quit. $2B TVL fled.",fullDescription:"Andre's ve(3,3) experiment attracted $2B TVL in weeks.",causeOfDeath:"Andre announced leaving crypto. Panic. TVL fled overnight. Proves single founder dependency is fatal.",tags:["abandoned","andre-cronje"],type:"collapse",lessons:["Protocols dependent on one person are fragile","ve(3,3) model works when properly run (see Velodrome)"],phoenix:{enabled:false}},
 
 {id:22,name:"IRON/TITAN",category:"DeFi",launchDate:"2021-05",deathDate:"2021-06",amount:1900000000,description:"Mark Cuban got rugged. TITAN to zero.",fullDescription:"Partially-collateralized algo stablecoin. Cuban invested.",causeOfDeath:"Death spiral. TITAN crashed to $0.000000035.",tags:["death-spiral","celebrity-victim"],type:"collapse",lessons:["Even billionaires get rugged"],phoenix:{enabled:false}},
 
@@ -106,21 +96,9 @@ tokenomics:"veToken model. Emissions by voters. Bribes create revenue. No founde
 
 {id:25,name:"Ronin Bridge",category:"Bridge",launchDate:"2021-06",deathDate:"2022-03",amount:625000000,description:"North Korea stole $625M.",fullDescription:"Axie's bridge. Lazarus Group compromised keys.",causeOfDeath:"$625M drained. Theft unnoticed 6 days.",tags:["hack","north-korea"],type:"hack",lessons:["Nation-state hackers target bridges"],phoenix:{enabled:false}},
 
-{id:26,name:"Mango Markets",category:"DeFi",launchDate:"2021-08",deathDate:"2022-10",amount:114000000,description:"Eisenberg bragged. Got arrested.",fullDescription:"Solana perps DEX. Eisenberg manipulated MNGO price.",causeOfDeath:"Manipulated price 10x, borrowed $114M. Bragged. Arrested.",tags:["manipulation","arrested"],type:"hack",lessons:["Bragging attracts prosecution"],
-phoenix:{enabled:true,score:{rebuild:4,market:5,fairLaunch:4},
-theLoot:["Perps DEX on Solana has demand","Mango's UX was good","Oracle manipulation was vulnerability","Better price feeds needed"],
-marketToday:"Perps huge. Drift, Jupiter Perps growing. Opportunity for manipulation-resistant perps.",
-concept:{name:"SAFE PERPS",description:"Perps DEX with multi-oracle feeds and circuit breakers. Manipulation-resistant. Insurance fund."},
-executionPlan:["Multi-oracle consensus pricing","Circuit breakers on anomalies","Insurance from trading fees","Fair launch on Bags"],
-tokenomics:"Trading fees to stakers and insurance. Governance over risk params."}},
+{id:26,name:"Mango Markets",category:"DeFi",launchDate:"2021-08",deathDate:"2022-10",amount:114000000,description:"Eisenberg bragged. Got arrested.",fullDescription:"Solana perps DEX. Eisenberg manipulated MNGO price to borrow $114M.",causeOfDeath:"Manipulated price 10x, borrowed $114M. Bragged publicly. Arrested.",tags:["manipulation","arrested"],type:"hack",lessons:["Bragging attracts prosecution","Oracle manipulation is existential risk for perps"],phoenix:{enabled:false}},
 
-{id:27,name:"Badger DAO",category:"DeFi",launchDate:"2020-12",deathDate:"2021-12",amount:120000000,description:"Frontend attack. Users approved drains.",fullDescription:"Bitcoin DeFi. Hackers compromised Cloudflare key.",causeOfDeath:"Malicious scripts prompted approvals. $120M drained.",tags:["hack","frontend"],type:"hack",lessons:["Frontends are attack vectors"],
-phoenix:{enabled:true,score:{rebuild:4,market:4,fairLaunch:4},
-theLoot:["BTC in DeFi has demand","Yield on Bitcoin valuable","Frontend security was failure","Concept valid"],
-marketToday:"wBTC, tBTC growing. BTC holders want yield. Limited options on Solana.",
-concept:{name:"BTC YIELD",description:"BTC on Solana DeFi. Multiple yield strategies. Security-first frontend."},
-executionPlan:["Integrate wBTC/tBTC on Solana","Curated yield strategies","No external scripts in frontend","Fair launch on Bags"],
-tokenomics:"Governance over strategies. Protocol fees to stakers."}}
+{id:27,name:"Badger DAO",category:"DeFi",launchDate:"2020-12",deathDate:"2021-12",amount:120000000,description:"Frontend attack. Users approved drains.",fullDescription:"Bitcoin DeFi. Hackers compromised Cloudflare key.",causeOfDeath:"Malicious scripts prompted approvals. $120M drained while users thought they were using normal app.",tags:["hack","frontend"],type:"hack",lessons:["Frontends are attack vectors","Check what you're signing","Compromised CDN = compromised app"],phoenix:{enabled:false}}
 ];
 
 const hallOfShame = [
