@@ -287,34 +287,51 @@ return(<>
 <div className="score-box"><div className="score-box-label">Fair Launch</div><div className="score-box-bars">{[...Array(5)].map((_,i)=><div key={i} className={`score-box-bar ${i<selected.phoenix.score.fairLaunch?'filled':''}`}/>)}</div><div className="score-box-value">{selected.phoenix.score.fairLaunch}/5</div></div>
 </div>}
 
-<div className="modal-section">
-<div className="modal-section-title">💀 Cause of Death</div>
+{/* Value Proposition - works for both Phoenix and regular */}
+{(selected.valueProposition||selected.phoenix?.valueProposition)&&<div className="modal-section orange">
+<div className="modal-section-title orange">💡 The Value Proposition</div>
+<div className="modal-text">{selected.valueProposition||selected.phoenix?.valueProposition}</div>
+</div>}
+
+<div className="modal-section" style={{background:'rgba(255,45,85,0.08)',border:'1px solid rgba(255,45,85,0.2)'}}>
+<div className="modal-section-title" style={{color:'var(--red)'}}>💀 Cause of Death</div>
 <div className="modal-text">{selected.causeOfDeath}</div>
 </div>
 
+{/* What Went Right */}
+{selected.whatWentRight&&<div className="modal-section" style={{background:'rgba(48,209,88,0.08)',border:'1px solid rgba(48,209,88,0.2)'}}>
+<div className="modal-section-title" style={{color:'var(--green)'}}>✅ What They Did Right</div>
+{selected.whatWentRight.map((item,i)=><div key={i} className="alpha-item"><span style={{color:'var(--green)'}}>✓</span>{item}</div>)}
+</div>}
+
+{/* What Went Wrong */}
+{selected.whatWentWrong&&<div className="modal-section" style={{background:'rgba(255,45,85,0.08)',border:'1px solid rgba(255,45,85,0.2)'}}>
+<div className="modal-section-title" style={{color:'var(--red)'}}>❌ What Went Wrong</div>
+{selected.whatWentWrong.map((item,i)=><div key={i} className="alpha-item"><span style={{color:'var(--red)'}}>✗</span>{item}</div>)}
+</div>}
+
+{/* The Alpha - works for both Phoenix and regular */}
+{(selected.theAlpha||selected.phoenix?.theAlpha)&&<div className="modal-section gold">
+<div className="modal-section-title gold">💎 The Alpha (What To Extract)</div>
+{(selected.theAlpha||selected.phoenix?.theAlpha).map((l,i)=><div key={i} className="alpha-item"><span className="alpha-icon">💎</span>{l}</div>)}
+</div>}
+
+{/* Key People - works for both Phoenix and regular */}
+{(selected.keyPeople||selected.phoenix?.keyPeople)&&<div className="modal-section">
+<div className="modal-section-title">👥 Key People & Investors</div>
+<div className="people-grid">{(selected.keyPeople||selected.phoenix?.keyPeople).map((p,i)=><div key={i} className="person-card"><div className="person-role">{p.role}</div><div className="person-name">{p.name}</div></div>)}</div>
+</div>}
+
+{/* Lessons */}
 {selected.lessons&&<div className="modal-section">
-<div className="modal-section-title">📚 Lessons</div>
+<div className="modal-section-title">📚 Lessons Learned</div>
 {selected.lessons.map((l,i)=><div key={i} className="alpha-item"><span>→</span>{l}</div>)}
 </div>}
 
+{/* Phoenix-only sections */}
 {selected.phoenix?.enabled&&<>
-{selected.phoenix.valueProposition&&<div className="modal-section orange">
-<div className="modal-section-title orange">💡 The Value Proposition</div>
-<div className="modal-text">{selected.phoenix.valueProposition}</div>
-</div>}
-
-<div className="modal-section gold">
-<div className="modal-section-title gold">💎 The Alpha (What To Extract)</div>
-{selected.phoenix.theAlpha.map((l,i)=><div key={i} className="alpha-item"><span className="alpha-icon">💎</span>{l}</div>)}
-</div>
-
-{selected.phoenix.keyPeople&&<div className="modal-section">
-<div className="modal-section-title">👥 Key People & Investors</div>
-<div className="people-grid">{selected.phoenix.keyPeople.map((p,i)=><div key={i} className="person-card"><div className="person-role">{p.role}</div><div className="person-name">{p.name}</div></div>)}</div>
-</div>}
-
-<div className="modal-section">
-<div className="modal-section-title">📈 Market Today</div>
+<div className="modal-section" style={{background:'rgba(10,132,255,0.08)',border:'1px solid rgba(10,132,255,0.2)'}}>
+<div className="modal-section-title" style={{color:'var(--blue)'}}>📈 Market Today</div>
 <div className="modal-text">{selected.phoenix.marketToday}</div>
 {selected.phoenix.protocols&&<div className="protocol-tags">{selected.phoenix.protocols.map((p,i)=><span key={i} className="protocol-tag">{p}</span>)}</div>}
 </div>
