@@ -20,8 +20,6 @@ body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-h
 .title{font-size:clamp(3rem,12vw,8rem);font-weight:900;line-height:0.9;margin-bottom:16px;background:linear-gradient(180deg,var(--text),var(--muted));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .subtitle{font-size:1.2rem;color:var(--text2);margin-bottom:8px}
 .highlight{color:var(--red);font-weight:700}
-
-/* Devlog & Submit Section */
 .action-buttons{display:flex;justify-content:center;gap:12px;margin:24px 0;flex-wrap:wrap}
 .action-btn{background:var(--card);border:1px solid var(--border);color:var(--text);padding:12px 24px;border-radius:10px;cursor:pointer;font-weight:600;font-size:0.9rem;display:flex;align-items:center;gap:8px;transition:all 0.2s}
 .action-btn:hover{transform:translateY(-2px)}
@@ -43,7 +41,6 @@ body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-h
 .submit-btn{background:var(--green);border:none;color:white;padding:14px 24px;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;transition:all 0.2s}
 .submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(48,209,88,0.3)}
 .submit-success{background:rgba(48,209,88,0.1);border:1px solid var(--green);border-radius:8px;padding:16px;text-align:center;color:var(--green)}
-
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:16px;overflow:hidden;margin:40px auto;max-width:900px}
 @media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}}
 .stat{background:var(--card);padding:24px;text-align:center;transition:background 0.2s}
@@ -69,8 +66,6 @@ body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-h
 .card-meta{font-family:'IBM Plex Mono';font-size:0.8rem;color:var(--muted);margin-bottom:12px}
 .card-desc{font-size:0.95rem;color:var(--text2);margin-bottom:16px;line-height:1.5}
 .card-amount{font-family:'IBM Plex Mono';font-size:1.4rem;font-weight:700;color:var(--red)}
-
-/* Hall of Shame - Fixed rank positioning */
 .shame-card{border:2px solid var(--red);padding:24px 24px 24px 70px;position:relative}
 .shame-card:hover{box-shadow:0 20px 50px rgba(255,45,85,0.2)}
 .shame-rank{position:absolute;top:50%;left:20px;transform:translateY(-50%);font-family:'IBM Plex Mono';font-size:2rem;font-weight:900;color:var(--red);opacity:0.6;width:40px;text-align:center}
@@ -78,10 +73,15 @@ body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-h
 .shame-name{font-size:1.4rem;font-weight:800;color:var(--red);margin-bottom:4px}
 .shame-project{font-family:'IBM Plex Mono';font-size:0.8rem;color:var(--muted);margin-bottom:12px}
 .shame-quote{background:rgba(255,45,85,0.08);border-left:3px solid var(--red);padding:12px;margin-bottom:12px;font-style:italic;color:var(--text2);border-radius:0 8px 8px 0;font-size:0.9rem}
-.shame-amount{font-family:'IBM Plex Mono';font-size:1.3rem;font-weight:700;color:var(--orange);margin-bottom:8px}
+.data-row{display:flex;gap:8px;margin-bottom:6px;font-size:0.85rem;align-items:center;flex-wrap:wrap}
+.data-label{color:var(--muted);min-width:70px}
+.data-value{font-family:'IBM Plex Mono';color:var(--text);font-weight:600}
+.data-value.red{color:var(--red)}
+.data-value.orange{color:var(--orange)}
 .virality{font-size:1rem;margin-top:8px}
 .video-badge{position:absolute;top:16px;right:16px;background:#ff0000;color:white;padding:6px 12px;border-radius:6px;font-size:0.7rem;font-weight:700}
-
+.explorer-link{display:inline-flex;align-items:center;gap:4px;color:var(--blue);font-family:'IBM Plex Mono';font-size:0.75rem;text-decoration:none;padding:4px 8px;background:rgba(10,132,255,0.1);border-radius:4px;margin-top:8px}
+.explorer-link:hover{background:rgba(10,132,255,0.2)}
 .trench-tabs{display:flex;justify-content:center;gap:10px;margin-bottom:24px}
 .trench-tab{background:var(--card);border:1px solid var(--border);color:var(--text2);padding:10px 20px;border-radius:8px;cursor:pointer;font-weight:600;transition:all 0.2s}
 .trench-tab:hover{border-color:var(--orange)}
@@ -98,11 +98,14 @@ body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-h
 .modal-content{padding:32px}
 .modal-photo{width:120px;height:120px;border-radius:50%;object-fit:cover;border:4px solid var(--red);margin:0 auto 16px;display:block}
 .modal-title{font-size:2rem;font-weight:800;margin-bottom:8px}
-.modal-amount{font-family:'IBM Plex Mono';font-size:2.5rem;font-weight:700;color:var(--red);margin:16px 0}
 .modal-section{margin-bottom:24px}
 .modal-section-title{font-size:0.75rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);margin-bottom:10px;font-weight:700}
 .modal-text{color:var(--text2);line-height:1.7}
 .modal-cause{background:rgba(255,45,85,0.08);border-left:4px solid var(--red);padding:16px;border-radius:0 10px 10px 0}
+.modal-data-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.modal-data-item{background:var(--bg2);padding:12px;border-radius:8px}
+.modal-data-label{font-size:0.7rem;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.modal-data-value{font-family:'IBM Plex Mono';font-size:1.1rem;font-weight:700;color:var(--red)}
 .video-container{position:relative;padding-bottom:56.25%;height:0;border-radius:12px;overflow:hidden;background:#000;margin:16px 0}
 .video-container iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
 footer{text-align:center;padding:40px;border-top:1px solid var(--border);color:var(--muted);font-size:0.9rem;margin-top:40px}
@@ -117,10 +120,10 @@ footer a:hover{text-decoration:underline}
 const{useState,useMemo,useEffect}=React;
 const fmt=(a)=>!a?'?':a>=1e9?`$${(a/1e9).toFixed(1)}B`:a>=1e6?`$${(a/1e6).toFixed(0)}M`:`$${a.toLocaleString()}`;
 
-// Devlog entries - add new entries at the top
 const devlogEntries = [
-  {date:"2025-01-21",text:"🚀 v1.0 Launch! Crypto Graveyard goes live with 40 graveyard projects, 10 Hall of Shame entries, and 13 Trenches stories. Total documented losses: $500B+"},
-  {date:"2025-01-20",text:"Added Hall of Shame section with real photos and YouTube documentaries for each fraudster."},
+  {date:"2025-01-21",text:"🎯 v3.1 - Added accurate extracted amounts, peak market caps, and blockchain explorer links for all Trenches entries. Data now sourced from Coffeezilla, ZachXBT, court documents, and on-chain analysis."},
+  {date:"2025-01-21",text:"🚀 v1.0 Launch! Crypto Graveyard goes live with 40 graveyard projects, 10 Hall of Shame entries, and 13 Trenches stories."},
+  {date:"2025-01-20",text:"Added Hall of Shame section with photos and YouTube documentaries for each fraudster."},
   {date:"2025-01-19",text:"Initial development started. Building the ultimate archive of crypto's biggest failures."}
 ];
 
@@ -145,7 +148,6 @@ const stats={total:cryptoCorpses.length,amount:cryptoCorpses.reduce((s,c)=>s+(c.
 
 const handleSubmit=(e)=>{
   e.preventDefault();
-  // Create mailto link with form data
   const subject = encodeURIComponent('Crypto Graveyard Suggestion');
   const body = encodeURIComponent(`Name: ${submitData.name}\nEmail: ${submitData.email}\n\nIdea/Suggestion:\n${submitData.idea}`);
   window.open(`mailto:your-email@example.com?subject=${subject}&body=${body}`);
@@ -161,7 +163,6 @@ return(<>
 <header className="header"><div className="container">
 <h1 className="title">CRYPTO<br/>GRAVEYARD</h1>
 <p className="subtitle">Where <span className="highlight">{fmt(stats.amount)}</span> went to die</p>
-
 <div className="action-buttons">
 <button className="action-btn devlog" onClick={()=>{setShowDevlog(!showDevlog);setShowSubmit(false)}}>
 📋 {showDevlog?'Hide':'Show'} Devlog
@@ -173,33 +174,19 @@ return(<>
 </div></header>
 
 <div className="container">
-{showDevlog&&(
-<div className="devlog-panel">
-<div className="devlog-title">📋 Development Log</div>
-{devlogEntries.map((entry,i)=>(
-<div key={i} className="devlog-entry">
-<div className="devlog-date">{entry.date}</div>
-<div className="devlog-text">{entry.text}</div>
-</div>
-))}
-</div>
-)}
+{showDevlog&&(<div className="devlog-panel"><div className="devlog-title">📋 Development Log</div>
+{devlogEntries.map((entry,i)=>(<div key={i} className="devlog-entry"><div className="devlog-date">{entry.date}</div><div className="devlog-text">{entry.text}</div></div>))}
+</div>)}
 
-{showSubmit&&(
-<div className="submit-panel">
-<div className="submit-title">💡 Submit Your Idea</div>
-{submitSuccess?(
-<div className="submit-success">✅ Thanks! Your email client should open with the suggestion.</div>
-):(
+{showSubmit&&(<div className="submit-panel"><div className="submit-title">💡 Submit Your Idea</div>
+{submitSuccess?(<div className="submit-success">✅ Thanks! Your email client should open.</div>):(
 <form className="submit-form" onSubmit={handleSubmit}>
 <input className="submit-input" placeholder="Your name (optional)" value={submitData.name} onChange={e=>setSubmitData({...submitData,name:e.target.value})}/>
 <input className="submit-input" placeholder="Your email (optional)" type="email" value={submitData.email} onChange={e=>setSubmitData({...submitData,email:e.target.value})}/>
-<textarea className="submit-textarea" placeholder="What project should I add? What features would you like? Any feedback?" required value={submitData.idea} onChange={e=>setSubmitData({...submitData,idea:e.target.value})}/>
+<textarea className="submit-textarea" placeholder="What project should I add? What features would you like?" required value={submitData.idea} onChange={e=>setSubmitData({...submitData,idea:e.target.value})}/>
 <button type="submit" className="submit-btn">📧 Send via Email</button>
-</form>
-)}
-</div>
-)}
+</form>)}
+</div>)}
 
 <div className="stats">
 <div className="stat"><div className="stat-val">{stats.total}</div><div className="stat-label">Projects</div></div>
@@ -223,8 +210,7 @@ return(<>
 <div className="card-meta">{c.category} · {c.deathDate?.split('-')[0]}</div>
 <div className="card-desc">{c.description}</div>
 <div className="card-amount">{fmt(c.amount)}</div>
-</div>
-))}</div>
+</div>))}</div>
 </>}
 
 {section==='shame'&&<div className="grid">{hallOfShame.map(s=>(
@@ -235,11 +221,12 @@ return(<>
 <div className="shame-name">{s.name}</div>
 <div className="shame-project">{s.project} · {s.year}</div>
 <div className="shame-quote">"{s.viralQuote}"</div>
-<div className="shame-amount">{fmt(s.amount)}</div>
-<div style={{fontSize:'0.8rem',color:'var(--muted)'}}>{s.status}</div>
+<div className="data-row"><span className="data-label">💰 Extracted:</span><span className="data-value red">{s.extracted}</span></div>
+{s.peakMC&&<div className="data-row"><span className="data-label">📈 Peak:</span><span className="data-value">{s.peakMC}</span></div>}
+{s.victimLosses&&<div className="data-row"><span className="data-label">😢 Losses:</span><span className="data-value orange">{s.victimLosses}</span></div>}
+<div style={{fontSize:'0.8rem',color:'var(--muted)',marginTop:8}}>{s.status}</div>
 <div className="virality">{'🔥'.repeat(s.viralityScore)}</div>
-</div>
-))}</div>}
+</div>))}</div>}
 
 {section==='trenches'&&<>
 <div className="trench-tabs">
@@ -253,15 +240,18 @@ return(<>
 <div className="trench-name">{t.name}</div>
 <div className="card-meta">{t.perpetrator} · {t.date}</div>
 <div className="card-desc">{t.shortDescription}</div>
-{t.amount>0&&<div style={{fontFamily:'IBM Plex Mono',color:'var(--orange)',fontWeight:700}}>{fmt(t.amount)}</div>}
+<div className="data-row"><span className="data-label">💰 Extracted:</span><span className="data-value orange">{t.extracted}</span></div>
+{t.peakMC&&<div className="data-row"><span className="data-label">📈 Peak MC:</span><span className="data-value">{t.peakMC}</span></div>}
+{t.blockchain&&<div className="data-row"><span className="data-label">⛓️ Chain:</span><span className="data-value">{t.blockchain}</span></div>}
+{t.explorerUrl&&<a href={t.explorerUrl} target="_blank" rel="noopener" className="explorer-link" onClick={e=>e.stopPropagation()}>🔗 View on Explorer ↗</a>}
 <div style={{marginTop:8}}>{'😱'.repeat(Math.min(t.wtfFactor,10))}</div>
-</div>
-))}</div>
+</div>))}</div>
 </>}
 </div>
 
 <footer>
 <p><strong>Crypto Graveyard</strong> · Educational Archive · DYOR NFA</p>
+<p style={{marginTop:8}}>Data sourced from Coffeezilla, ZachXBT, court docs & on-chain analysis</p>
 <p style={{marginTop:8}}>Built with 💀 · <a href="https://twitter.com/yourhandle" target="_blank">Twitter</a> · <a href="https://github.com/yourrepo" target="_blank">GitHub</a></p>
 </footer>
 
@@ -271,7 +261,7 @@ return(<>
 <div className="modal-content">
 <div className="modal-title">{selected.name}</div>
 <div style={{color:'var(--muted)'}}>{selected.category} · {selected.deathDate}</div>
-<div className="modal-amount">{fmt(selected.amount)}</div>
+<div style={{fontFamily:'IBM Plex Mono',fontSize:'2.5rem',fontWeight:700,color:'var(--red)',margin:'16px 0'}}>{fmt(selected.amount)}</div>
 {selected.fullDescription&&<div className="modal-section"><div className="modal-section-title">What Happened</div><div className="modal-text">{selected.fullDescription}</div></div>}
 {selected.causeOfDeath&&<div className="modal-section"><div className="modal-section-title">Cause of Death</div><div className="modal-cause">{selected.causeOfDeath}</div></div>}
 {selected.lessons&&<div className="modal-section"><div className="modal-section-title">Lessons</div>{selected.lessons.map((l,i)=><div key={i} className="modal-text">→ {l}</div>)}</div>}
@@ -284,12 +274,17 @@ return(<>
 <img src={shameModal.photoUrl} alt={shameModal.name} className="modal-photo" onError={e=>{e.target.style.display='none'}}/>
 <div className="modal-title" style={{color:'var(--red)',textAlign:'center'}}>#{shameModal.rank} {shameModal.name}</div>
 <div style={{textAlign:'center',color:'var(--muted)'}}>{shameModal.project} · {shameModal.year}</div>
-<div className="modal-amount" style={{textAlign:'center'}}>{fmt(shameModal.amount)}</div>
-<div style={{textAlign:'center',marginBottom:16}}>{'🔥'.repeat(shameModal.viralityScore)}</div>
-<div style={{textAlign:'center',fontSize:'0.85rem',color:'var(--muted)',marginBottom:20,padding:'8px 12px',background:'var(--bg2)',borderRadius:8}}>{shameModal.status}</div>
-<div className="modal-section"><div className="modal-section-title">💬 Viral Moment</div><div className="modal-cause">{shameModal.viralMoment}</div></div>
+<div style={{textAlign:'center',marginTop:8,marginBottom:16}}>{'🔥'.repeat(shameModal.viralityScore)}</div>
+<div className="modal-data-grid">
+<div className="modal-data-item"><div className="modal-data-label">💰 Extracted</div><div className="modal-data-value">{shameModal.extracted}</div></div>
+<div className="modal-data-item"><div className="modal-data-label">📈 Peak</div><div className="modal-data-value">{shameModal.peakMC||'N/A'}</div></div>
+<div className="modal-data-item"><div className="modal-data-label">😢 Victim Losses</div><div className="modal-data-value">{shameModal.victimLosses||'Unknown'}</div></div>
+<div className="modal-data-item"><div className="modal-data-label">⚖️ Status</div><div className="modal-data-value" style={{fontSize:'0.9rem'}}>{shameModal.status}</div></div>
+</div>
+<div className="modal-section"><div className="modal-section-title">💬 Viral Quote</div><div className="modal-cause">"{shameModal.viralQuote}"</div></div>
+<div className="modal-section"><div className="modal-section-title">🔥 Viral Moment</div><div className="modal-text">{shameModal.viralMoment}</div></div>
 {shameModal.videoId&&<div className="modal-section"><div className="modal-section-title">📺 Watch</div><div className="video-container"><iframe src={`https://www.youtube.com/embed/${shameModal.videoId}?rel=0`} allowFullScreen/></div></div>}
-<div className="modal-section"><div className="modal-section-title">📖 Story</div><div className="modal-text">{shameModal.story}</div></div>
+<div className="modal-section"><div className="modal-section-title">📖 Full Story</div><div className="modal-text">{shameModal.story}</div></div>
 </div></div></div>}
 
 {trenchModal&&<div className="modal-overlay" onClick={()=>setTrenchModal(null)}>
@@ -299,8 +294,14 @@ return(<>
 {trenchModal.photoUrl?<img src={trenchModal.photoUrl} alt={trenchModal.name} className="modal-photo" style={{borderColor:'var(--orange)'}} onError={e=>{e.target.style.display='none'}}/>:<div style={{textAlign:'center',fontSize:'4rem',marginBottom:16}}>{trenchModal.emoji}</div>}
 <div className="modal-title" style={{color:'var(--orange)',textAlign:'center'}}>{trenchModal.name}</div>
 <div style={{textAlign:'center',color:'var(--muted)'}}>{trenchModal.perpetrator} · {trenchModal.date}</div>
-{trenchModal.amount>0&&<div className="modal-amount" style={{textAlign:'center',color:'var(--orange)'}}>{fmt(trenchModal.amount)}</div>}
-<div style={{textAlign:'center',marginBottom:16}}>{'😱'.repeat(trenchModal.wtfFactor)}</div>
+<div style={{textAlign:'center',marginTop:8,marginBottom:16}}>{'😱'.repeat(trenchModal.wtfFactor)}</div>
+<div className="modal-data-grid">
+<div className="modal-data-item"><div className="modal-data-label">💰 Extracted</div><div className="modal-data-value" style={{color:'var(--orange)'}}>{trenchModal.extracted}</div></div>
+<div className="modal-data-item"><div className="modal-data-label">📈 Peak MC</div><div className="modal-data-value">{trenchModal.peakMC||'Unknown'}</div></div>
+{trenchModal.blockchain&&<div className="modal-data-item"><div className="modal-data-label">⛓️ Blockchain</div><div className="modal-data-value">{trenchModal.blockchain}</div></div>}
+{trenchModal.contractAddress&&<div className="modal-data-item"><div className="modal-data-label">📋 Contract</div><div className="modal-data-value" style={{fontSize:'0.7rem',wordBreak:'break-all'}}>{trenchModal.contractAddress.slice(0,20)}...</div></div>}
+</div>
+{trenchModal.explorerUrl&&<div style={{textAlign:'center',margin:'16px 0'}}><a href={trenchModal.explorerUrl} target="_blank" rel="noopener" className="explorer-link">🔗 View on Blockchain Explorer ↗</a></div>}
 {trenchModal.videoId&&trenchModal.videoType==='youtube'&&<div className="modal-section"><div className="modal-section-title">📺 Watch</div><div className="video-container"><iframe src={`https://www.youtube.com/embed/${trenchModal.videoId}?rel=0`} allowFullScreen/></div></div>}
 <div className="modal-section"><div className="modal-section-title">What Happened</div><div className="modal-text">{trenchModal.fullStory}</div></div>
 <div className="modal-section"><div className="modal-section-title">Aftermath</div><div className="modal-cause">{trenchModal.aftermath}</div></div>
