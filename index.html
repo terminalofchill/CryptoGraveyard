@@ -9,17 +9,41 @@
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <style>
-:root{--bg:#08080a;--bg2:#0f0f12;--card:#141417;--card-hover:#1a1a1e;--text:#fafafa;--text2:#a0a0a5;--muted:#606065;--border:#252528;--red:#ff2d55;--orange:#ff9500;--blue:#0a84ff;--purple:#bf5af2}
+:root{--bg:#08080a;--bg2:#0f0f12;--card:#141417;--card-hover:#1a1a1e;--text:#fafafa;--text2:#a0a0a5;--muted:#606065;--border:#252528;--red:#ff2d55;--orange:#ff9500;--blue:#0a84ff;--purple:#bf5af2;--green:#30d158}
 [data-theme="light"]{--bg:#ffffff;--bg2:#f5f5f7;--card:#ffffff;--card-hover:#f0f0f2;--text:#1d1d1f;--text2:#6e6e73;--muted:#86868b;--border:#d2d2d7}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;transition:background 0.3s,color 0.3s}
 .container{max-width:1400px;margin:0 auto;padding:0 24px}
 .theme-toggle{position:fixed;top:20px;right:20px;z-index:100;background:var(--card);border:1px solid var(--border);color:var(--text);padding:12px 20px;border-radius:12px;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:0.85rem;font-weight:500;display:flex;align-items:center;gap:8px;transition:all 0.2s}
 .theme-toggle:hover{border-color:var(--red);transform:translateY(-2px)}
-.header{text-align:center;padding:60px 0}
+.header{text-align:center;padding:60px 0 40px}
 .title{font-size:clamp(3rem,12vw,8rem);font-weight:900;line-height:0.9;margin-bottom:16px;background:linear-gradient(180deg,var(--text),var(--muted));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .subtitle{font-size:1.2rem;color:var(--text2);margin-bottom:8px}
 .highlight{color:var(--red);font-weight:700}
+
+/* Devlog & Submit Section */
+.action-buttons{display:flex;justify-content:center;gap:12px;margin:24px 0;flex-wrap:wrap}
+.action-btn{background:var(--card);border:1px solid var(--border);color:var(--text);padding:12px 24px;border-radius:10px;cursor:pointer;font-weight:600;font-size:0.9rem;display:flex;align-items:center;gap:8px;transition:all 0.2s}
+.action-btn:hover{transform:translateY(-2px)}
+.action-btn.devlog{border-color:var(--purple)}
+.action-btn.devlog:hover{background:var(--purple);color:white}
+.action-btn.submit{border-color:var(--green)}
+.action-btn.submit:hover{background:var(--green);color:white}
+.devlog-panel{background:var(--card);border:1px solid var(--purple);border-radius:16px;padding:24px;margin:0 auto 32px;max-width:800px}
+.devlog-title{font-size:1.3rem;font-weight:700;color:var(--purple);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.devlog-entry{background:var(--bg2);border-radius:10px;padding:16px;margin-bottom:12px}
+.devlog-date{font-family:'IBM Plex Mono';font-size:0.75rem;color:var(--muted);margin-bottom:6px}
+.devlog-text{color:var(--text2);font-size:0.95rem;line-height:1.6}
+.submit-panel{background:var(--card);border:1px solid var(--green);border-radius:16px;padding:24px;margin:0 auto 32px;max-width:600px}
+.submit-title{font-size:1.3rem;font-weight:700;color:var(--green);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.submit-form{display:flex;flex-direction:column;gap:12px}
+.submit-input,.submit-textarea{background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:12px 16px;border-radius:8px;font-size:1rem;font-family:inherit}
+.submit-input:focus,.submit-textarea:focus{outline:none;border-color:var(--green)}
+.submit-textarea{min-height:120px;resize:vertical}
+.submit-btn{background:var(--green);border:none;color:white;padding:14px 24px;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;transition:all 0.2s}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(48,209,88,0.3)}
+.submit-success{background:rgba(48,209,88,0.1);border:1px solid var(--green);border-radius:8px;padding:16px;text-align:center;color:var(--green)}
+
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:16px;overflow:hidden;margin:40px auto;max-width:900px}
 @media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}}
 .stat{background:var(--card);padding:24px;text-align:center;transition:background 0.2s}
@@ -45,16 +69,19 @@ body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-h
 .card-meta{font-family:'IBM Plex Mono';font-size:0.8rem;color:var(--muted);margin-bottom:12px}
 .card-desc{font-size:0.95rem;color:var(--text2);margin-bottom:16px;line-height:1.5}
 .card-amount{font-family:'IBM Plex Mono';font-size:1.4rem;font-weight:700;color:var(--red)}
-.shame-card{border:2px solid var(--red);padding:28px}
+
+/* Hall of Shame - Fixed rank positioning */
+.shame-card{border:2px solid var(--red);padding:24px 24px 24px 70px;position:relative}
 .shame-card:hover{box-shadow:0 20px 50px rgba(255,45,85,0.2)}
-.shame-rank{font-family:'IBM Plex Mono';font-size:2.5rem;font-weight:900;color:var(--red);opacity:0.3;position:absolute;top:16px;left:16px}
-.shame-photo{width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid var(--red);margin-bottom:12px;background:var(--bg2)}
-.shame-name{font-size:1.5rem;font-weight:800;color:var(--red);margin-bottom:4px}
+.shame-rank{position:absolute;top:50%;left:20px;transform:translateY(-50%);font-family:'IBM Plex Mono';font-size:2rem;font-weight:900;color:var(--red);opacity:0.6;width:40px;text-align:center}
+.shame-photo{width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid var(--red);margin-bottom:12px;background:var(--bg2)}
+.shame-name{font-size:1.4rem;font-weight:800;color:var(--red);margin-bottom:4px}
 .shame-project{font-family:'IBM Plex Mono';font-size:0.8rem;color:var(--muted);margin-bottom:12px}
-.shame-quote{background:rgba(255,45,85,0.08);border-left:3px solid var(--red);padding:12px;margin-bottom:12px;font-style:italic;color:var(--text2);border-radius:0 8px 8px 0}
+.shame-quote{background:rgba(255,45,85,0.08);border-left:3px solid var(--red);padding:12px;margin-bottom:12px;font-style:italic;color:var(--text2);border-radius:0 8px 8px 0;font-size:0.9rem}
 .shame-amount{font-family:'IBM Plex Mono';font-size:1.3rem;font-weight:700;color:var(--orange);margin-bottom:8px}
 .virality{font-size:1rem;margin-top:8px}
 .video-badge{position:absolute;top:16px;right:16px;background:#ff0000;color:white;padding:6px 12px;border-radius:6px;font-size:0.7rem;font-weight:700}
+
 .trench-tabs{display:flex;justify-content:center;gap:10px;margin-bottom:24px}
 .trench-tab{background:var(--card);border:1px solid var(--border);color:var(--text2);padding:10px 20px;border-radius:8px;cursor:pointer;font-weight:600;transition:all 0.2s}
 .trench-tab:hover{border-color:var(--orange)}
@@ -79,6 +106,8 @@ body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-h
 .video-container{position:relative;padding-bottom:56.25%;height:0;border-radius:12px;overflow:hidden;background:#000;margin:16px 0}
 .video-container iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
 footer{text-align:center;padding:40px;border-top:1px solid var(--border);color:var(--muted);font-size:0.9rem;margin-top:40px}
+footer a{color:var(--red);text-decoration:none}
+footer a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
@@ -88,6 +117,13 @@ footer{text-align:center;padding:40px;border-top:1px solid var(--border);color:v
 const{useState,useMemo,useEffect}=React;
 const fmt=(a)=>!a?'?':a>=1e9?`$${(a/1e9).toFixed(1)}B`:a>=1e6?`$${(a/1e6).toFixed(0)}M`:`$${a.toLocaleString()}`;
 
+// Devlog entries - add new entries at the top
+const devlogEntries = [
+  {date:"2025-01-21",text:"🚀 v1.0 Launch! Crypto Graveyard goes live with 40 graveyard projects, 10 Hall of Shame entries, and 13 Trenches stories. Total documented losses: $500B+"},
+  {date:"2025-01-20",text:"Added Hall of Shame section with real photos and YouTube documentaries for each fraudster."},
+  {date:"2025-01-19",text:"Initial development started. Building the ultimate archive of crypto's biggest failures."}
+];
+
 function App(){
 const[theme,setTheme]=useState('dark');
 const[section,setSection]=useState('graveyard');
@@ -96,12 +132,26 @@ const[selected,setSelected]=useState(null);
 const[shameModal,setShameModal]=useState(null);
 const[trenchModal,setTrenchModal]=useState(null);
 const[trenchTab,setTrenchTab]=useState('pump');
+const[showDevlog,setShowDevlog]=useState(false);
+const[showSubmit,setShowSubmit]=useState(false);
+const[submitData,setSubmitData]=useState({name:'',email:'',idea:''});
+const[submitSuccess,setSubmitSuccess]=useState(false);
 
 useEffect(()=>{document.documentElement.setAttribute('data-theme',theme)},[theme]);
 
 const sorted=useMemo(()=>[...cryptoCorpses].sort((a,b)=>(b.amount||0)-(a.amount||0)),[]);
 const filtered=useMemo(()=>sorted.filter(c=>!search||c.name.toLowerCase().includes(search.toLowerCase())),[sorted,search]);
 const stats={total:cryptoCorpses.length,amount:cryptoCorpses.reduce((s,c)=>s+(c.amount||0),0),rugs:cryptoCorpses.filter(c=>c.type==='rug').length,hacks:cryptoCorpses.filter(c=>c.type==='hack').length};
+
+const handleSubmit=(e)=>{
+  e.preventDefault();
+  // Create mailto link with form data
+  const subject = encodeURIComponent('Crypto Graveyard Suggestion');
+  const body = encodeURIComponent(`Name: ${submitData.name}\nEmail: ${submitData.email}\n\nIdea/Suggestion:\n${submitData.idea}`);
+  window.open(`mailto:your-email@example.com?subject=${subject}&body=${body}`);
+  setSubmitSuccess(true);
+  setTimeout(()=>{setSubmitSuccess(false);setShowSubmit(false);setSubmitData({name:'',email:'',idea:''})},3000);
+};
 
 return(<>
 <button className="theme-toggle" onClick={()=>setTheme(t=>t==='dark'?'light':'dark')}>
@@ -111,9 +161,46 @@ return(<>
 <header className="header"><div className="container">
 <h1 className="title">CRYPTO<br/>GRAVEYARD</h1>
 <p className="subtitle">Where <span className="highlight">{fmt(stats.amount)}</span> went to die</p>
+
+<div className="action-buttons">
+<button className="action-btn devlog" onClick={()=>{setShowDevlog(!showDevlog);setShowSubmit(false)}}>
+📋 {showDevlog?'Hide':'Show'} Devlog
+</button>
+<button className="action-btn submit" onClick={()=>{setShowSubmit(!showSubmit);setShowDevlog(false)}}>
+💡 Submit Idea
+</button>
+</div>
 </div></header>
 
 <div className="container">
+{showDevlog&&(
+<div className="devlog-panel">
+<div className="devlog-title">📋 Development Log</div>
+{devlogEntries.map((entry,i)=>(
+<div key={i} className="devlog-entry">
+<div className="devlog-date">{entry.date}</div>
+<div className="devlog-text">{entry.text}</div>
+</div>
+))}
+</div>
+)}
+
+{showSubmit&&(
+<div className="submit-panel">
+<div className="submit-title">💡 Submit Your Idea</div>
+{submitSuccess?(
+<div className="submit-success">✅ Thanks! Your email client should open with the suggestion.</div>
+):(
+<form className="submit-form" onSubmit={handleSubmit}>
+<input className="submit-input" placeholder="Your name (optional)" value={submitData.name} onChange={e=>setSubmitData({...submitData,name:e.target.value})}/>
+<input className="submit-input" placeholder="Your email (optional)" type="email" value={submitData.email} onChange={e=>setSubmitData({...submitData,email:e.target.value})}/>
+<textarea className="submit-textarea" placeholder="What project should I add? What features would you like? Any feedback?" required value={submitData.idea} onChange={e=>setSubmitData({...submitData,idea:e.target.value})}/>
+<button type="submit" className="submit-btn">📧 Send via Email</button>
+</form>
+)}
+</div>
+)}
+
 <div className="stats">
 <div className="stat"><div className="stat-val">{stats.total}</div><div className="stat-label">Projects</div></div>
 <div className="stat"><div className="stat-val">{fmt(stats.amount)}</div><div className="stat-label">Lost</div></div>
@@ -173,7 +260,10 @@ return(<>
 </>}
 </div>
 
-<footer>Crypto Graveyard · Educational Archive · DYOR NFA</footer>
+<footer>
+<p><strong>Crypto Graveyard</strong> · Educational Archive · DYOR NFA</p>
+<p style={{marginTop:8}}>Built with 💀 · <a href="https://twitter.com/yourhandle" target="_blank">Twitter</a> · <a href="https://github.com/yourrepo" target="_blank">GitHub</a></p>
+</footer>
 
 {selected&&<div className="modal-overlay" onClick={()=>setSelected(null)}>
 <div className="modal" onClick={e=>e.stopPropagation()}>
@@ -196,7 +286,7 @@ return(<>
 <div style={{textAlign:'center',color:'var(--muted)'}}>{shameModal.project} · {shameModal.year}</div>
 <div className="modal-amount" style={{textAlign:'center'}}>{fmt(shameModal.amount)}</div>
 <div style={{textAlign:'center',marginBottom:16}}>{'🔥'.repeat(shameModal.viralityScore)}</div>
-<div style={{textAlign:'center',fontSize:'0.85rem',color:'var(--muted)',marginBottom:20,padding:'8px 12px',background:'var(--bg2)',borderRadius:8,display:'inline-block',width:'100%'}}>{shameModal.status}</div>
+<div style={{textAlign:'center',fontSize:'0.85rem',color:'var(--muted)',marginBottom:20,padding:'8px 12px',background:'var(--bg2)',borderRadius:8}}>{shameModal.status}</div>
 <div className="modal-section"><div className="modal-section-title">💬 Viral Moment</div><div className="modal-cause">{shameModal.viralMoment}</div></div>
 {shameModal.videoId&&<div className="modal-section"><div className="modal-section-title">📺 Watch</div><div className="video-container"><iframe src={`https://www.youtube.com/embed/${shameModal.videoId}?rel=0`} allowFullScreen/></div></div>}
 <div className="modal-section"><div className="modal-section-title">📖 Story</div><div className="modal-text">{shameModal.story}</div></div>
