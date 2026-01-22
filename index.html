@@ -74,6 +74,22 @@ body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-h
 .devlog-tag{background:var(--bg2);border:1px solid var(--border);padding:4px 10px;border-radius:20px;font-size:0.7rem;font-family:'IBM Plex Mono';color:var(--muted)}
 .devlog-tag:first-child{border-color:var(--blue);color:var(--blue)}
 @media(max-width:600px){.devlog-entry{flex-direction:column;gap:8px}.devlog-date{min-width:auto}}
+/* Submit Form */
+.submit-modal{max-width:500px}
+.submit-form{display:flex;flex-direction:column;gap:16px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group label{font-size:0.8rem;font-weight:600;color:var(--text2)}
+.form-group input,.form-group select,.form-group textarea{background:var(--bg);border:2px solid var(--border);color:var(--text);padding:12px;border-radius:8px;font-size:0.95rem;font-family:inherit;transition:border-color 0.2s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--green)}
+.form-group textarea{resize:vertical;min-height:80px}
+.form-group select{cursor:pointer}
+.form-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+@media(max-width:500px){.form-row{grid-template-columns:1fr}}
+.submit-btn-form{background:var(--green);color:#000;border:none;padding:14px 24px;border-radius:8px;font-weight:700;font-size:1rem;cursor:pointer;transition:all 0.2s}
+.submit-btn-form:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(48,209,88,0.3)}
+.submit-success{text-align:center;padding:20px}
+.submit-success h3{margin-bottom:8px}
+.submit-success p{color:var(--muted);margin-bottom:20px}
 .title{font-size:clamp(2.5rem,10vw,6rem);font-weight:900;line-height:0.95;margin-bottom:12px;background:linear-gradient(180deg,var(--text) 0%,var(--muted) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .subtitle{font-size:1.1rem;color:var(--text2);margin-bottom:6px}
 .highlight{color:var(--red);font-weight:700}
@@ -211,6 +227,8 @@ const[selected,setSelected]=useState(null);
 const[shameModal,setShameModal]=useState(null);
 const[trenchModal,setTrenchModal]=useState(null);
 const[trenchTab,setTrenchTab]=useState('pump');
+const[submitModal,setSubmitModal]=useState(false);
+const[submitStatus,setSubmitStatus]=useState('');
 
 useEffect(()=>{document.documentElement.setAttribute('data-theme',theme)},[theme]);
 
@@ -245,7 +263,7 @@ return(<>
 <p className="subtitle">Where <span className="highlight">{fmt(stats.amount)}</span> went to die <span className="realtime-tag">• Updating in real time</span></p>
 <p className="phoenix-tagline">🔥 Phoenix Protocol: Resurrect dead crypto ideas. Fair launch on Bags.</p>
 <div className="action-buttons">
-<a href="https://forms.gle/YOUR_FORM_ID" target="_blank" className="action-btn submit-btn">📝 Submit a Project</a>
+<button className="action-btn submit-btn" onClick={()=>setSubmitModal(true)}>📝 Submit / Feedback</button>
 <a href="#devlog" className="action-btn devlog-btn" onClick={(e)=>{e.preventDefault();setSection('devlog')}}>📋 Devlog</a>
 </div>
 </div></header>
@@ -536,6 +554,108 @@ return(<>
 <div className="modal-section"><div className="modal-section-title">📖 What Happened</div><div className="modal-text">{trenchModal.fullStory}</div></div>
 {trenchModal.videoId&&trenchModal.videoType==='youtube'&&<div className="modal-section"><div className="modal-section-title">📺 Watch</div><div className="video-container"><iframe src={`https://www.youtube.com/embed/${trenchModal.videoId}?rel=0`} allowFullScreen/></div></div>}
 <div className="modal-section"><div className="modal-section-title">☠️ Aftermath</div><div className="modal-text">{trenchModal.aftermath}</div></div>
+</div></div></div>}
+
+{/* Submit Modal */}
+{submitModal&&<div className="modal-overlay" onClick={()=>setSubmitModal(false)}>
+<div className="modal submit-modal" onClick={e=>e.stopPropagation()}>
+<button className="modal-close" onClick={()=>setSubmitModal(false)}>×</button>
+<div className="modal-content">
+<div className="modal-title" style={{marginBottom:8}}>📝 Submit to Crypto Graveyard</div>
+<p style={{color:'var(--muted)',marginBottom:20,fontSize:'0.9rem'}}>Help us build the ultimate crypto disaster database</p>
+
+{submitStatus==='success'?
+<div className="submit-success">
+<div style={{fontSize:'3rem',marginBottom:12}}>✅</div>
+<h3>Received!</h3>
+<p>Thanks for contributing. We read everything.</p>
+<button className="submit-btn-form" onClick={()=>{setSubmitModal(false);setSubmitStatus('')}}>Close</button>
+</div>
+:
+<form className="submit-form" onSubmit={async(e)=>{
+e.preventDefault();
+const form=e.target;
+const subType=form.submission_type.value;
+const data={
+access_key:'57e96fdf-9128-4b1a-b08c-e11c40bf1110',
+subject:`[Crypto Graveyard] ${subType}`,
+submission_type:subType,
+title:form.title.value,
+details:form.details.value,
+source_url:form.source_url.value||'N/A',
+contact:form.contact.value||'Anonymous'
+};
+if(subType==='Dead Project'){
+data.project_type=form.project_type?.value||'N/A';
+data.amount_lost=form.amount_lost?.value||'N/A';
+data.year=form.year?.value||'N/A';
+}
+try{
+const res=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+if(res.ok){setSubmitStatus('success');form.reset();}
+else{alert('Error submitting. Try again.');}
+}catch(err){alert('Error submitting. Try again.');}
+}}>
+<div className="form-group">
+<label>What are you submitting? *</label>
+<select name="submission_type" required onChange={(e)=>{
+document.getElementById('project-fields').style.display=e.target.value==='Dead Project'?'grid':'none';
+}}>
+<option value="">Select type...</option>
+<option value="Dead Project">💀 Dead Project (rug/hack/collapse)</option>
+<option value="Feature Idea">💡 Feature or Roadmap Idea</option>
+<option value="UI Feedback">🎨 UI/UX Feedback</option>
+<option value="Bug Report">🐛 Bug Report</option>
+<option value="Phoenix Candidate">🔥 Phoenix Candidate (project worth reviving)</option>
+<option value="Other">💬 Other / General Feedback</option>
+</select>
+</div>
+
+<div className="form-group">
+<label>Title / Project Name *</label>
+<input type="text" name="title" required placeholder="e.g., Terra/LUNA or 'Add dark mode toggle'"/>
+</div>
+
+<div id="project-fields" className="form-row" style={{display:'none'}}>
+<div className="form-group">
+<label>Type</label>
+<select name="project_type">
+<option value="">Select...</option>
+<option value="rug">Rug Pull</option>
+<option value="hack">Hack/Exploit</option>
+<option value="collapse">Collapse</option>
+<option value="fraud">Fraud</option>
+<option value="ponzi">Ponzi</option>
+</select>
+</div>
+<div className="form-group">
+<label>Amount Lost</label>
+<input type="text" name="amount_lost" placeholder="e.g., $40M"/>
+</div>
+<div className="form-group">
+<label>Year</label>
+<input type="text" name="year" placeholder="e.g., 2022"/>
+</div>
+</div>
+
+<div className="form-group">
+<label>Details *</label>
+<textarea name="details" required rows={5} placeholder="Tell us more... What happened? What's your idea? What could be better?"/>
+</div>
+
+<div className="form-group">
+<label>Link (optional)</label>
+<input type="url" name="source_url" placeholder="Article, tweet, screenshot, or reference"/>
+</div>
+
+<div className="form-group">
+<label>Your Twitter or Email (optional)</label>
+<input type="text" name="contact" placeholder="In case we want to follow up or credit you"/>
+</div>
+
+<button type="submit" className="submit-btn-form">Submit</button>
+<p style={{fontSize:'0.75rem',color:'var(--muted)',textAlign:'center',marginTop:12}}>We read every submission. Good ideas get built. 🫡</p>
+</form>}
 </div></div></div>}
 </>);
 }
