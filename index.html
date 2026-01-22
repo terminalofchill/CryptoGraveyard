@@ -3,51 +3,94 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Crypto Graveyard - Phoenix Protocol | Resurrect Dead Crypto Ideas</title>
+<title>Crypto Graveyard - Phoenix Protocol</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <style>
-:root{--bg:#08080a;--bg2:#0f0f12;--card:#141417;--card-hover:#1a1a1e;--text:#fafafa;--text2:#a0a0a5;--muted:#606065;--border:#252528;--red:#ff2d55;--orange:#ff9500;--blue:#0a84ff;--purple:#bf5af2;--green:#30d158;--gold:#ffd700;--gold2:#ffb800}
-[data-theme="light"]{--bg:#fafafa;--bg2:#f0f0f2;--card:#ffffff;--card-hover:#f5f5f7;--text:#1d1d1f;--text2:#6e6e73;--muted:#86868b;--border:#d2d2d7}
+:root{--bg:#08080a;--bg2:#0f0f12;--card:#141417;--text:#fafafa;--text2:#a0a0a5;--muted:#606065;--border:#252528;--red:#ff2d55;--orange:#ff9500;--blue:#0a84ff;--purple:#bf5af2;--green:#30d158;--gold:#ffd700;--gold2:#ffb800}
+[data-theme="light"]{--bg:#f5f5f7;--bg2:#ffffff;--card:#ffffff;--text:#1d1d1f;--text2:#424245;--muted:#86868b;--border:#1d1d1f;--red:#ff3b30;--orange:#ff9500;--blue:#007aff;--purple:#af52de;--green:#34c759;--gold:#1d1d1f;--gold2:#1d1d1f}
+
+/* Light mode - thick black outlines everywhere */
+[data-theme="light"] .card{border:3px solid #1d1d1f;box-shadow:none}
+[data-theme="light"] .card:hover{border-color:#000;box-shadow:0 8px 30px rgba(0,0,0,0.1)}
+[data-theme="light"] .card.phoenix-card{border:3px solid #1d1d1f}
+[data-theme="light"] .card.phoenix-card:hover{border-color:#000}
+[data-theme="light"] .stats{border:3px solid #1d1d1f;background:#fff}
+[data-theme="light"] .stat{border-right:1px solid #d2d2d7}
+[data-theme="light"] .stat:last-child{border-right:none}
+[data-theme="light"] .nav-btn{border:2px solid #1d1d1f;background:#fff;color:#1d1d1f}
+[data-theme="light"] .nav-btn:hover{background:#f0f0f0}
+[data-theme="light"] .nav-btn.active{background:#ff3b30;color:#fff;border-color:#ff3b30}
+[data-theme="light"] .nav-btn.phoenix{border-color:#1d1d1f}
+[data-theme="light"] .nav-btn.phoenix.active{background:#1d1d1f;border-color:#1d1d1f;color:#fff}
+[data-theme="light"] .search{border:3px solid #1d1d1f;background:#fff}
+[data-theme="light"] .theme-toggle{border:2px solid #1d1d1f;background:#fff}
+[data-theme="light"] .modal{border:3px solid #1d1d1f}
+[data-theme="light"] .modal.phoenix-modal{border:3px solid #1d1d1f}
+[data-theme="light"] .modal-overlay{background:rgba(255,255,255,0.92)}
+[data-theme="light"] .shame-card{border:3px solid #ff3b30}
+[data-theme="light"] .trench-card{border:3px solid #ff9500}
+[data-theme="light"] .trench-tab{border:2px solid #1d1d1f;background:#fff}
+[data-theme="light"] .trench-tab.active{background:#ff9500;border-color:#ff9500;color:#fff}
+[data-theme="light"] .phoenix-badge{background:#1d1d1f;color:#fff}
+[data-theme="light"] .phoenix-tagline{color:#1d1d1f}
+[data-theme="light"] .stat-val.gold{color:#1d1d1f}
+[data-theme="light"] .score-bar{background:#e0e0e0}
+[data-theme="light"] .score-bar.filled{background:#ff9500}
+[data-theme="light"] .score-box-bar{background:#e0e0e0}
+[data-theme="light"] .score-box-bar.filled{background:#ff9500}
+[data-theme="light"] .concept-box{border:2px solid #1d1d1f;background:#f5f5f7}
+[data-theme="light"] .concept-name{color:#1d1d1f}
+[data-theme="light"] .modal-section.gold{background:#f5f5f7;border:1px solid #d2d2d7}
+[data-theme="light"] .modal-section-title.gold{color:#1d1d1f}
+[data-theme="light"] .alpha-icon{color:#1d1d1f}
+[data-theme="light"] .bags-cta{background:#1d1d1f;color:#fff}
+[data-theme="light"] .badge{background:#fff;border:1.5px solid currentColor}
+
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
 .container{max-width:1400px;margin:0 auto;padding:0 24px}
-.theme-toggle{position:fixed;top:20px;right:20px;z-index:100;background:var(--card);border:1px solid var(--border);color:var(--text);padding:10px 16px;border-radius:10px;cursor:pointer;font-size:0.85rem;font-weight:500;transition:all 0.2s}
-.theme-toggle:hover{border-color:var(--gold);transform:translateY(-2px)}
+.theme-toggle{position:fixed;top:20px;right:20px;z-index:100;background:var(--card);border:1px solid var(--border);color:var(--text);padding:10px 16px;border-radius:10px;cursor:pointer;font-size:0.85rem;font-weight:600;transition:all 0.2s}
+.theme-toggle:hover{transform:translateY(-2px)}
 .header{text-align:center;padding:50px 0 30px}
 .title{font-size:clamp(2.5rem,10vw,6rem);font-weight:900;line-height:0.95;margin-bottom:12px;background:linear-gradient(180deg,var(--text) 0%,var(--muted) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .subtitle{font-size:1.1rem;color:var(--text2);margin-bottom:6px}
 .highlight{color:var(--red);font-weight:700}
 .phoenix-tagline{color:var(--gold);font-size:0.95rem;margin-top:8px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:14px;overflow:hidden;margin:30px auto;max-width:800px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin:30px auto;max-width:800px}
 @media(max-width:600px){.stats{grid-template-columns:repeat(2,1fr)}}
-.stat{background:var(--card);padding:20px;text-align:center}
+.stat{background:var(--card);padding:20px;text-align:center;border-right:1px solid var(--border)}
+.stat:last-child{border-right:none}
+@media(max-width:600px){.stat:nth-child(2){border-right:none}.stat:nth-child(1),.stat:nth-child(2){border-bottom:1px solid var(--border)}}
 .stat-val{font-family:'IBM Plex Mono';font-size:1.8rem;font-weight:700;color:var(--red)}
 .stat-val.gold{color:var(--gold)}
 .stat-label{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted)}
 .nav{display:flex;justify-content:center;gap:8px;margin-bottom:24px;flex-wrap:wrap}
 .nav-btn{background:var(--card);border:1px solid var(--border);color:var(--text2);padding:12px 24px;border-radius:10px;font-family:'IBM Plex Mono';font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.2s}
-.nav-btn:hover{border-color:var(--red);color:var(--text);transform:translateY(-2px)}
+.nav-btn:hover{border-color:var(--text);color:var(--text);transform:translateY(-2px)}
 .nav-btn.active{background:var(--red);border-color:var(--red);color:#fff}
 .nav-btn.phoenix{border-color:var(--gold)}
 .nav-btn.phoenix:hover{border-color:var(--gold);background:rgba(255,215,0,0.1)}
-.nav-btn.phoenix.active{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000}
+.nav-btn.phoenix.active{background:var(--gold);color:#000}
 .search{width:100%;max-width:400px;margin:0 auto 20px;display:block;background:var(--card);border:1px solid var(--border);color:var(--text);padding:12px 16px;border-radius:10px;font-size:1rem}
-.search:focus{outline:none;border-color:var(--red)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px;margin-bottom:40px}
+.search:focus{outline:none;border-color:var(--text)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px;margin-bottom:40px}
 @media(max-width:380px){.grid{grid-template-columns:1fr}}
-.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;cursor:pointer;position:relative;transition:all 0.2s}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;cursor:pointer;position:relative;transition:all 0.2s}
 .card:hover{border-color:var(--red);transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,0.2)}
-.card.phoenix-card{border-color:rgba(255,215,0,0.3)}
+.card.phoenix-card{border-color:var(--gold)}
 .card.phoenix-card:hover{border-color:var(--gold);box-shadow:0 12px 30px rgba(255,215,0,0.15)}
-.badge{position:absolute;top:12px;right:12px;padding:4px 8px;border-radius:5px;font-size:0.65rem;font-weight:700;text-transform:uppercase}
+.badge{position:absolute;top:14px;right:14px;padding:4px 10px;border-radius:5px;font-size:0.65rem;font-weight:700;text-transform:uppercase;background:rgba(0,0,0,0.1)}
 .badge.rug{background:rgba(255,45,85,0.15);color:var(--red)}
 .badge.hack{background:rgba(255,149,0,0.15);color:var(--orange)}
 .badge.collapse{background:rgba(191,90,242,0.15);color:var(--purple)}
-.phoenix-badge{position:absolute;top:12px;left:12px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;padding:4px 8px;border-radius:5px;font-size:0.65rem;font-weight:700;display:flex;align-items:center;gap:4px}
-.card-name{font-size:1.3rem;font-weight:700;margin-bottom:4px;padding-right:80px}
+.badge.ponzi{background:rgba(255,45,85,0.15);color:var(--red)}
+.badge.fraud{background:rgba(255,45,85,0.15);color:var(--red)}
+.phoenix-badge{position:absolute;top:14px;left:14px;background:linear-gradient(135deg,#ffd700,#ffb800);color:#000;padding:5px 10px;border-radius:5px;font-size:0.65rem;font-weight:700;display:flex;align-items:center;gap:4px;z-index:2}
+.card-name{font-size:1.3rem;font-weight:700;margin-bottom:4px;padding-right:100px}
+.phoenix-card .card-name{padding-top:40px;padding-right:100px}
 .card-meta{font-family:'IBM Plex Mono';font-size:0.75rem;color:var(--muted);margin-bottom:10px}
 .card-desc{font-size:0.9rem;color:var(--text2);margin-bottom:14px;line-height:1.5}
 .card-amount{font-family:'IBM Plex Mono';font-size:1.3rem;font-weight:700;color:var(--red)}
@@ -56,7 +99,9 @@ body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-h
 .score-label{font-size:0.65rem;color:var(--muted);text-transform:uppercase}
 .score-bars{display:flex;gap:2px}
 .score-bar{width:12px;height:6px;border-radius:2px;background:var(--border)}
-.score-bar.filled{background:var(--gold)}
+.score-bar.filled{background:#ffd700}
+.score-box-bar{width:16px;height:8px;border-radius:2px;background:var(--border)}
+.score-box-bar.filled{background:#ffd700}
 .shame-card{border:2px solid var(--red);padding:20px 20px 20px 60px;position:relative}
 .shame-rank{position:absolute;top:50%;left:16px;transform:translateY(-50%);font-family:'IBM Plex Mono';font-size:1.8rem;font-weight:900;color:var(--red);opacity:0.5}
 .shame-photo{width:70px;height:70px;border-radius:50%;object-fit:cover;border:3px solid var(--red);margin-bottom:10px;background:var(--bg2)}
@@ -76,7 +121,7 @@ body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-h
 .trench-emoji{font-size:2.2rem;margin-bottom:6px}
 .trench-name{font-size:1.2rem;font-weight:700;color:var(--orange);margin-bottom:3px}
 .trench-photo{width:60px;height:60px;border-radius:8px;object-fit:cover;margin-bottom:6px;border:2px solid var(--orange)}
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.92);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;z-index:1000;padding:16px}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;z-index:1000;padding:16px}
 .modal{background:var(--card);border:1px solid var(--border);border-radius:16px;max-width:700px;width:100%;max-height:90vh;overflow-y:auto;position:relative}
 .modal.phoenix-modal{border-color:var(--gold)}
 .modal-close{position:absolute;top:14px;right:14px;background:var(--bg2);border:none;color:var(--text);width:36px;height:36px;border-radius:50%;font-size:1.2rem;cursor:pointer;z-index:10}
@@ -89,26 +134,36 @@ body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-h
 .modal-section{margin-bottom:20px;background:var(--bg2);border-radius:10px;padding:16px}
 .modal-section.gold{background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.2)}
 .modal-section.green{background:rgba(48,209,88,0.08);border:1px solid rgba(48,209,88,0.2)}
-.modal-section-title{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:10px;font-weight:700;display:flex;align-items:center;gap:6px}
+.modal-section.orange{background:rgba(255,149,0,0.08);border:1px solid rgba(255,149,0,0.2)}
+.modal-section-title{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:10px;font-weight:700}
 .modal-section-title.gold{color:var(--gold)}
 .modal-section-title.green{color:var(--green)}
+.modal-section-title.orange{color:var(--orange)}
 .modal-text{color:var(--text2);line-height:1.6;font-size:0.95rem}
-.loot-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;color:var(--text2);font-size:0.9rem}
-.loot-icon{color:var(--gold);font-size:1rem}
+.alpha-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;color:var(--text2);font-size:0.9rem}
+.alpha-icon{color:var(--gold);font-size:1rem}
 .execution-step{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px}
 .step-num{background:var(--green);color:#000;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;flex-shrink:0}
 .step-text{color:var(--text2);font-size:0.9rem}
 .concept-box{background:linear-gradient(135deg,rgba(255,215,0,0.1),rgba(255,184,0,0.05));border:1px solid rgba(255,215,0,0.3);border-radius:10px;padding:16px;margin:12px 0}
 .concept-name{font-size:1.4rem;font-weight:800;color:var(--gold);margin-bottom:8px}
+.concept-tagline{font-size:0.85rem;color:var(--text2);font-style:italic;margin-bottom:10px}
 .concept-desc{color:var(--text2);font-size:0.9rem;line-height:1.5}
+.people-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-top:10px}
+.person-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px}
+.person-role{font-size:0.6rem;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.person-name{font-size:0.85rem;font-weight:600;color:var(--text)}
+.protocol-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.protocol-tag{background:var(--bg);border:1px solid var(--border);padding:4px 10px;border-radius:5px;font-family:'IBM Plex Mono';font-size:0.7rem;color:var(--text2)}
+.monetization-box{background:var(--green);color:#000;padding:14px;border-radius:8px;margin-top:12px}
+.monetization-title{font-size:0.7rem;text-transform:uppercase;font-weight:700;opacity:0.8;margin-bottom:6px}
+.monetization-text{font-size:0.85rem;line-height:1.5}
 .bags-cta{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;padding:16px 24px;border-radius:10px;text-align:center;margin-top:20px;cursor:pointer;font-weight:700;font-size:1rem;display:block;text-decoration:none;transition:all 0.2s}
 .bags-cta:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(255,215,0,0.3)}
 .score-display{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
 .score-box{background:var(--bg);border-radius:8px;padding:12px;text-align:center}
 .score-box-label{font-size:0.65rem;color:var(--muted);text-transform:uppercase;margin-bottom:6px}
 .score-box-bars{display:flex;justify-content:center;gap:3px;margin-bottom:4px}
-.score-box-bar{width:16px;height:8px;border-radius:2px;background:var(--border)}
-.score-box-bar.filled{background:var(--gold)}
 .score-box-value{font-family:'IBM Plex Mono';font-size:0.85rem;font-weight:600;color:var(--text)}
 .video-container{position:relative;padding-bottom:56.25%;height:0;border-radius:10px;overflow:hidden;background:#000;margin:12px 0}
 .video-container iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
@@ -140,13 +195,13 @@ const[trenchTab,setTrenchTab]=useState('pump');
 useEffect(()=>{document.documentElement.setAttribute('data-theme',theme)},[theme]);
 
 const phoenixProjects=useMemo(()=>cryptoCorpses.filter(c=>c.phoenix?.enabled),[]);
-const sorted=useMemo(()=>[...cryptoCorpses].sort((a,b)=>(b.amount||0)-(a.amount||0)),[]);
-const filtered=useMemo(()=>sorted.filter(c=>!search||c.name.toLowerCase().includes(search.toLowerCase())),[sorted,search]);
-const stats={total:cryptoCorpses.length,amount:cryptoCorpses.reduce((s,c)=>s+(c.amount||0),0),phoenix:phoenixProjects.length};
+const stats=useMemo(()=>({total:cryptoCorpses.length,amount:cryptoCorpses.reduce((s,c)=>s+c.amount,0),phoenix:phoenixProjects.length}),[phoenixProjects]);
+const filtered=useMemo(()=>cryptoCorpses.filter(c=>!search||c.name.toLowerCase().includes(search.toLowerCase())||c.category.toLowerCase().includes(search.toLowerCase())),[search]);
+const typeLabels={rug:'Rug Pull',hack:'Hack',collapse:'Collapsed',ponzi:'Ponzi',fraud:'Fraud'};
 
 return(<>
 <button className="theme-toggle" onClick={()=>setTheme(t=>t==='dark'?'light':'dark')}>
-{theme==='dark'?'☀️':'🌙'}
+{theme==='dark'?'☀️ Light':'🌙 Dark'}
 </button>
 
 <header className="header"><div className="container">
@@ -165,7 +220,7 @@ return(<>
 
 <nav className="nav">
 <button className={`nav-btn ${section==='graveyard'?'active':''}`} onClick={()=>setSection('graveyard')}>💀 Graveyard</button>
-<button className={`nav-btn phoenix ${section==='phoenix'?'active':''}`} onClick={()=>setSection('phoenix')}>🔥 Phoenix Zone</button>
+<button className={`nav-btn phoenix ${section==='phoenix'?'active':''}`} onClick={()=>setSection('phoenix')}>🔥 Phoenix</button>
 <button className={`nav-btn ${section==='shame'?'active':''}`} onClick={()=>setSection('shame')}>🏆 Hall of Shame</button>
 <button className={`nav-btn ${section==='trenches'?'active':''}`} onClick={()=>setSection('trenches')}>🕳️ Trenches</button>
 </nav>
@@ -177,7 +232,7 @@ return(<>
 {c.phoenix?.enabled&&<div className="phoenix-badge">🔥 PHOENIX</div>}
 <span className={`badge ${c.type}`}>{typeLabels[c.type]}</span>
 <div className="card-name">{c.name}</div>
-<div className="card-meta">{c.category} · {c.deathDate?.split('-')[0]}</div>
+<div className="card-meta">{c.category} · {c.deathDate?.split('-')[0]||'????'}</div>
 <div className="card-desc">{c.description}</div>
 <div className="card-amount">{fmt(c.amount)}</div>
 {c.phoenix?.enabled&&<div className="score-row">
@@ -192,19 +247,14 @@ return(<>
 {section==='phoenix'&&<>
 <div style={{textAlign:'center',marginBottom:24,padding:'20px',background:'linear-gradient(135deg,rgba(255,215,0,0.1),rgba(255,184,0,0.05))',borderRadius:12,border:'1px solid rgba(255,215,0,0.2)'}}>
 <h2 style={{color:'var(--gold)',marginBottom:8}}>🔥 Phoenix Protocol</h2>
-<p style={{color:'var(--text2)',maxWidth:600,margin:'0 auto',fontSize:'0.95rem'}}>These projects had <strong>valid concepts</strong> killed by bad actors, ponzinomics, or timing. The ideas are worth resurrecting with fair launch tokenomics.</p>
+<p style={{color:'var(--text2)',maxWidth:600,margin:'0 auto',fontSize:'0.95rem'}}>These projects had <strong>valid concepts</strong> killed by bad actors. Worth resurrecting with fair launch tokenomics.</p>
 </div>
 <div className="grid">{phoenixProjects.map(c=>(
 <div key={c.id} className="card phoenix-card" onClick={()=>setSelected(c)}>
 <div className="phoenix-badge">🔥 RESURRECT</div>
-<span className={`badge ${c.type}`}>{typeLabels[c.type]}</span>
-<div className="card-name">{c.name}</div>
+<div className="card-name" style={{paddingTop:28}}>{c.name}</div>
 <div className="card-meta">{c.category} · {fmt(c.amount)} lost</div>
-<div className="card-desc">{c.description}</div>
-<div style={{marginTop:12,padding:12,background:'rgba(255,215,0,0.08)',borderRadius:8}}>
-<div style={{color:'var(--gold)',fontWeight:700,marginBottom:6,fontSize:'0.9rem'}}>💡 {c.phoenix.concept.name}</div>
-<div style={{color:'var(--text2)',fontSize:'0.8rem'}}>{c.phoenix.concept.description.slice(0,80)}...</div>
-</div>
+<div className="card-desc">{c.phoenix.concept.description.slice(0,100)}...</div>
 <div className="score-row" style={{marginTop:12}}>
 <div className="score-item"><span className="score-label">Rebuild</span><ScoreBars score={c.phoenix.score.rebuild}/></div>
 <div className="score-item"><span className="score-label">Market</span><ScoreBars score={c.phoenix.score.market}/></div>
@@ -223,25 +273,21 @@ return(<>
 <div className="shame-project">{s.project} · {s.year}</div>
 <div className="shame-quote">"{s.viralQuote}"</div>
 <div className="data-row"><span className="data-label">Extracted:</span><span className="data-value" style={{color:'var(--red)'}}>{s.extracted}</span></div>
-<div className="data-row"><span className="data-label">Peak MC:</span><span className="data-value">{s.peakMC}</span></div>
-<div style={{fontSize:'0.75rem',color:'var(--muted)',marginTop:8}}>{s.status}</div>
 </div>
 ))}</div>}
 
 {section==='trenches'&&<>
 <div className="trench-tabs">
-<button className={`trench-tab ${trenchTab==='pump'?'active':''}`} onClick={()=>setTrenchTab('pump')}>🔥 Pump.fun</button>
-<button className={`trench-tab ${trenchTab==='legends'?'active':''}`} onClick={()=>setTrenchTab('legends')}>🏴‍☠️ Legends</button>
+<button className={`trench-tab ${trenchTab==='pump'?'active':''}`} onClick={()=>setTrenchTab('pump')}>🎰 Pump.fun Rugs</button>
+<button className={`trench-tab ${trenchTab==='bsc'?'active':''}`} onClick={()=>setTrenchTab('bsc')}>🥞 BSC Rugs</button>
 </div>
-<div className="grid">{(trenchTab==='pump'?pumpFunHorrors:trenchLegends).map(t=>(
+<div className="grid">{trenchWarfare.filter(t=>t.chain===(trenchTab==='pump'?'Solana':'BSC')).map(t=>(
 <div key={t.id} className="card trench-card" onClick={()=>setTrenchModal(t)}>
 {t.photoUrl?<img src={t.photoUrl} className="trench-photo" onError={e=>{e.target.style.display='none'}}/>:<div className="trench-emoji">{t.emoji}</div>}
 <div className="trench-name">{t.name}</div>
 <div className="card-meta">{t.perpetrator} · {t.date}</div>
 <div className="card-desc">{t.shortDescription}</div>
 <div className="data-row"><span className="data-label">Extracted:</span><span className="data-value" style={{color:'var(--orange)'}}>{t.extracted}</span></div>
-{t.peakMC&&<div className="data-row"><span className="data-label">Peak MC:</span><span className="data-value">{t.peakMC}</span></div>}
-{t.blockchain&&<a href={t.blockchain==='Solana'?`https://solscan.io/token/${t.contractAddress}`:`https://bscscan.com/token/${t.contractAddress}`} target="_blank" className="explorer-link" onClick={e=>e.stopPropagation()}>🔗 {t.blockchain} Explorer</a>}
 </div>
 ))}</div>
 </>}
@@ -252,7 +298,6 @@ return(<>
 <p style={{marginTop:8}}>Resurrect dead ideas. <a href={BAGS_REFERRAL} target="_blank">Fair launch on Bags →</a></p>
 </footer>
 
-{/* Graveyard/Phoenix Modal */}
 {selected&&<div className="modal-overlay" onClick={()=>setSelected(null)}>
 <div className={`modal ${selected.phoenix?.enabled?'phoenix-modal':''}`} onClick={e=>e.stopPropagation()}>
 <button className="modal-close" onClick={()=>setSelected(null)}>×</button>
@@ -264,40 +309,62 @@ return(<>
 </div>
 
 {selected.phoenix?.enabled&&<div className="score-display">
-<div className="score-box"><div className="score-box-label">Rebuild</div><div className="score-box-bars">{[...Array(5)].map((_,i)=><div key={i} className={`score-box-bar ${i<selected.phoenix.score.rebuild?'filled':''}`}/>)}</div><div className="score-box-value">{selected.phoenix.score.rebuild}/5</div></div>
-<div className="score-box"><div className="score-box-label">Market</div><div className="score-box-bars">{[...Array(5)].map((_,i)=><div key={i} className={`score-box-bar ${i<selected.phoenix.score.market?'filled':''}`}/>)}</div><div className="score-box-value">{selected.phoenix.score.market}/5</div></div>
-<div className="score-box"><div className="score-box-label">Fair Launch</div><div className="score-box-bars">{[...Array(5)].map((_,i)=><div key={i} className={`score-box-bar ${i<selected.phoenix.score.fairLaunch?'filled':''}`}/>)}</div><div className="score-box-value">{selected.phoenix.score.fairLaunch}/5</div></div>
+<div className="score-box"><div className="score-box-label">Rebuild</div><div className="score-box-bars">{[...Array(5)].map((_,i)=><div key={i} className={`score-box-bar ${i<selected.phoenix.score.rebuild?'filled':''}`}/>)}</div></div>
+<div className="score-box"><div className="score-box-label">Market</div><div className="score-box-bars">{[...Array(5)].map((_,i)=><div key={i} className={`score-box-bar ${i<selected.phoenix.score.market?'filled':''}`}/>)}</div></div>
+<div className="score-box"><div className="score-box-label">Fair Launch</div><div className="score-box-bars">{[...Array(5)].map((_,i)=><div key={i} className={`score-box-bar ${i<selected.phoenix.score.fairLaunch?'filled':''}`}/>)}</div></div>
 </div>}
 
-<div className="modal-section">
-<div className="modal-section-title">💀 Cause of Death</div>
+{(selected.valueProposition||selected.phoenix?.valueProposition)&&<div className="modal-section orange">
+<div className="modal-section-title orange">💡 Value Proposition</div>
+<div className="modal-text">{selected.valueProposition||selected.phoenix?.valueProposition}</div>
+</div>}
+
+<div className="modal-section" style={{background:'rgba(255,45,85,0.08)',border:'1px solid rgba(255,45,85,0.2)'}}>
+<div className="modal-section-title" style={{color:'var(--red)'}}>💀 Cause of Death</div>
 <div className="modal-text">{selected.causeOfDeath}</div>
 </div>
 
+{selected.whatWentRight&&<div className="modal-section" style={{background:'rgba(48,209,88,0.08)',border:'1px solid rgba(48,209,88,0.2)'}}>
+<div className="modal-section-title" style={{color:'var(--green)'}}>✅ What They Did Right</div>
+{selected.whatWentRight.map((item,i)=><div key={i} className="alpha-item"><span style={{color:'var(--green)'}}>✓</span>{item}</div>)}
+</div>}
+
+{selected.whatWentWrong&&<div className="modal-section" style={{background:'rgba(255,45,85,0.08)',border:'1px solid rgba(255,45,85,0.2)'}}>
+<div className="modal-section-title" style={{color:'var(--red)'}}>❌ What Went Wrong</div>
+{selected.whatWentWrong.map((item,i)=><div key={i} className="alpha-item"><span style={{color:'var(--red)'}}>✗</span>{item}</div>)}
+</div>}
+
+{(selected.theAlpha||selected.phoenix?.theAlpha)&&<div className="modal-section gold">
+<div className="modal-section-title gold">💎 The Alpha</div>
+{(selected.theAlpha||selected.phoenix?.theAlpha).map((l,i)=><div key={i} className="alpha-item"><span className="alpha-icon">💎</span>{l}</div>)}
+</div>}
+
+{(selected.keyPeople||selected.phoenix?.keyPeople)&&<div className="modal-section">
+<div className="modal-section-title">👥 Key People</div>
+<div className="people-grid">{(selected.keyPeople||selected.phoenix?.keyPeople).map((p,i)=><div key={i} className="person-card"><div className="person-role">{p.role}</div><div className="person-name">{p.name}</div></div>)}</div>
+</div>}
+
 {selected.lessons&&<div className="modal-section">
 <div className="modal-section-title">📚 Lessons</div>
-{selected.lessons.map((l,i)=><div key={i} className="loot-item"><span>→</span>{l}</div>)}
+{selected.lessons.map((l,i)=><div key={i} className="alpha-item"><span>→</span>{l}</div>)}
 </div>}
 
 {selected.phoenix?.enabled&&<>
-<div className="modal-section gold">
-<div className="modal-section-title gold">💎 The Loot (What To Steal)</div>
-{selected.phoenix.theLoot.map((l,i)=><div key={i} className="loot-item"><span className="loot-icon">💎</span>{l}</div>)}
-</div>
-
 <div className="modal-section">
 <div className="modal-section-title">📈 Market Today</div>
 <div className="modal-text">{selected.phoenix.marketToday}</div>
+{selected.phoenix.protocols&&<div className="protocol-tags">{selected.phoenix.protocols.map((p,i)=><span key={i} className="protocol-tag">{p}</span>)}</div>}
 </div>
 
 <div className="concept-box">
-<div className="concept-name">💡 {selected.phoenix.concept.name}</div>
+<div className="concept-name">🔮 {selected.phoenix.concept.name}</div>
+{selected.phoenix.concept.tagline&&<div className="concept-tagline">"{selected.phoenix.concept.tagline}"</div>}
 <div className="concept-desc">{selected.phoenix.concept.description}</div>
 </div>
 
 <div className="modal-section green">
 <div className="modal-section-title green">🚀 Execution Plan</div>
-{selected.phoenix.executionPlan.map((step,i)=><div key={i} className="execution-step"><span className="step-num">{i+1}</span><span className="step-text">{step}</span></div>)}
+{selected.phoenix.executionPlan.map((step,i)=><div key={i} className="execution-step"><span className="step-num">{i+1}</span><span className="step-text">{typeof step==='object'?step.step:step}</span></div>)}
 </div>
 
 <div className="modal-section">
@@ -305,52 +372,64 @@ return(<>
 <div className="modal-text">{selected.phoenix.tokenomics}</div>
 </div>
 
-<a href={BAGS_REFERRAL} target="_blank" className="bags-cta">🚀 Launch This Idea on Bags →</a>
-</>}
-</div></div></div>}
+{selected.phoenix.monetization&&<div className="monetization-box">
+<div className="monetization-title">💵 Revenue Model</div>
+<div className="monetization-text">{selected.phoenix.monetization}</div>
+</div>}
 
-{/* Hall of Shame Modal */}
+{selected.phoenix.risks&&<div className="modal-section">
+<div className="modal-section-title">⚠️ Risks</div>
+{selected.phoenix.risks.map((r,i)=><div key={i} className="alpha-item"><span style={{color:'var(--red)'}}>⚠️</span>{r}</div>)}
+</div>}
+
+<a href={BAGS_REFERRAL} target="_blank" className="bags-cta">🚀 Launch on Bags</a>
+</>}
+</div>
+</div>
+</div>}
+
 {shameModal&&<div className="modal-overlay" onClick={()=>setShameModal(null)}>
 <div className="modal" onClick={e=>e.stopPropagation()}>
 <button className="modal-close" onClick={()=>setShameModal(null)}>×</button>
 <div className="modal-content">
-<div className="modal-header">
 <img src={shameModal.photoUrl} className="modal-photo" style={{borderColor:'var(--red)'}} onError={e=>{e.target.style.display='none'}}/>
-<div className="modal-title" style={{color:'var(--red)'}}>#{shameModal.rank} {shameModal.name}</div>
+<div className="modal-header">
+<div className="modal-title" style={{color:'var(--red)'}}>{shameModal.name}</div>
 <div style={{color:'var(--muted)'}}>{shameModal.project} · {shameModal.year}</div>
 </div>
-<div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:12,margin:'16px 0'}}>
-<div className="modal-section" style={{margin:0}}><div className="modal-section-title">💸 Extracted</div><div style={{fontFamily:'IBM Plex Mono',fontWeight:700,color:'var(--red)'}}>{shameModal.extracted}</div></div>
-<div className="modal-section" style={{margin:0}}><div className="modal-section-title">📊 Peak MC</div><div style={{fontFamily:'IBM Plex Mono',fontWeight:700}}>{shameModal.peakMC}</div></div>
+<div className="modal-section"><div className="modal-text">{shameModal.description}</div></div>
+<div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12,marginBottom:16}}>
+<div className="data-row"><span className="data-label">Extracted:</span><span className="data-value" style={{color:'var(--red)'}}>{shameModal.extracted}</span></div>
+<div className="data-row"><span className="data-label">Status:</span><span className="data-value">{shameModal.status}</span></div>
 </div>
-<div style={{textAlign:'center',padding:'10px 16px',background:'var(--bg2)',borderRadius:8,marginBottom:16,fontSize:'0.85rem',color:'var(--muted)'}}>{shameModal.status}</div>
-<div className="modal-section"><div className="modal-section-title">💬 Viral Moment</div><div className="modal-text">{shameModal.viralMoment}</div></div>
-{shameModal.videoId&&<div className="modal-section"><div className="modal-section-title">📺 Watch</div><div className="video-container"><iframe src={`https://www.youtube.com/embed/${shameModal.videoId}?rel=0`} allowFullScreen/></div></div>}
-<div className="modal-section"><div className="modal-section-title">📖 Story</div><div className="modal-text">{shameModal.story}</div></div>
-</div></div></div>}
+{shameModal.youtubeId&&<div className="video-container"><iframe src={`https://www.youtube.com/embed/${shameModal.youtubeId}`} allowFullScreen/></div>}
+</div>
+</div>
+</div>}
 
-{/* Trenches Modal */}
 {trenchModal&&<div className="modal-overlay" onClick={()=>setTrenchModal(null)}>
 <div className="modal" onClick={e=>e.stopPropagation()}>
 <button className="modal-close" onClick={()=>setTrenchModal(null)}>×</button>
 <div className="modal-content">
 <div className="modal-header">
-{trenchModal.photoUrl?<img src={trenchModal.photoUrl} className="modal-photo" style={{borderColor:'var(--orange)',borderRadius:12}} onError={e=>{e.target.style.display='none'}}/>:<div style={{textAlign:'center',fontSize:'4rem',marginBottom:12}}>{trenchModal.emoji}</div>}
+<div style={{fontSize:'3rem',marginBottom:8}}>{trenchModal.emoji}</div>
 <div className="modal-title" style={{color:'var(--orange)'}}>{trenchModal.name}</div>
-<div style={{color:'var(--muted)'}}>{trenchModal.perpetrator} · {trenchModal.date}</div>
+<div style={{color:'var(--muted)'}}>{trenchModal.chain} · {trenchModal.date}</div>
 </div>
-<div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:12,margin:'16px 0'}}>
-<div className="modal-section" style={{margin:0}}><div className="modal-section-title">💸 Extracted</div><div style={{fontFamily:'IBM Plex Mono',fontWeight:700,color:'var(--orange)'}}>{trenchModal.extracted}</div></div>
-<div className="modal-section" style={{margin:0}}><div className="modal-section-title">📊 Peak MC</div><div style={{fontFamily:'IBM Plex Mono',fontWeight:700}}>{trenchModal.peakMC||'Unknown'}</div></div>
+<div className="modal-section"><div className="modal-text">{trenchModal.fullDescription}</div></div>
+<div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12}}>
+<div className="data-row"><span className="data-label">Extracted:</span><span className="data-value" style={{color:'var(--orange)'}}>{trenchModal.extracted}</span></div>
+<div className="data-row"><span className="data-label">Peak MC:</span><span className="data-value">{trenchModal.peakMC}</span></div>
+<div className="data-row"><span className="data-label">Perpetrator:</span><span className="data-value">{trenchModal.perpetrator}</span></div>
+<div className="data-row"><span className="data-label">Rug Type:</span><span className="data-value">{trenchModal.rugType}</span></div>
 </div>
-{trenchModal.blockchain&&<a href={trenchModal.blockchain==='Solana'?`https://solscan.io/token/${trenchModal.contractAddress}`:trenchModal.blockchain==='BSC'?`https://bscscan.com/token/${trenchModal.contractAddress}`:`https://etherscan.io/token/${trenchModal.contractAddress}`} target="_blank" className="explorer-link" style={{marginBottom:16,display:'inline-flex'}}>🔗 View on {trenchModal.blockchain} Explorer</a>}
-<div className="modal-section"><div className="modal-section-title">📖 What Happened</div><div className="modal-text">{trenchModal.fullStory}</div></div>
-{trenchModal.videoId&&trenchModal.videoType==='youtube'&&<div className="modal-section"><div className="modal-section-title">📺 Watch</div><div className="video-container"><iframe src={`https://www.youtube.com/embed/${trenchModal.videoId}?rel=0`} allowFullScreen/></div></div>}
-<div className="modal-section"><div className="modal-section-title">☠️ Aftermath</div><div className="modal-text">{trenchModal.aftermath}</div></div>
-</div></div></div>}
+</div>
+</div>
+</div>}
 </>);
 }
-ReactDOM.render(<App/>,document.getElementById('root'));
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
 </script>
 </body>
 </html>
