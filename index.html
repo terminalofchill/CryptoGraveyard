@@ -246,7 +246,7 @@ return(<>
 {section==='shame'&&<div className="grid">{hallOfShame.map(s=>(
 <div key={s.id} className="card shame-card" onClick={()=>setShameModal(s)}>
 <div className="shame-rank">#{s.rank}</div>
-<div className="video-badge">▶ Video</div>
+{(s.youtubeId||s.videoId)&&<div className="video-badge">▶ Video</div>}
 <img src={s.photoUrl} alt={s.name} className="shame-photo" onError={e=>{e.target.style.display='none'}}/>
 <div className="shame-name">{s.name}</div>
 <div className="shame-project">{s.project} · {s.year}</div>
@@ -393,9 +393,10 @@ return(<>
 <div className="modal-section" style={{margin:0}}><div className="modal-section-title">📊 Peak MC</div><div style={{fontFamily:'IBM Plex Mono',fontWeight:700}}>{shameModal.peakMC}</div></div>
 </div>
 <div style={{textAlign:'center',padding:'10px 16px',background:'var(--bg2)',borderRadius:8,marginBottom:16,fontSize:'0.85rem',color:'var(--muted)'}}>{shameModal.status}</div>
-<div className="modal-section"><div className="modal-section-title">💬 Viral Moment</div><div className="modal-text">{shameModal.viralMoment}</div></div>
-{shameModal.videoId&&<div className="modal-section"><div className="modal-section-title">📺 Watch</div><div className="video-container"><iframe src={`https://www.youtube.com/embed/${shameModal.videoId}?rel=0`} allowFullScreen/></div></div>}
-<div className="modal-section"><div className="modal-section-title">📖 Story</div><div className="modal-text">{shameModal.story}</div></div>
+<div className="modal-section"><div className="modal-section-title">💬 Viral Quote</div><div style={{fontStyle:'italic',fontSize:'1.1rem',color:'var(--text)'}}>" {shameModal.viralQuote}"</div></div>
+<div className="modal-section"><div className="modal-section-title">🔥 Viral Moment</div><div className="modal-text">{shameModal.viralMoment}</div></div>
+{(shameModal.youtubeId||shameModal.videoId)&&<div className="modal-section"><div className="modal-section-title">📺 Watch</div><div className="video-container"><iframe src={`https://www.youtube.com/embed/${shameModal.youtubeId||shameModal.videoId}?rel=0`} allowFullScreen/></div></div>}
+<div className="modal-section"><div className="modal-section-title">📖 Full Story</div><div className="modal-text">{shameModal.description||shameModal.story}</div></div>
 </div></div></div>}
 
 {/* Trenches Modal */}
