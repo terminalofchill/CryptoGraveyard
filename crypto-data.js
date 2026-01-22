@@ -357,7 +357,7 @@ photoUrl:"images/_9_Carlos_Matos.jpg",viralQuote:"BITCONNEEEEECT!",
 description:"His unhinged conference scream became crypto's most famous meme. Promoted obvious Ponzi to thousands. Now does paid cameos. The face of crypto cringe forever.",
 viralMoment:"'BITCONNEEECT!' scream at conference became legendary crypto cringe.",
 story:"Conference scream became legendary. Promoted Ponzi. Now does cameos.",
-tags:["bitconnect","meme"],viralityScore:10,youtubeId:"lCcwn6bGUtU",videoType:"youtube"},
+tags:["bitconnect","meme"],viralityScore:10,youtubeId:"xK3yxg_00JI",videoType:"youtube"},
 
 {rank:10,id:'karpeles',name:"Mark Karpelès",project:"Mt. Gox",year:"2014",status:"Suspended sentence",
 extracted:"850,000 BTC lost",peakMC:"N/A",victimLosses:"$8.5B+",
@@ -365,7 +365,7 @@ photoUrl:"images/_10_Mark_Karpeles.jpg",viralQuote:"Technical difficulties.",
 description:"CEO when Mt. Gox lost 850,000 BTC. Either massive incompetence or fraud - jury's still out. Creditors waited 10+ years for partial recovery. The original crypto catastrophe.",
 viralMoment:"'Technical difficulties' while 850,000 BTC vanished over years.",
 story:"Lost 850K BTC. Incompetence or fraud unclear. Original crypto catastrophe.",
-tags:["mtgox","og"],viralityScore:8,youtubeId:"lV6ikdGTzLk",videoType:"youtube"}
+tags:["mtgox","og"],viralityScore:8,youtubeId:"mWCq3sWPigk",videoType:"youtube"}
 ];
 
 const pumpFunHorrors = [
