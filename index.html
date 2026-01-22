@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crypto Graveyard - Phoenix Protocol | Resurrect Dead Crypto Ideas</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+:root{--bg:#08080a;--bg2:#0f0f12;--card:#141417;--card-hover:#1a1a1e;--text:#fafafa;--text2:#a0a0a5;--muted:#606065;--border:#3a3a40;--red:#ff2d55;--orange:#ff9500;--blue:#0a84ff;--purple:#bf5af2;--green:#30d158;--gold:#00d672;--gold2:#00b860}
+[data-theme="light"]{--bg:#fafafa;--bg2:#f0f0f2;--card:#ffffff;--card-hover:#f5f5f7;--text:#1d1d1f;--text2:#494949;--muted:#6e6e73;--border:#1d1d1f;--red:#d62839;--orange:#e86800;--blue:#0066cc;--purple:#8b44ac;--green:#1a8754;--gold:#00a65a;--gold2:#008f4c}
+
+/* Light mode Phoenix fixes - green accent, black text */
+[data-theme="light"] .phoenix-badge{background:#00d672;color:#000;border:2px solid #1d1d1f}
+[data-theme="light"] .phoenix-tagline{color:#1d1d1f}
+[data-theme="light"] .stat-val.gold{color:#00a65a}
+[data-theme="light"] .score-bar.filled{background:#00d672}
+[data-theme="light"] .card.phoenix-card{border-color:#1d1d1f}
+[data-theme="light"] .card.phoenix-card:hover{border-color:#00d672;box-shadow:0 12px 30px rgba(0,0,0,0.15)}
+[data-theme="light"] .nav-btn.phoenix{border-color:#1d1d1f}
+[data-theme="light"] .nav-btn.phoenix:hover{border-color:#00d672;background:rgba(0,214,114,0.1)}
+[data-theme="light"] .nav-btn.phoenix.active{background:#00d672;border-color:#00d672;color:#000}
+/* Live Ticker */
+.live-ticker{background:linear-gradient(90deg,#0d0d0f 0%,#1a0a0a 50%,#0d0d0f 100%);border-bottom:1px solid var(--red);padding:10px 0;overflow:hidden;position:relative}
+.live-ticker::before{content:'';position:absolute;left:0;top:0;bottom:0;width:60px;background:linear-gradient(90deg,#0d0d0f,transparent);z-index:2}
+.live-ticker::after{content:'';position:absolute;right:0;top:0;bottom:0;width:60px;background:linear-gradient(-90deg,#0d0d0f,transparent);z-index:2}
+.ticker-content{display:flex;align-items:center;animation:ticker-scroll 30s linear infinite;width:max-content}
+.ticker-content:hover{animation-play-state:paused}
+@keyframes ticker-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.live-badge{background:var(--red);color:#fff;padding:4px 10px;border-radius:4px;font-size:0.7rem;font-weight:700;display:flex;align-items:center;gap:6px;margin-right:20px;flex-shrink:0}
+.live-dot{width:6px;height:6px;background:#fff;border-radius:50%;animation:pulse-dot 1.5s infinite}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:0.3}}
+.ticker-item{display:flex;align-items:center;gap:8px;padding:0 24px;border-right:1px solid rgba(255,45,85,0.2);white-space:nowrap}
+.ticker-item:last-child{border-right:none}
+.ticker-name{font-weight:600;color:var(--text)}
+.ticker-amount{font-family:'IBM Plex Mono';color:var(--red);font-weight:600}
+.ticker-type{font-size:0.7rem;color:var(--muted);text-transform:uppercase}
+.ticker-new{background:var(--gold);color:#000;padding:2px 6px;border-radius:3px;font-size:0.6rem;font-weight:700;margin-left:4px}
+[data-theme="light"] .live-ticker{background:linear-gradient(90deg,#f5f5f5 0%,#fff5f5 50%,#f5f5f5 100%)}
+[data-theme="light"] .live-ticker::before{background:linear-gradient(90deg,#f5f5f5,transparent)}
+[data-theme="light"] .live-ticker::after{background:linear-gradient(-90deg,#f5f5f5,transparent)}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.container{max-width:1400px;margin:0 auto;padding:0 24px}
+.theme-toggle{position:fixed;top:60px;right:20px;z-index:100;background:var(--card);border:2px solid var(--border);color:var(--text);padding:10px 16px;border-radius:10px;cursor:pointer;font-size:0.85rem;font-weight:500;transition:all 0.2s}
+.theme-toggle:hover{border-color:var(--gold);transform:translateY(-2px)}
+.header{text-align:center;padding:50px 0 30px}
+.title{font-size:clamp(2.5rem,10vw,6rem);font-weight:900;line-height:0.95;margin-bottom:12px;background:linear-gradient(180deg,var(--text) 0%,var(--muted) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{font-size:1.1rem;color:var(--text2);margin-bottom:6px}
+.highlight{color:var(--red);font-weight:700}
+.phoenix-tagline{color:var(--gold);font-size:0.95rem;margin-top:8px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:2px solid var(--border);border-radius:14px;overflow:hidden;margin:30px auto;max-width:800px}
+@media(max-width:600px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{background:var(--card);padding:20px;text-align:center}
+.stat-val{font-family:'IBM Plex Mono';font-size:1.8rem;font-weight:700;color:var(--red)}
+.stat-val.gold{color:var(--gold)}
+.stat-label{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted)}
+.nav{display:flex;justify-content:center;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.nav-btn{background:var(--card);border:2px solid var(--border);color:var(--text2);padding:12px 24px;border-radius:10px;font-family:'IBM Plex Mono';font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.2s}
+.nav-btn:hover{border-color:var(--red);color:var(--text);transform:translateY(-2px)}
+.nav-btn.active{background:var(--red);border-color:var(--red);color:#fff}
+.nav-btn.phoenix{border-color:var(--gold)}
+.nav-btn.phoenix:hover{border-color:var(--gold);background:rgba(0,214,114,0.1)}
+.nav-btn.phoenix.active{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000}
+.search{width:100%;max-width:400px;margin:0 auto 20px;display:block;background:var(--card);border:2px solid var(--border);color:var(--text);padding:12px 16px;border-radius:10px;font-size:1rem}
+.search:focus{outline:none;border-color:var(--red)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px;margin-bottom:40px}
+@media(max-width:380px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:2px solid var(--border);border-radius:12px;padding:20px;cursor:pointer;position:relative;transition:all 0.2s}
+.card:hover{border-color:var(--red);transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,0.2)}
+.card.phoenix-card{border-color:rgba(0,214,114,0.3)}
+.card.phoenix-card:hover{border-color:var(--gold);box-shadow:0 12px 30px rgba(0,214,114,0.15)}
+.badge{position:absolute;top:12px;right:12px;padding:4px 8px;border-radius:5px;font-size:0.65rem;font-weight:700;text-transform:uppercase}
+.badge.rug{background:rgba(255,45,85,0.15);color:var(--red)}
+.badge.hack{background:rgba(255,149,0,0.15);color:var(--orange)}
+.badge.collapse{background:rgba(191,90,242,0.15);color:var(--purple)}
+.phoenix-badge{position:absolute;top:12px;left:12px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;padding:4px 8px;border-radius:5px;font-size:0.65rem;font-weight:700;display:flex;align-items:center;gap:4px;z-index:2}
+.card-name{font-size:1.3rem;font-weight:700;margin-bottom:4px;padding-right:80px}
+.phoenix-card .card-name{padding-top:28px}
+.card-meta{font-family:'IBM Plex Mono';font-size:0.75rem;color:var(--muted);margin-bottom:10px}
+.card-desc{font-size:0.9rem;color:var(--text2);margin-bottom:14px;line-height:1.5}
+.card-amount{font-family:'IBM Plex Mono';font-size:1.3rem;font-weight:700;color:var(--red)}
+.score-row{display:flex;gap:12px;margin-top:12px;flex-wrap:wrap}
+.score-item{display:flex;flex-direction:column;gap:4px}
+.score-label{font-size:0.65rem;color:var(--muted);text-transform:uppercase}
+.score-bars{display:flex;gap:2px}
+.score-bar{width:12px;height:6px;border-radius:2px;background:var(--border)}
+.score-bar.filled{background:var(--gold)}
+.shame-card{border:2px solid var(--red);padding:20px 20px 20px 60px;position:relative}
+.shame-rank{position:absolute;top:50%;left:16px;transform:translateY(-50%);font-family:'IBM Plex Mono';font-size:1.8rem;font-weight:900;color:var(--red);opacity:0.5}
+.shame-photo{width:70px;height:70px;border-radius:50%;object-fit:cover;border:3px solid var(--red);margin-bottom:10px;background:var(--bg2)}
+.shame-name{font-size:1.3rem;font-weight:800;color:var(--red);margin-bottom:3px}
+.shame-project{font-family:'IBM Plex Mono';font-size:0.75rem;color:var(--muted);margin-bottom:10px}
+.shame-quote{background:rgba(255,45,85,0.08);border-left:3px solid var(--red);padding:10px;margin-bottom:10px;font-style:italic;color:var(--text2);border-radius:0 6px 6px 0;font-size:0.85rem}
+.data-row{display:flex;gap:6px;margin-bottom:4px;font-size:0.8rem;align-items:center}
+.data-label{color:var(--muted);min-width:65px}
+.data-value{font-family:'IBM Plex Mono';color:var(--text);font-weight:600}
+.video-badge{position:absolute;top:14px;right:14px;background:#ff0000;color:white;padding:5px 10px;border-radius:5px;font-size:0.65rem;font-weight:700}
+.trench-tabs{display:flex;justify-content:center;gap:8px;margin-bottom:20px}
+.trench-tab{background:var(--card);border:2px solid var(--border);color:var(--text2);padding:10px 18px;border-radius:8px;cursor:pointer;font-weight:600;font-size:0.85rem;transition:all 0.2s}
+.trench-tab:hover{border-color:var(--orange)}
+.trench-tab.active{background:var(--orange);border-color:var(--orange);color:#fff}
+.trench-card{border-color:var(--orange)}
+.trench-card:hover{box-shadow:0 12px 30px rgba(255,149,0,0.12)}
+.trench-emoji{font-size:2.2rem;margin-bottom:6px}
+.trench-name{font-size:1.2rem;font-weight:700;color:var(--orange);margin-bottom:3px}
+.trench-photo{width:60px;height:60px;border-radius:8px;object-fit:cover;margin-bottom:6px;border:2px solid var(--orange)}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.92);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;z-index:1000;padding:16px}
+.modal{background:var(--card);border:2px solid var(--border);border-radius:16px;max-width:700px;width:100%;max-height:90vh;overflow-y:auto;position:relative}
+.modal.phoenix-modal{border-color:var(--gold)}
+.modal-close{position:absolute;top:14px;right:14px;background:var(--bg2);border:none;color:var(--text);width:36px;height:36px;border-radius:50%;font-size:1.2rem;cursor:pointer;z-index:10}
+.modal-close:hover{background:var(--red);color:white}
+.modal-content{padding:28px}
+.modal-header{text-align:center;margin-bottom:20px}
+.modal-photo{width:100px;height:100px;border-radius:50%;object-fit:cover;border:4px solid var(--red);margin:0 auto 12px;display:block}
+.modal-title{font-size:1.8rem;font-weight:800;margin-bottom:6px}
+.modal-amount{font-family:'IBM Plex Mono';font-size:2rem;font-weight:700;color:var(--red);margin:12px 0}
+.modal-section{margin-bottom:20px;background:var(--bg2);border-radius:10px;padding:16px}
+.modal-section.gold{background:rgba(0,214,114,0.08);border:1px solid rgba(0,214,114,0.2)}
+.modal-section.green{background:rgba(48,209,88,0.08);border:1px solid rgba(48,209,88,0.2)}
+.modal-section-title{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:10px;font-weight:700;display:flex;align-items:center;gap:6px}
+.modal-section-title.gold{color:var(--gold)}
+.modal-section-title.green{color:var(--green)}
+.modal-text{color:var(--text2);line-height:1.6;font-size:0.95rem}
+.alpha-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;color:var(--text2);font-size:0.9rem}
+.alpha-icon{color:var(--gold);font-size:1rem}
+.execution-step{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px}
+.step-num{background:var(--green);color:#000;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;flex-shrink:0}
+.step-text{color:var(--text2);font-size:0.9rem}
+.concept-box{background:linear-gradient(135deg,rgba(0,214,114,0.1),rgba(0,184,96,0.05));border:1px solid rgba(0,214,114,0.3);border-radius:10px;padding:16px;margin:12px 0}
+.concept-name{font-size:1.4rem;font-weight:800;color:var(--gold);margin-bottom:8px}
+.concept-tagline{font-size:0.85rem;color:var(--text2);font-style:italic;margin-bottom:10px}
+.concept-desc{color:var(--text2);font-size:0.9rem;line-height:1.5}
+.modal-section.orange{background:rgba(255,149,0,0.08);border:1px solid rgba(255,149,0,0.2)}
+.modal-section.blue{background:rgba(10,132,255,0.08);border:1px solid rgba(10,132,255,0.2)}
+.modal-section-title.orange{color:var(--orange)}
+.modal-section-title.blue{color:var(--blue)}
+.people-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-top:10px}
+.person-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px}
+.person-role{font-size:0.6rem;text-transform:uppercase;color:var(--muted);margin-bottom:2px;letter-spacing:0.05em}
+.person-name{font-size:0.85rem;font-weight:600;color:var(--text)}
+.protocol-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.protocol-tag{background:var(--bg);border:1px solid var(--border);padding:4px 10px;border-radius:5px;font-family:'IBM Plex Mono';font-size:0.7rem;color:var(--text2)}
+.risk-list{margin-top:10px}
+.risk-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;color:var(--text2);font-size:0.85rem}
+.risk-icon{color:var(--red)}
+.monetization-box{background:var(--green);color:#000;padding:14px;border-radius:8px;margin-top:12px}
+.monetization-title{font-size:0.7rem;text-transform:uppercase;font-weight:700;opacity:0.8;margin-bottom:6px}
+.monetization-text{font-size:0.85rem;line-height:1.5}
+.bags-cta{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;padding:16px 24px;border-radius:10px;text-align:center;margin-top:20px;cursor:pointer;font-weight:700;font-size:1rem;display:block;text-decoration:none;transition:all 0.2s}
+.bags-cta:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,214,114,0.3)}
+.score-display{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+.score-box{background:var(--bg);border-radius:8px;padding:12px;text-align:center}
+.score-box-label{font-size:0.65rem;color:var(--muted);text-transform:uppercase;margin-bottom:6px}
+.score-box-bars{display:flex;justify-content:center;gap:3px;margin-bottom:4px}
+.score-box-bar{width:16px;height:8px;border-radius:2px;background:var(--border)}
+.score-box-bar.filled{background:var(--gold)}
+.score-box-value{font-family:'IBM Plex Mono';font-size:0.85rem;font-weight:600;color:var(--text)}
+.video-container{position:relative;padding-bottom:56.25%;height:0;border-radius:10px;overflow:hidden;background:#000;margin:12px 0}
+.video-container iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+.explorer-link{display:inline-flex;align-items:center;gap:4px;color:var(--blue);font-family:'IBM Plex Mono';font-size:0.75rem;text-decoration:none;padding:6px 10px;background:rgba(10,132,255,0.1);border-radius:6px;margin-top:8px}
+.explorer-link:hover{background:rgba(10,132,255,0.2)}
+footer{text-align:center;padding:40px;border-top:1px solid var(--border);color:var(--muted);font-size:0.85rem;margin-top:40px}
+footer a{color:var(--gold);text-decoration:none}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="crypto-data.js"></script>
+<script type="text/babel">
+const{useState,useMemo,useEffect}=React;
+const fmt=(a)=>!a?'?':a>=1e9?`$${(a/1e9).toFixed(1)}B`:a>=1e6?`$${(a/1e6).toFixed(0)}M`:`$${a.toLocaleString()}`;
+const ScoreBars=({score,max=5})=>(
+<div className="score-bars">{[...Array(max)].map((_,i)=><div key={i} className={`score-bar ${i<score?'filled':''}`}/>)}</div>
+);
+
+function App(){
+const[theme,setTheme]=useState('dark');
+const[section,setSection]=useState('graveyard');
+const[search,setSearch]=useState('');
+const[selected,setSelected]=useState(null);
+const[shameModal,setShameModal]=useState(null);
+const[trenchModal,setTrenchModal]=useState(null);
+const[trenchTab,setTrenchTab]=useState('pump');
+
+useEffect(()=>{document.documentElement.setAttribute('data-theme',theme)},[theme]);
+
+const phoenixProjects=useMemo(()=>cryptoCorpses.filter(c=>c.phoenix?.enabled),[]);
+const sorted=useMemo(()=>[...cryptoCorpses].sort((a,b)=>(b.amount||0)-(a.amount||0)),[]);
+const filtered=useMemo(()=>sorted.filter(c=>!search||c.name.toLowerCase().includes(search.toLowerCase())),[sorted,search]);
+const stats={total:cryptoCorpses.length,amount:cryptoCorpses.reduce((s,c)=>s+(c.amount||0),0),phoenix:phoenixProjects.length};
+
+return(<>
+<div className="live-ticker">
+<div className="ticker-content">
+{[...Array(2)].map((_,dupeIdx)=><React.Fragment key={dupeIdx}>
+<div className="live-badge"><span className="live-dot"></span>LIVE DATABASE</div>
+{sorted.slice(0,12).map((c,i)=>(
+<div className="ticker-item" key={`${dupeIdx}-${c.id}`}>
+<span className="ticker-name">{c.name}</span>
+<span className="ticker-amount">{fmt(c.amount)}</span>
+<span className="ticker-type">{c.type}</span>
+{i<3&&<span className="ticker-new">NEW</span>}
+</div>
+))}
+</React.Fragment>)}
+</div>
+</div>
+
+<button className="theme-toggle" onClick={()=>setTheme(t=>t==='dark'?'light':'dark')}>
+{theme==='dark'?'☀️':'🌙'}
+</button>
+
+<header className="header"><div className="container">
+<h1 className="title">CRYPTO<br/>GRAVEYARD</h1>
+<p className="subtitle">Where <span className="highlight">{fmt(stats.amount)}</span> went to die</p>
+<p className="phoenix-tagline">🔥 Phoenix Protocol: Resurrect dead crypto ideas. Fair launch on Bags.</p>
+</div></header>
+
+<div className="container">
+<div className="stats">
+<div className="stat"><div className="stat-val">{stats.total}</div><div className="stat-label">Dead Projects</div></div>
+<div className="stat"><div className="stat-val">{fmt(stats.amount)}</div><div className="stat-label">Lost</div></div>
+<div className="stat"><div className="stat-val gold">{stats.phoenix}</div><div className="stat-label">Phoenix Ready</div></div>
+<div className="stat"><div className="stat-val">10</div><div className="stat-label">Hall of Shame</div></div>
+</div>
+
+<nav className="nav">
+<button className={`nav-btn ${section==='graveyard'?'active':''}`} onClick={()=>setSection('graveyard')}>💀 Graveyard</button>
+<button className={`nav-btn phoenix ${section==='phoenix'?'active':''}`} onClick={()=>setSection('phoenix')}>🔥 Phoenix Zone</button>
+<button className={`nav-btn ${section==='shame'?'active':''}`} onClick={()=>setSection('shame')}>🏆 Hall of Shame</button>
+<button className={`nav-btn ${section==='trenches'?'active':''}`} onClick={()=>setSection('trenches')}>🕳️ Trenches</button>
+</nav>
+
+{section==='graveyard'&&<>
+<input className="search" placeholder="Search dead projects..." value={search} onChange={e=>setSearch(e.target.value)}/>
+<div className="grid">{filtered.map(c=>(
+<div key={c.id} className={`card ${c.phoenix?.enabled?'phoenix-card':''}`} onClick={()=>setSelected(c)}>
+{c.phoenix?.enabled&&<div className="phoenix-badge">🔥 PHOENIX</div>}
+<span className={`badge ${c.type}`}>{typeLabels[c.type]}</span>
+<div className="card-name">{c.name}</div>
+<div className="card-meta">{c.category} · {c.deathDate?.split('-')[0]}</div>
+<div className="card-desc">{c.description}</div>
+<div className="card-amount">{fmt(c.amount)}</div>
+{c.phoenix?.enabled&&<div className="score-row">
+<div className="score-item"><span className="score-label">Rebuild</span><ScoreBars score={c.phoenix.score.rebuild}/></div>
+<div className="score-item"><span className="score-label">Market</span><ScoreBars score={c.phoenix.score.market}/></div>
+<div className="score-item"><span className="score-label">Fair Launch</span><ScoreBars score={c.phoenix.score.fairLaunch}/></div>
+</div>}
+</div>
+))}</div>
+</>}
+
+{section==='phoenix'&&<>
+<div style={{textAlign:'center',marginBottom:24,padding:'20px',background:'linear-gradient(135deg,rgba(0,214,114,0.1),rgba(0,184,96,0.05))',borderRadius:12,border:'1px solid rgba(0,214,114,0.2)'}}>
+<h2 style={{color:'var(--gold)',marginBottom:8}}>🔥 Phoenix Protocol</h2>
+<p style={{color:'var(--text2)',maxWidth:600,margin:'0 auto',fontSize:'0.95rem'}}>These projects had <strong>valid concepts</strong> killed by bad actors, ponzinomics, or timing. The ideas are worth resurrecting with fair launch tokenomics.</p>
+</div>
+<div className="grid">{phoenixProjects.map(c=>(
+<div key={c.id} className="card phoenix-card" onClick={()=>setSelected(c)}>
+<div className="phoenix-badge">🔥 RESURRECT</div>
+<span className={`badge ${c.type}`}>{typeLabels[c.type]}</span>
+<div className="card-name">{c.name}</div>
+<div className="card-meta">{c.category} · {fmt(c.amount)} lost</div>
+<div className="card-desc">{c.description}</div>
+<div style={{marginTop:12,padding:12,background:'rgba(0,214,114,0.08)',borderRadius:8}}>
+<div style={{color:'var(--gold)',fontWeight:700,marginBottom:6,fontSize:'0.9rem'}}>💡 {c.phoenix.concept.name}</div>
+<div style={{color:'var(--text2)',fontSize:'0.8rem'}}>{c.phoenix.concept.description.slice(0,80)}...</div>
+</div>
+<div className="score-row" style={{marginTop:12}}>
+<div className="score-item"><span className="score-label">Rebuild</span><ScoreBars score={c.phoenix.score.rebuild}/></div>
+<div className="score-item"><span className="score-label">Market</span><ScoreBars score={c.phoenix.score.market}/></div>
+<div className="score-item"><span className="score-label">Fair Launch</span><ScoreBars score={c.phoenix.score.fairLaunch}/></div>
+</div>
+</div>
+))}</div>
+</>}
+
+{section==='shame'&&<div className="grid">{hallOfShame.map(s=>(
+<div key={s.id} className="card shame-card" onClick={()=>setShameModal(s)}>
+<div className="shame-rank">#{s.rank}</div>
+{(s.youtubeId||s.videoId)&&<div className="video-badge">▶ Video</div>}
+<img src={s.photoUrl} alt={s.name} className="shame-photo" onError={e=>{e.target.style.display='none'}}/>
+<div className="shame-name">{s.name}</div>
+<div className="shame-project">{s.project} · {s.year}</div>
+<div className="shame-quote">"{s.viralQuote}"</div>
+<div className="data-row"><span className="data-label">Extracted:</span><span className="data-value" style={{color:'var(--red)'}}>{s.extracted}</span></div>
+<div className="data-row"><span className="data-label">Peak MC:</span><span className="data-value">{s.peakMC}</span></div>
+<div style={{fontSize:'0.75rem',color:'var(--muted)',marginTop:8}}>{s.status}</div>
+</div>
+))}</div>}
+
+{section==='trenches'&&<>
+<div className="trench-tabs">
+<button className={`trench-tab ${trenchTab==='pump'?'active':''}`} onClick={()=>setTrenchTab('pump')}>🔥 Pump.fun</button>
+<button className={`trench-tab ${trenchTab==='legends'?'active':''}`} onClick={()=>setTrenchTab('legends')}>🏴‍☠️ Legends</button>
+</div>
+<div className="grid">{(trenchTab==='pump'?pumpFunHorrors:trenchLegends).map(t=>(
+<div key={t.id} className="card trench-card" onClick={()=>setTrenchModal(t)}>
+{t.photoUrl?<img src={t.photoUrl} className="trench-photo" onError={e=>{e.target.style.display='none'}}/>:<div className="trench-emoji">{t.emoji}</div>}
+<div className="trench-name">{t.name}</div>
+<div className="card-meta">{t.perpetrator} · {t.date}</div>
+<div className="card-desc">{t.shortDescription}</div>
+<div className="data-row"><span className="data-label">Extracted:</span><span className="data-value" style={{color:'var(--orange)'}}>{t.extracted}</span></div>
+{t.peakMC&&<div className="data-row"><span className="data-label">Peak MC:</span><span className="data-value">{t.peakMC}</span></div>}
+{t.blockchain&&<a href={t.blockchain==='Solana'?`https://solscan.io/token/${t.contractAddress}`:`https://bscscan.com/token/${t.contractAddress}`} target="_blank" className="explorer-link" onClick={e=>e.stopPropagation()}>🔗 {t.blockchain} Explorer</a>}
+</div>
+))}</div>
+</>}
+</div>
+
+<footer>
+<p><strong>Crypto Graveyard</strong> · Phoenix Protocol</p>
+<p style={{marginTop:8}}>Resurrect dead ideas. <a href={BAGS_REFERRAL} target="_blank">Fair launch on Bags →</a></p>
+</footer>
+
+{/* Graveyard/Phoenix Modal */}
+{selected&&<div className="modal-overlay" onClick={()=>setSelected(null)}>
+<div className={`modal ${selected.phoenix?.enabled?'phoenix-modal':''}`} onClick={e=>e.stopPropagation()}>
+<button className="modal-close" onClick={()=>setSelected(null)}>×</button>
+<div className="modal-content">
+<div className="modal-header">
+<div className="modal-title">{selected.name}</div>
+<div style={{color:'var(--muted)'}}>{selected.category} · {selected.deathDate}</div>
+<div className="modal-amount">{fmt(selected.amount)} LOST</div>
+</div>
+
+{selected.phoenix?.enabled&&<div className="score-display">
+<div className="score-box"><div className="score-box-label">Rebuild</div><div className="score-box-bars">{[...Array(5)].map((_,i)=><div key={i} className={`score-box-bar ${i<selected.phoenix.score.rebuild?'filled':''}`}/>)}</div><div className="score-box-value">{selected.phoenix.score.rebuild}/5</div></div>
+<div className="score-box"><div className="score-box-label">Market</div><div className="score-box-bars">{[...Array(5)].map((_,i)=><div key={i} className={`score-box-bar ${i<selected.phoenix.score.market?'filled':''}`}/>)}</div><div className="score-box-value">{selected.phoenix.score.market}/5</div></div>
+<div className="score-box"><div className="score-box-label">Fair Launch</div><div className="score-box-bars">{[...Array(5)].map((_,i)=><div key={i} className={`score-box-bar ${i<selected.phoenix.score.fairLaunch?'filled':''}`}/>)}</div><div className="score-box-value">{selected.phoenix.score.fairLaunch}/5</div></div>
+</div>}
+
+<div className="modal-section">
+<div className="modal-section-title">💀 Cause of Death</div>
+<div className="modal-text">{selected.causeOfDeath}</div>
+</div>
+
+{/* THE ALPHA - Show for ALL cards */}
+{(selected.theAlpha||selected.phoenix?.theAlpha)&&<div className="modal-section gold">
+<div className="modal-section-title gold">💎 The Alpha (What To Extract)</div>
+{(selected.theAlpha||selected.phoenix?.theAlpha).map((l,i)=><div key={i} className="alpha-item"><span className="alpha-icon">💎</span>{l}</div>)}
+</div>}
+
+{/* KEY PEOPLE - Show for ALL cards */}
+{(selected.keyPeople||selected.phoenix?.keyPeople)&&<div className="modal-section">
+<div className="modal-section-title">👥 Key People & Investors</div>
+<div className="people-grid">{(selected.keyPeople||selected.phoenix?.keyPeople).map((p,i)=><div key={i} className="person-card"><div className="person-role">{p.role}</div><div className="person-name">{p.name}</div></div>)}</div>
+</div>}
+
+{/* VALUE PROPOSITION - Show for ALL cards */}
+{(selected.valueProposition||selected.phoenix?.valueProposition)&&<div className="modal-section orange">
+<div className="modal-section-title orange">💡 Value Proposition</div>
+<div className="modal-text">{selected.valueProposition||selected.phoenix?.valueProposition}</div>
+</div>}
+
+{/* WHAT WENT RIGHT - Show for ALL cards */}
+{selected.whatWentRight&&<div className="modal-section">
+<div className="modal-section-title" style={{color:'var(--green)'}}>✅ What Went Right</div>
+{selected.whatWentRight.map((l,i)=><div key={i} className="alpha-item"><span style={{color:'var(--green)'}}>✓</span>{l}</div>)}
+</div>}
+
+{/* WHAT WENT WRONG - Show for ALL cards */}
+{selected.whatWentWrong&&<div className="modal-section">
+<div className="modal-section-title" style={{color:'var(--red)'}}>❌ What Went Wrong</div>
+{selected.whatWentWrong.map((l,i)=><div key={i} className="alpha-item"><span style={{color:'var(--red)'}}>✗</span>{l}</div>)}
+</div>}
+
+{/* LESSONS - Show for ALL cards */}
+{selected.lessons&&<div className="modal-section">
+<div className="modal-section-title">📚 Lessons</div>
+{selected.lessons.map((l,i)=><div key={i} className="alpha-item"><span>→</span>{l}</div>)}
+</div>}
+
+{/* PHOENIX-ONLY SECTIONS BELOW */}
+{selected.phoenix?.enabled&&<>
+
+<div className="modal-section">
+<div className="modal-section-title">📈 Market Today</div>
+<div className="modal-text">{selected.phoenix.marketToday}</div>
+{selected.phoenix.protocols&&<div className="protocol-tags">{selected.phoenix.protocols.map((p,i)=><span key={i} className="protocol-tag">{p}</span>)}</div>}
+</div>
+
+<div className="concept-box">
+<div className="concept-name">🔮 {selected.phoenix.concept.name}</div>
+{selected.phoenix.concept.tagline&&<div className="concept-tagline">"{selected.phoenix.concept.tagline}"</div>}
+<div className="concept-desc">{selected.phoenix.concept.description}</div>
+</div>
+
+<div className="modal-section green">
+<div className="modal-section-title green">🚀 Execution Plan</div>
+{selected.phoenix.executionPlan.map((step,i)=><div key={i} className="execution-step"><span className="step-num">{i+1}</span><span className="step-text">{typeof step==='object'?step.step:step}</span></div>)}
+</div>
+
+<div className="modal-section">
+<div className="modal-section-title">💰 Tokenomics</div>
+<div className="modal-text">{selected.phoenix.tokenomics}</div>
+</div>
+
+{selected.phoenix.monetization&&<div className="monetization-box">
+<div className="monetization-title">💵 Revenue Model</div>
+<div className="monetization-text">{selected.phoenix.monetization}</div>
+</div>}
+
+{selected.phoenix.risks&&<div className="modal-section">
+<div className="modal-section-title">⚠️ Key Risks</div>
+<div className="risk-list">{selected.phoenix.risks.map((r,i)=><div key={i} className="risk-item"><span className="risk-icon">⚠️</span>{r}</div>)}</div>
+</div>}
+
+<a href={BAGS_REFERRAL} target="_blank" className="bags-cta">🚀 Launch This Idea on Bags →</a>
+</>}
+</div></div></div>}
+
+{/* Hall of Shame Modal */}
+{shameModal&&<div className="modal-overlay" onClick={()=>setShameModal(null)}>
+<div className="modal" onClick={e=>e.stopPropagation()}>
+<button className="modal-close" onClick={()=>setShameModal(null)}>×</button>
+<div className="modal-content">
+<div className="modal-header">
+<img src={shameModal.photoUrl} className="modal-photo" style={{borderColor:'var(--red)'}} onError={e=>{e.target.style.display='none'}}/>
+<div className="modal-title" style={{color:'var(--red)'}}>#{shameModal.rank} {shameModal.name}</div>
+<div style={{color:'var(--muted)'}}>{shameModal.project} · {shameModal.year}</div>
+</div>
+<div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:12,margin:'16px 0'}}>
+<div className="modal-section" style={{margin:0}}><div className="modal-section-title">💸 Extracted</div><div style={{fontFamily:'IBM Plex Mono',fontWeight:700,color:'var(--red)'}}>{shameModal.extracted}</div></div>
+<div className="modal-section" style={{margin:0}}><div className="modal-section-title">📊 Peak MC</div><div style={{fontFamily:'IBM Plex Mono',fontWeight:700}}>{shameModal.peakMC}</div></div>
+</div>
+<div style={{textAlign:'center',padding:'10px 16px',background:'var(--bg2)',borderRadius:8,marginBottom:16,fontSize:'0.85rem',color:'var(--muted)'}}>{shameModal.status}</div>
+<div className="modal-section"><div className="modal-section-title">💬 Viral Quote</div><div style={{fontStyle:'italic',fontSize:'1.1rem',color:'var(--text)'}}>" {shameModal.viralQuote}"</div></div>
+<div className="modal-section"><div className="modal-section-title">🔥 Viral Moment</div><div className="modal-text">{shameModal.viralMoment}</div></div>
+{(shameModal.youtubeId||shameModal.videoId)&&<div className="modal-section"><div className="modal-section-title">📺 Watch</div><div className="video-container"><iframe src={`https://www.youtube.com/embed/${shameModal.youtubeId||shameModal.videoId}?rel=0`} allowFullScreen/></div></div>}
+<div className="modal-section"><div className="modal-section-title">📖 Full Story</div><div className="modal-text">{shameModal.description||shameModal.story}</div></div>
+</div></div></div>}
+
+{/* Trenches Modal */}
+{trenchModal&&<div className="modal-overlay" onClick={()=>setTrenchModal(null)}>
+<div className="modal" onClick={e=>e.stopPropagation()}>
+<button className="modal-close" onClick={()=>setTrenchModal(null)}>×</button>
+<div className="modal-content">
+<div className="modal-header">
+{trenchModal.photoUrl?<img src={trenchModal.photoUrl} className="modal-photo" style={{borderColor:'var(--orange)',borderRadius:12}} onError={e=>{e.target.style.display='none'}}/>:<div style={{textAlign:'center',fontSize:'4rem',marginBottom:12}}>{trenchModal.emoji}</div>}
+<div className="modal-title" style={{color:'var(--orange)'}}>{trenchModal.name}</div>
+<div style={{color:'var(--muted)'}}>{trenchModal.perpetrator} · {trenchModal.date}</div>
+</div>
+<div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:12,margin:'16px 0'}}>
+<div className="modal-section" style={{margin:0}}><div className="modal-section-title">💸 Extracted</div><div style={{fontFamily:'IBM Plex Mono',fontWeight:700,color:'var(--orange)'}}>{trenchModal.extracted}</div></div>
+<div className="modal-section" style={{margin:0}}><div className="modal-section-title">📊 Peak MC</div><div style={{fontFamily:'IBM Plex Mono',fontWeight:700}}>{trenchModal.peakMC||'Unknown'}</div></div>
+</div>
+{trenchModal.blockchain&&<a href={trenchModal.blockchain==='Solana'?`https://solscan.io/token/${trenchModal.contractAddress}`:trenchModal.blockchain==='BSC'?`https://bscscan.com/token/${trenchModal.contractAddress}`:`https://etherscan.io/token/${trenchModal.contractAddress}`} target="_blank" className="explorer-link" style={{marginBottom:16,display:'inline-flex'}}>🔗 View on {trenchModal.blockchain} Explorer</a>}
+<div className="modal-section"><div className="modal-section-title">📖 What Happened</div><div className="modal-text">{trenchModal.fullStory}</div></div>
+{trenchModal.videoId&&trenchModal.videoType==='youtube'&&<div className="modal-section"><div className="modal-section-title">📺 Watch</div><div className="video-container"><iframe src={`https://www.youtube.com/embed/${trenchModal.videoId}?rel=0`} allowFullScreen/></div></div>}
+<div className="modal-section"><div className="modal-section-title">☠️ Aftermath</div><div className="modal-text">{trenchModal.aftermath}</div></div>
+</div></div></div>}
+</>);
+}
+ReactDOM.render(<App/>,document.getElementById('root'));
+</script>
+</body>
+</html>
