@@ -11,6 +11,23 @@
 <style>
 :root{--bg:#08080a;--bg2:#0f0f12;--card:#141417;--card-hover:#1a1a1e;--text:#fafafa;--text2:#a0a0a5;--muted:#606065;--border:#252528;--red:#ff2d55;--orange:#ff9500;--blue:#0a84ff;--purple:#bf5af2;--green:#30d158;--gold:#ffd700;--gold2:#ffb800}
 [data-theme="light"]{--bg:#fafafa;--bg2:#f0f0f2;--card:#ffffff;--card-hover:#f5f5f7;--text:#1d1d1f;--text2:#494949;--muted:#6e6e73;--border:#d2d2d7;--red:#d62839;--orange:#c75000;--blue:#0066cc;--purple:#8b44ac;--green:#1a8754;--gold:#b8860b;--gold2:#996515}
+
+/* Dark mode - subtle gray outlines */
+.card{border:2px solid #3a3a40}
+.stats{border:2px solid #3a3a40}
+.nav-btn{border:2px solid #3a3a40}
+.search{border:2px solid #3a3a40}
+.theme-toggle{border:2px solid #3a3a40}
+.trench-tab{border:2px solid #3a3a40}
+
+/* Light mode - black outlines */
+[data-theme="light"] .card{border:2px solid #1d1d1f}
+[data-theme="light"] .stats{border:2px solid #1d1d1f}
+[data-theme="light"] .nav-btn{border:2px solid #1d1d1f}
+[data-theme="light"] .search{border:2px solid #1d1d1f}
+[data-theme="light"] .theme-toggle{border:2px solid #1d1d1f}
+[data-theme="light"] .trench-tab{border:2px solid #1d1d1f}
+[data-theme="light"] .modal{border:2px solid #1d1d1f}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
 .container{max-width:1400px;margin:0 auto;padding:0 24px}
