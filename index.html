@@ -9,19 +9,19 @@
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <style>
-:root{--bg:#08080a;--bg2:#0f0f12;--card:#141417;--card-hover:#1a1a1e;--text:#fafafa;--text2:#a0a0a5;--muted:#606065;--border:#3a3a40;--red:#ff2d55;--orange:#ff9500;--blue:#0a84ff;--purple:#bf5af2;--green:#30d158;--gold:#ffd700;--gold2:#ffb800}
-[data-theme="light"]{--bg:#fafafa;--bg2:#f0f0f2;--card:#ffffff;--card-hover:#f5f5f7;--text:#1d1d1f;--text2:#494949;--muted:#6e6e73;--border:#1d1d1f;--red:#d62839;--orange:#e86800;--blue:#0066cc;--purple:#8b44ac;--green:#1a8754;--gold:#1d1d1f;--gold2:#1d1d1f}
+:root{--bg:#08080a;--bg2:#0f0f12;--card:#141417;--card-hover:#1a1a1e;--text:#fafafa;--text2:#a0a0a5;--muted:#606065;--border:#3a3a40;--red:#ff2d55;--orange:#ff9500;--blue:#0a84ff;--purple:#bf5af2;--green:#30d158;--gold:#00d672;--gold2:#00b860}
+[data-theme="light"]{--bg:#fafafa;--bg2:#f0f0f2;--card:#ffffff;--card-hover:#f5f5f7;--text:#1d1d1f;--text2:#494949;--muted:#6e6e73;--border:#1d1d1f;--red:#d62839;--orange:#e86800;--blue:#0066cc;--purple:#8b44ac;--green:#1a8754;--gold:#00a65a;--gold2:#008f4c}
 
-/* Light mode Phoenix fixes - orange accent, black text */
-[data-theme="light"] .phoenix-badge{background:#ff9500;color:#000;border:2px solid #1d1d1f}
+/* Light mode Phoenix fixes - green accent, black text */
+[data-theme="light"] .phoenix-badge{background:#00d672;color:#000;border:2px solid #1d1d1f}
 [data-theme="light"] .phoenix-tagline{color:#1d1d1f}
-[data-theme="light"] .stat-val.gold{color:#e86800}
-[data-theme="light"] .score-bar.filled{background:#ff9500}
+[data-theme="light"] .stat-val.gold{color:#00a65a}
+[data-theme="light"] .score-bar.filled{background:#00d672}
 [data-theme="light"] .card.phoenix-card{border-color:#1d1d1f}
-[data-theme="light"] .card.phoenix-card:hover{border-color:#1d1d1f;box-shadow:0 12px 30px rgba(0,0,0,0.15)}
+[data-theme="light"] .card.phoenix-card:hover{border-color:#00d672;box-shadow:0 12px 30px rgba(0,0,0,0.15)}
 [data-theme="light"] .nav-btn.phoenix{border-color:#1d1d1f}
-[data-theme="light"] .nav-btn.phoenix:hover{border-color:#ff9500;background:rgba(255,149,0,0.1)}
-[data-theme="light"] .nav-btn.phoenix.active{background:#ff9500;border-color:#ff9500;color:#000}
+[data-theme="light"] .nav-btn.phoenix:hover{border-color:#00d672;background:rgba(0,214,114,0.1)}
+[data-theme="light"] .nav-btn.phoenix.active{background:#00d672;border-color:#00d672;color:#000}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
 .container{max-width:1400px;margin:0 auto;padding:0 24px}
@@ -43,7 +43,7 @@ body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-h
 .nav-btn:hover{border-color:var(--red);color:var(--text);transform:translateY(-2px)}
 .nav-btn.active{background:var(--red);border-color:var(--red);color:#fff}
 .nav-btn.phoenix{border-color:var(--gold)}
-.nav-btn.phoenix:hover{border-color:var(--gold);background:rgba(255,215,0,0.1)}
+.nav-btn.phoenix:hover{border-color:var(--gold);background:rgba(0,214,114,0.1)}
 .nav-btn.phoenix.active{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000}
 .search{width:100%;max-width:400px;margin:0 auto 20px;display:block;background:var(--card);border:2px solid var(--border);color:var(--text);padding:12px 16px;border-radius:10px;font-size:1rem}
 .search:focus{outline:none;border-color:var(--red)}
@@ -51,8 +51,8 @@ body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-h
 @media(max-width:380px){.grid{grid-template-columns:1fr}}
 .card{background:var(--card);border:2px solid var(--border);border-radius:12px;padding:20px;cursor:pointer;position:relative;transition:all 0.2s}
 .card:hover{border-color:var(--red);transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,0.2)}
-.card.phoenix-card{border-color:rgba(255,215,0,0.3)}
-.card.phoenix-card:hover{border-color:var(--gold);box-shadow:0 12px 30px rgba(255,215,0,0.15)}
+.card.phoenix-card{border-color:rgba(0,214,114,0.3)}
+.card.phoenix-card:hover{border-color:var(--gold);box-shadow:0 12px 30px rgba(0,214,114,0.15)}
 .badge{position:absolute;top:12px;right:12px;padding:4px 8px;border-radius:5px;font-size:0.65rem;font-weight:700;text-transform:uppercase}
 .badge.rug{background:rgba(255,45,85,0.15);color:var(--red)}
 .badge.hack{background:rgba(255,149,0,0.15);color:var(--orange)}
@@ -99,7 +99,7 @@ body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-h
 .modal-title{font-size:1.8rem;font-weight:800;margin-bottom:6px}
 .modal-amount{font-family:'IBM Plex Mono';font-size:2rem;font-weight:700;color:var(--red);margin:12px 0}
 .modal-section{margin-bottom:20px;background:var(--bg2);border-radius:10px;padding:16px}
-.modal-section.gold{background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.2)}
+.modal-section.gold{background:rgba(0,214,114,0.08);border:1px solid rgba(0,214,114,0.2)}
 .modal-section.green{background:rgba(48,209,88,0.08);border:1px solid rgba(48,209,88,0.2)}
 .modal-section-title{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:10px;font-weight:700;display:flex;align-items:center;gap:6px}
 .modal-section-title.gold{color:var(--gold)}
@@ -110,7 +110,7 @@ body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-h
 .execution-step{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px}
 .step-num{background:var(--green);color:#000;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;flex-shrink:0}
 .step-text{color:var(--text2);font-size:0.9rem}
-.concept-box{background:linear-gradient(135deg,rgba(255,215,0,0.1),rgba(255,184,0,0.05));border:1px solid rgba(255,215,0,0.3);border-radius:10px;padding:16px;margin:12px 0}
+.concept-box{background:linear-gradient(135deg,rgba(0,214,114,0.1),rgba(0,184,96,0.05));border:1px solid rgba(0,214,114,0.3);border-radius:10px;padding:16px;margin:12px 0}
 .concept-name{font-size:1.4rem;font-weight:800;color:var(--gold);margin-bottom:8px}
 .concept-tagline{font-size:0.85rem;color:var(--text2);font-style:italic;margin-bottom:10px}
 .concept-desc{color:var(--text2);font-size:0.9rem;line-height:1.5}
@@ -131,7 +131,7 @@ body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-h
 .monetization-title{font-size:0.7rem;text-transform:uppercase;font-weight:700;opacity:0.8;margin-bottom:6px}
 .monetization-text{font-size:0.85rem;line-height:1.5}
 .bags-cta{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;padding:16px 24px;border-radius:10px;text-align:center;margin-top:20px;cursor:pointer;font-weight:700;font-size:1rem;display:block;text-decoration:none;transition:all 0.2s}
-.bags-cta:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(255,215,0,0.3)}
+.bags-cta:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,214,114,0.3)}
 .score-display{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
 .score-box{background:var(--bg);border-radius:8px;padding:12px;text-align:center}
 .score-box-label{font-size:0.65rem;color:var(--muted);text-transform:uppercase;margin-bottom:6px}
@@ -219,7 +219,7 @@ return(<>
 </>}
 
 {section==='phoenix'&&<>
-<div style={{textAlign:'center',marginBottom:24,padding:'20px',background:'linear-gradient(135deg,rgba(255,215,0,0.1),rgba(255,184,0,0.05))',borderRadius:12,border:'1px solid rgba(255,215,0,0.2)'}}>
+<div style={{textAlign:'center',marginBottom:24,padding:'20px',background:'linear-gradient(135deg,rgba(0,214,114,0.1),rgba(0,184,96,0.05))',borderRadius:12,border:'1px solid rgba(0,214,114,0.2)'}}>
 <h2 style={{color:'var(--gold)',marginBottom:8}}>🔥 Phoenix Protocol</h2>
 <p style={{color:'var(--text2)',maxWidth:600,margin:'0 auto',fontSize:'0.95rem'}}>These projects had <strong>valid concepts</strong> killed by bad actors, ponzinomics, or timing. The ideas are worth resurrecting with fair launch tokenomics.</p>
 </div>
@@ -230,7 +230,7 @@ return(<>
 <div className="card-name">{c.name}</div>
 <div className="card-meta">{c.category} · {fmt(c.amount)} lost</div>
 <div className="card-desc">{c.description}</div>
-<div style={{marginTop:12,padding:12,background:'rgba(255,215,0,0.08)',borderRadius:8}}>
+<div style={{marginTop:12,padding:12,background:'rgba(0,214,114,0.08)',borderRadius:8}}>
 <div style={{color:'var(--gold)',fontWeight:700,marginBottom:6,fontSize:'0.9rem'}}>💡 {c.phoenix.concept.name}</div>
 <div style={{color:'var(--text2)',fontSize:'0.8rem'}}>{c.phoenix.concept.description.slice(0,80)}...</div>
 </div>
