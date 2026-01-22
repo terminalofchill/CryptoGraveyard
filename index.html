@@ -48,6 +48,32 @@ body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-h
 .theme-toggle{position:fixed;top:60px;right:20px;z-index:100;background:var(--card);border:2px solid var(--border);color:var(--text);padding:10px 16px;border-radius:10px;cursor:pointer;font-size:0.85rem;font-weight:500;transition:all 0.2s}
 .theme-toggle:hover{border-color:var(--gold);transform:translateY(-2px)}
 .header{text-align:center;padding:50px 0 30px}
+.realtime-tag{color:var(--gold);font-size:0.9rem;font-style:italic;animation:pulse-text 2s infinite}
+@keyframes pulse-text{0%,100%{opacity:1}50%{opacity:0.6}}
+.action-buttons{display:flex;justify-content:center;gap:12px;margin-top:20px;flex-wrap:wrap}
+.action-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:10px;font-family:'IBM Plex Mono';font-size:0.85rem;font-weight:600;text-decoration:none;transition:all 0.2s;cursor:pointer}
+.submit-btn{background:transparent;border:2px solid var(--green);color:var(--green)}
+.submit-btn:hover{background:var(--green);color:#000;transform:translateY(-2px);box-shadow:0 6px 20px rgba(48,209,88,0.3)}
+.devlog-btn{background:transparent;border:2px solid var(--blue);color:var(--blue)}
+.devlog-btn:hover{background:var(--blue);color:#fff;transform:translateY(-2px);box-shadow:0 6px 20px rgba(10,132,255,0.3)}
+[data-theme="light"] .submit-btn{border-color:var(--green);color:var(--green)}
+[data-theme="light"] .submit-btn:hover{background:var(--green);color:#fff}
+[data-theme="light"] .devlog-btn{border-color:var(--blue);color:var(--blue)}
+[data-theme="light"] .devlog-btn:hover{background:var(--blue);color:#fff}
+/* Devlog Section */
+.devlog-section{max-width:800px;margin:0 auto;padding-bottom:40px}
+.devlog-title{font-size:2rem;font-weight:800;margin-bottom:8px;text-align:center}
+.devlog-subtitle{color:var(--muted);text-align:center;margin-bottom:32px}
+.devlog-entries{display:flex;flex-direction:column;gap:16px}
+.devlog-entry{display:flex;gap:20px;padding:20px;background:var(--card);border:2px solid var(--border);border-radius:12px;transition:all 0.2s}
+.devlog-entry:hover{border-color:var(--blue);transform:translateX(4px)}
+.devlog-date{font-family:'IBM Plex Mono';font-size:0.8rem;color:var(--muted);min-width:100px;padding-top:4px}
+.devlog-content h3{font-size:1.1rem;font-weight:700;margin-bottom:8px}
+.devlog-content p{color:var(--text2);font-size:0.95rem;line-height:1.6;margin-bottom:12px}
+.devlog-tags{display:flex;gap:8px;flex-wrap:wrap}
+.devlog-tag{background:var(--bg2);border:1px solid var(--border);padding:4px 10px;border-radius:20px;font-size:0.7rem;font-family:'IBM Plex Mono';color:var(--muted)}
+.devlog-tag:first-child{border-color:var(--blue);color:var(--blue)}
+@media(max-width:600px){.devlog-entry{flex-direction:column;gap:8px}.devlog-date{min-width:auto}}
 .title{font-size:clamp(2.5rem,10vw,6rem);font-weight:900;line-height:0.95;margin-bottom:12px;background:linear-gradient(180deg,var(--text) 0%,var(--muted) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .subtitle{font-size:1.1rem;color:var(--text2);margin-bottom:6px}
 .highlight{color:var(--red);font-weight:700}
@@ -216,8 +242,12 @@ return(<>
 
 <header className="header"><div className="container">
 <h1 className="title">CRYPTO<br/>GRAVEYARD</h1>
-<p className="subtitle">Where <span className="highlight">{fmt(stats.amount)}</span> went to die</p>
+<p className="subtitle">Where <span className="highlight">{fmt(stats.amount)}</span> went to die <span className="realtime-tag">• Updating in real time</span></p>
 <p className="phoenix-tagline">🔥 Phoenix Protocol: Resurrect dead crypto ideas. Fair launch on Bags.</p>
+<div className="action-buttons">
+<a href="https://forms.gle/YOUR_FORM_ID" target="_blank" className="action-btn submit-btn">📝 Submit a Project</a>
+<a href="#devlog" className="action-btn devlog-btn" onClick={(e)=>{e.preventDefault();setSection('devlog')}}>📋 Devlog</a>
+</div>
 </div></header>
 
 <div className="container">
@@ -233,6 +263,7 @@ return(<>
 <button className={`nav-btn phoenix ${section==='phoenix'?'active':''}`} onClick={()=>setSection('phoenix')}>🔥 Phoenix Zone</button>
 <button className={`nav-btn ${section==='shame'?'active':''}`} onClick={()=>setSection('shame')}>🏆 Hall of Shame</button>
 <button className={`nav-btn ${section==='trenches'?'active':''}`} onClick={()=>setSection('trenches')}>🕳️ Trenches</button>
+<button className={`nav-btn ${section==='devlog'?'active':''}`} onClick={()=>setSection('devlog')}>📋 Devlog</button>
 </nav>
 
 {section==='graveyard'&&<>
@@ -310,6 +341,58 @@ return(<>
 </div>
 ))}</div>
 </>}
+
+{section==='devlog'&&<div className="devlog-section">
+<h2 className="devlog-title">📋 Development Log</h2>
+<p className="devlog-subtitle">Track our progress as we build the ultimate crypto disaster database</p>
+
+<div className="devlog-entries">
+<div className="devlog-entry">
+<div className="devlog-date">Jan 22, 2026</div>
+<div className="devlog-content">
+<h3>🚀 Live Ticker Launch</h3>
+<p>Added real-time scrolling ticker showing latest additions to the database. New entries now display with "NEW" badge.</p>
+<div className="devlog-tags"><span className="devlog-tag">feature</span><span className="devlog-tag">ui</span></div>
+</div>
+</div>
+
+<div className="devlog-entry">
+<div className="devlog-date">Jan 21, 2026</div>
+<div className="devlog-content">
+<h3>🤖 Automated Pipeline</h3>
+<p>Built automated data aggregation from DeFiLlama, Rekt.news, and Web3IsGoingGreat. Now pulling verified rugs/hacks only ($1M+ minimum).</p>
+<div className="devlog-tags"><span className="devlog-tag">backend</span><span className="devlog-tag">automation</span></div>
+</div>
+</div>
+
+<div className="devlog-entry">
+<div className="devlog-date">Jan 20, 2026</div>
+<div className="devlog-content">
+<h3>💎 Rich Card Data</h3>
+<p>Every card now includes: Value Proposition, The Alpha (key insights), What Went Right/Wrong, Key People & Investors, and 5+ lessons.</p>
+<div className="devlog-tags"><span className="devlog-tag">content</span><span className="devlog-tag">data</span></div>
+</div>
+</div>
+
+<div className="devlog-entry">
+<div className="devlog-date">Jan 18, 2026</div>
+<div className="devlog-content">
+<h3>🔥 Phoenix Protocol</h3>
+<p>Launched Phoenix Zone - identifying dead projects with resurrection potential for fair launch on Bags.fm.</p>
+<div className="devlog-tags"><span className="devlog-tag">feature</span><span className="devlog-tag">phoenix</span></div>
+</div>
+</div>
+
+<div className="devlog-entry">
+<div className="devlog-date">Jan 15, 2026</div>
+<div className="devlog-content">
+<h3>🏴‍☠️ Hall of Shame & Trenches</h3>
+<p>Added Hall of Shame (top 10 crypto villains) and Trenches section (Pump.fun horrors & legendary rugs).</p>
+<div className="devlog-tags"><span className="devlog-tag">feature</span><span className="devlog-tag">content</span></div>
+</div>
+</div>
+</div>
+</div>}
 </div>
 
 <footer>
