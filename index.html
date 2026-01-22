@@ -10,7 +10,18 @@
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <style>
 :root{--bg:#08080a;--bg2:#0f0f12;--card:#141417;--card-hover:#1a1a1e;--text:#fafafa;--text2:#a0a0a5;--muted:#606065;--border:#3a3a40;--red:#ff2d55;--orange:#ff9500;--blue:#0a84ff;--purple:#bf5af2;--green:#30d158;--gold:#ffd700;--gold2:#ffb800}
-[data-theme="light"]{--bg:#fafafa;--bg2:#f0f0f2;--card:#ffffff;--card-hover:#f5f5f7;--text:#1d1d1f;--text2:#494949;--muted:#6e6e73;--border:#1d1d1f;--red:#d62839;--orange:#c75000;--blue:#0066cc;--purple:#8b44ac;--green:#1a8754;--gold:#b8860b;--gold2:#996515}
+[data-theme="light"]{--bg:#fafafa;--bg2:#f0f0f2;--card:#ffffff;--card-hover:#f5f5f7;--text:#1d1d1f;--text2:#494949;--muted:#6e6e73;--border:#1d1d1f;--red:#d62839;--orange:#e86800;--blue:#0066cc;--purple:#8b44ac;--green:#1a8754;--gold:#1d1d1f;--gold2:#1d1d1f}
+
+/* Light mode Phoenix fixes - orange accent, black text */
+[data-theme="light"] .phoenix-badge{background:#ff9500;color:#000;border:2px solid #1d1d1f}
+[data-theme="light"] .phoenix-tagline{color:#1d1d1f}
+[data-theme="light"] .stat-val.gold{color:#e86800}
+[data-theme="light"] .score-bar.filled{background:#ff9500}
+[data-theme="light"] .card.phoenix-card{border-color:#1d1d1f}
+[data-theme="light"] .card.phoenix-card:hover{border-color:#1d1d1f;box-shadow:0 12px 30px rgba(0,0,0,0.15)}
+[data-theme="light"] .nav-btn.phoenix{border-color:#1d1d1f}
+[data-theme="light"] .nav-btn.phoenix:hover{border-color:#ff9500;background:rgba(255,149,0,0.1)}
+[data-theme="light"] .nav-btn.phoenix.active{background:#ff9500;border-color:#ff9500;color:#000}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
 .container{max-width:1400px;margin:0 auto;padding:0 24px}
