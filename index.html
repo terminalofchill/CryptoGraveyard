@@ -303,26 +303,44 @@ return(<>
 <div className="modal-text">{selected.causeOfDeath}</div>
 </div>
 
+{/* THE ALPHA - Show for ALL cards */}
+{(selected.theAlpha||selected.phoenix?.theAlpha)&&<div className="modal-section gold">
+<div className="modal-section-title gold">💎 The Alpha (What To Extract)</div>
+{(selected.theAlpha||selected.phoenix?.theAlpha).map((l,i)=><div key={i} className="alpha-item"><span className="alpha-icon">💎</span>{l}</div>)}
+</div>}
+
+{/* KEY PEOPLE - Show for ALL cards */}
+{(selected.keyPeople||selected.phoenix?.keyPeople)&&<div className="modal-section">
+<div className="modal-section-title">👥 Key People & Investors</div>
+<div className="people-grid">{(selected.keyPeople||selected.phoenix?.keyPeople).map((p,i)=><div key={i} className="person-card"><div className="person-role">{p.role}</div><div className="person-name">{p.name}</div></div>)}</div>
+</div>}
+
+{/* VALUE PROPOSITION - Show for ALL cards */}
+{(selected.valueProposition||selected.phoenix?.valueProposition)&&<div className="modal-section orange">
+<div className="modal-section-title orange">💡 Value Proposition</div>
+<div className="modal-text">{selected.valueProposition||selected.phoenix?.valueProposition}</div>
+</div>}
+
+{/* WHAT WENT RIGHT - Show for ALL cards */}
+{selected.whatWentRight&&<div className="modal-section">
+<div className="modal-section-title" style={{color:'var(--green)'}}>✅ What Went Right</div>
+{selected.whatWentRight.map((l,i)=><div key={i} className="alpha-item"><span style={{color:'var(--green)'}}>✓</span>{l}</div>)}
+</div>}
+
+{/* WHAT WENT WRONG - Show for ALL cards */}
+{selected.whatWentWrong&&<div className="modal-section">
+<div className="modal-section-title" style={{color:'var(--red)'}}>❌ What Went Wrong</div>
+{selected.whatWentWrong.map((l,i)=><div key={i} className="alpha-item"><span style={{color:'var(--red)'}}>✗</span>{l}</div>)}
+</div>}
+
+{/* LESSONS - Show for ALL cards */}
 {selected.lessons&&<div className="modal-section">
 <div className="modal-section-title">📚 Lessons</div>
 {selected.lessons.map((l,i)=><div key={i} className="alpha-item"><span>→</span>{l}</div>)}
 </div>}
 
+{/* PHOENIX-ONLY SECTIONS BELOW */}
 {selected.phoenix?.enabled&&<>
-{selected.phoenix.valueProposition&&<div className="modal-section orange">
-<div className="modal-section-title orange">💡 The Value Proposition</div>
-<div className="modal-text">{selected.phoenix.valueProposition}</div>
-</div>}
-
-<div className="modal-section gold">
-<div className="modal-section-title gold">💎 The Alpha (What To Extract)</div>
-{selected.phoenix.theAlpha.map((l,i)=><div key={i} className="alpha-item"><span className="alpha-icon">💎</span>{l}</div>)}
-</div>
-
-{selected.phoenix.keyPeople&&<div className="modal-section">
-<div className="modal-section-title">👥 Key People & Investors</div>
-<div className="people-grid">{selected.phoenix.keyPeople.map((p,i)=><div key={i} className="person-card"><div className="person-role">{p.role}</div><div className="person-name">{p.name}</div></div>)}</div>
-</div>}
 
 <div className="modal-section">
 <div className="modal-section-title">📈 Market Today</div>
