@@ -207,6 +207,9 @@ body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-h
 .explorer-link:hover{background:rgba(10,132,255,0.2)}
 footer{text-align:center;padding:40px;border-top:1px solid var(--border);color:var(--muted);font-size:0.85rem;margin-top:40px}
 footer a{color:var(--gold);text-decoration:none}
+.social-links{display:flex;justify-content:center;gap:12px;margin-bottom:16px}
+.social-link{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border:2px solid var(--border);border-radius:10px;color:var(--text);font-size:1.2rem;text-decoration:none;transition:all 0.2s}
+.social-link:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
 </style>
 </head>
 <body>
@@ -414,6 +417,9 @@ return(<>
 </div>
 
 <footer>
+<div className="social-links">
+<a href="https://x.com/cryptograveyrd" target="_blank" className="social-link">𝕏</a>
+</div>
 <p><strong>Crypto Graveyard</strong> · Phoenix Protocol</p>
 <p style={{marginTop:8}}>Resurrect dead ideas. <a href={BAGS_REFERRAL} target="_blank">Fair launch on Bags →</a></p>
 </footer>
@@ -577,7 +583,7 @@ e.preventDefault();
 const form=e.target;
 const subType=form.submission_type.value;
 const data={
-access_key:'57e96fdf-9128-4b1a-b08c-e11c40bf1110',
+access_key:'YOUR_WEB3FORMS_KEY',
 subject:`[Crypto Graveyard] ${subType}`,
 submission_type:subType,
 title:form.title.value,
@@ -661,7 +667,5 @@ document.getElementById('project-fields').style.display=e.target.value==='Dead P
 }
 ReactDOM.render(<App/>,document.getElementById('root'));
 </script>
-<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
-<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
