@@ -278,10 +278,10 @@ return(<>
 
 {section==='trenches'&&<>
 <div className="trench-tabs">
-<button className={`trench-tab ${trenchTab==='pump'?'active':''}`} onClick={()=>setTrenchTab('pump')}>🎰 Pump.fun Rugs</button>
-<button className={`trench-tab ${trenchTab==='bsc'?'active':''}`} onClick={()=>setTrenchTab('bsc')}>🥞 BSC Rugs</button>
+<button className={`trench-tab ${trenchTab==='pump'?'active':''}`} onClick={()=>setTrenchTab('pump')}>🎰 Pump.fun Horrors</button>
+<button className={`trench-tab ${trenchTab==='legends'?'active':''}`} onClick={()=>setTrenchTab('legends')}>💀 Trench Legends</button>
 </div>
-<div className="grid">{trenchWarfare.filter(t=>t.chain===(trenchTab==='pump'?'Solana':'BSC')).map(t=>(
+<div className="grid">{(trenchTab==='pump'?pumpFunHorrors:trenchLegends).map(t=>(
 <div key={t.id} className="card trench-card" onClick={()=>setTrenchModal(t)}>
 {t.photoUrl?<img src={t.photoUrl} className="trench-photo" onError={e=>{e.target.style.display='none'}}/>:<div className="trench-emoji">{t.emoji}</div>}
 <div className="trench-name">{t.name}</div>
@@ -414,14 +414,14 @@ return(<>
 <div className="modal-header">
 <div style={{fontSize:'3rem',marginBottom:8}}>{trenchModal.emoji}</div>
 <div className="modal-title" style={{color:'var(--orange)'}}>{trenchModal.name}</div>
-<div style={{color:'var(--muted)'}}>{trenchModal.chain} · {trenchModal.date}</div>
+<div style={{color:'var(--muted)'}}>{trenchModal.blockchain||trenchModal.perpetrator} · {trenchModal.date}</div>
 </div>
-<div className="modal-section"><div className="modal-text">{trenchModal.fullDescription}</div></div>
+<div className="modal-section"><div className="modal-text">{trenchModal.fullStory||trenchModal.fullDescription}</div></div>
 <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12}}>
 <div className="data-row"><span className="data-label">Extracted:</span><span className="data-value" style={{color:'var(--orange)'}}>{trenchModal.extracted}</span></div>
 <div className="data-row"><span className="data-label">Peak MC:</span><span className="data-value">{trenchModal.peakMC}</span></div>
 <div className="data-row"><span className="data-label">Perpetrator:</span><span className="data-value">{trenchModal.perpetrator}</span></div>
-<div className="data-row"><span className="data-label">Rug Type:</span><span className="data-value">{trenchModal.rugType}</span></div>
+{trenchModal.aftermath&&<div className="data-row"><span className="data-label">Aftermath:</span><span className="data-value">{trenchModal.aftermath}</span></div>}
 </div>
 </div>
 </div>
