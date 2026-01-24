@@ -217,6 +217,48 @@ footer a{color:var(--gold);text-decoration:none}
 .social-links{display:flex;justify-content:center;gap:12px;margin-bottom:16px}
 .social-link{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border:2px solid var(--border);border-radius:10px;color:var(--text);font-size:1.2rem;text-decoration:none;transition:all 0.2s}
 .social-link:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+/* Rise Section - Founder Launchpad */
+.rise-section{max-width:900px;margin:0 auto}
+.rise-hero{background:linear-gradient(135deg,rgba(0,214,114,0.12),rgba(0,184,96,0.06));border:2px solid rgba(0,214,114,0.3);border-radius:16px;padding:32px;text-align:center;margin-bottom:32px}
+.rise-hero h2{font-size:2rem;font-weight:800;color:var(--gold);margin-bottom:12px}
+.rise-hero p{color:var(--text2);font-size:1.05rem;line-height:1.6;max-width:650px;margin:0 auto 20px}
+.rise-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0}
+@media(max-width:600px){.rise-stats{grid-template-columns:1fr}}
+.rise-stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+.rise-stat-val{font-family:'IBM Plex Mono';font-size:1.5rem;font-weight:700;color:var(--gold)}
+.rise-stat-label{font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;margin-top:4px}
+.success-stories{margin-bottom:32px}
+.success-stories h3{font-size:1.3rem;font-weight:700;margin-bottom:16px;text-align:center}
+.story-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.story-card{background:var(--card);border:2px solid var(--border);border-radius:12px;padding:20px;transition:all 0.2s}
+.story-card:hover{border-color:var(--gold);transform:translateY(-3px)}
+.story-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.story-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+.story-name{font-weight:700;font-size:1.1rem}
+.story-role{font-size:0.75rem;color:var(--muted)}
+.story-earned{font-family:'IBM Plex Mono';font-size:1.4rem;font-weight:700;color:var(--gold);margin:12px 0}
+.story-desc{color:var(--text2);font-size:0.9rem;line-height:1.5}
+.story-token{display:inline-flex;align-items:center;gap:6px;background:rgba(0,214,114,0.1);border:1px solid rgba(0,214,114,0.3);padding:4px 10px;border-radius:20px;font-family:'IBM Plex Mono';font-size:0.75rem;color:var(--gold);margin-top:10px}
+.how-it-works{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:28px;margin-bottom:32px}
+.how-it-works h3{font-size:1.3rem;font-weight:700;margin-bottom:20px;text-align:center}
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+.step-item{text-align:center}
+.step-num{width:40px;height:40px;background:var(--gold);color:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;margin:0 auto 12px}
+.step-title{font-weight:700;margin-bottom:6px}
+.step-desc{font-size:0.85rem;color:var(--text2);line-height:1.5}
+.benefits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:32px}
+.benefit-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:20px}
+.benefit-icon{font-size:1.8rem;margin-bottom:10px}
+.benefit-title{font-weight:700;margin-bottom:6px}
+.benefit-desc{font-size:0.85rem;color:var(--text2);line-height:1.5}
+.rise-cta{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;padding:20px 32px;border-radius:12px;text-align:center;font-weight:700;font-size:1.1rem;display:block;text-decoration:none;transition:all 0.2s;margin-top:24px}
+.rise-cta:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,214,114,0.3)}
+.nav-btn.rise{border-color:var(--gold)}
+.nav-btn.rise:hover{border-color:var(--gold);background:rgba(0,214,114,0.1)}
+.nav-btn.rise.active{background:linear-gradient(135deg,var(--gold),var(--gold2));border-color:var(--gold);color:#000}
+[data-theme="light"] .nav-btn.rise{border-color:#1d1d1f}
+[data-theme="light"] .nav-btn.rise:hover{border-color:#00d672;background:rgba(0,214,114,0.1)}
+[data-theme="light"] .nav-btn.rise.active{background:#00d672;border-color:#00d672;color:#000}
 </style>
 </head>
 <body>
@@ -290,6 +332,7 @@ return(<>
 <nav className="nav">
 <button className={`nav-btn ${section==='graveyard'?'active':''}`} onClick={()=>setSection('graveyard')}>💀 Graveyard</button>
 <button className={`nav-btn phoenix ${section==='phoenix'?'active':''}`} onClick={()=>setSection('phoenix')}>🔥 Phoenix Zone</button>
+<button className={`nav-btn rise ${section==='rise'?'active':''}`} onClick={()=>setSection('rise')}>🚀 Rise</button>
 <button className={`nav-btn ${section==='shame'?'active':''}`} onClick={()=>setSection('shame')}>🏆 Hall of Shame</button>
 <button className={`nav-btn ${section==='trenches'?'active':''}`} onClick={()=>setSection('trenches')}>🕳️ Trenches</button>
 <button className={`nav-btn ${section==='devlog'?'active':''}`} onClick={()=>setSection('devlog')}>📋 Devlog</button>
@@ -377,6 +420,15 @@ return(<>
 
 <div className="devlog-entries">
 <div className="devlog-entry">
+<div className="devlog-date">Jan 23, 2026</div>
+<div className="devlog-content">
+<h3>🚀 Rise Section Launch</h3>
+<p>New section helping founders discover community crowdfunding through Bags.fm. Features success stories from AI builders who raised without giving up equity. From documenting failures to funding success.</p>
+<div className="devlog-tags"><span className="devlog-tag">feature</span><span className="devlog-tag">founders</span><span className="devlog-tag">bags</span></div>
+</div>
+</div>
+
+<div className="devlog-entry">
 <div className="devlog-date">Jan 22, 2026</div>
 <div className="devlog-content">
 <h3>🚀 Live Ticker Launch</h3>
@@ -421,6 +473,101 @@ return(<>
 </div>
 </div>
 </div>
+</div>}
+
+{section==='rise'&&<div className="rise-section">
+<div className="rise-hero">
+<h2>🚀 From Graveyard to Glory</h2>
+<p>We document failures so you can build success. The crypto community is hungry to fund builders. Launch your project through community crowdfunding — keep 100% equity, earn royalties forever.</p>
+<div className="rise-stats">
+<div className="rise-stat"><div className="rise-stat-val">$1B+</div><div className="rise-stat-label">30-Day Volume</div></div>
+<div className="rise-stat"><div className="rise-stat-val">1%</div><div className="rise-stat-label">Royalties Forever</div></div>
+<div className="rise-stat"><div className="rise-stat-val">0%</div><div className="rise-stat-label">Equity Given Up</div></div>
+</div>
+</div>
+
+<div className="success-stories">
+<h3>💎 Real Builders. Real Funding. No Strings.</h3>
+<div className="story-grid">
+<div className="story-card">
+<div className="story-header">
+<div className="story-avatar">🧠</div>
+<div><div className="story-name">Geoffrey Huntley</div><div className="story-role">Creator of Ralph Wiggum Technique</div></div>
+</div>
+<div className="story-earned">$300,000 in 7 days</div>
+<div className="story-desc">Built an open-source AI agent loop for Claude Code. Community launched a token celebrating his work. He verified his X account and claimed royalties — no equity given, no VC meetings.</div>
+<div className="story-token">$RALPH · AI Dev Tools</div>
+</div>
+
+<div className="story-card">
+<div className="story-header">
+<div className="story-avatar">⚡</div>
+<div><div className="story-name">Steve Yegge</div><div className="story-role">Creator of Gas Town</div></div>
+</div>
+<div className="story-earned">$49,000+ waiting</div>
+<div className="story-desc">Built an orchestrator for 20-30 parallel AI coding agents. Found out through a LinkedIn comment he had $49K in unclaimed fees. Turned down VCs — the community funded him instead.</div>
+<div className="story-token">$GAS · AI Infrastructure</div>
+</div>
+</div>
+</div>
+
+<div className="how-it-works">
+<h3>How It Works</h3>
+<div className="steps-grid">
+<div className="step-item">
+<div className="step-num">1</div>
+<div className="step-title">Get 0.2 SOL</div>
+<div className="step-desc">Download Phantom wallet. Add at least 0.2 SOL (~$50). This is your initial buy — you become the first holder.</div>
+</div>
+<div className="step-item">
+<div className="step-num">2</div>
+<div className="step-title">Launch in 60 Seconds</div>
+<div className="step-desc">Connect your X account to Bags. Upload logo, pick a name. Your community can now trade your token.</div>
+</div>
+<div className="step-item">
+<div className="step-num">3</div>
+<div className="step-title">Earn 1% Forever</div>
+<div className="step-desc">Every trade generates royalties for you. The more your community trades, the more you earn. No expiration.</div>
+</div>
+<div className="step-item">
+<div className="step-num">4</div>
+<div className="step-title">Build & Ship</div>
+<div className="step-desc">Use earnings to fund development. Your holders are invested in your success — they become your marketing team.</div>
+</div>
+</div>
+</div>
+
+<div className="benefits-grid">
+<div className="benefit-card">
+<div className="benefit-icon">💰</div>
+<div className="benefit-title">No Equity Lost</div>
+<div className="benefit-desc">VCs want 20-40% of your company. Community crowdfunding asks for nothing. Keep full ownership of your project.</div>
+</div>
+<div className="benefit-card">
+<div className="benefit-icon">🔓</div>
+<div className="benefit-title">No Strings Attached</div>
+<div className="benefit-desc">No board seats, no control, no pressure to exit. Build what you want, how you want, when you want.</div>
+</div>
+<div className="benefit-card">
+<div className="benefit-icon">📈</div>
+<div className="benefit-title">Aligned Incentives</div>
+<div className="benefit-desc">Your token holders profit when you succeed. They'll share your posts, test your product, recruit users.</div>
+</div>
+<div className="benefit-card">
+<div className="benefit-icon">⚡</div>
+<div className="benefit-title">Instant Liquidity</div>
+<div className="benefit-desc">No 7-year wait for exit. Claim royalties anytime. Cash out to your bank or reinvest in building.</div>
+</div>
+</div>
+
+<div style={{background:'var(--bg2)',borderRadius:12,padding:20,marginBottom:24}}>
+<div style={{fontSize:'0.9rem',color:'var(--text2)',lineHeight:1.7}}>
+<strong style={{color:'var(--text)'}}>Why Bags?</strong> The crypto community has shown they'll fund builders who ship. RALPH and GAS weren't launched by their creators — the community did it for them. That's how hungry people are to support real work. When you launch yourself, you control the narrative from day one. You're not begging VCs for meetings. You're building in public with a community that's literally invested in your success.
+</div>
+</div>
+
+<a href={BAGS_REFERRAL} target="_blank" className="rise-cta">🚀 Launch Your Project on Bags →</a>
+<p style={{textAlign:'center',color:'var(--muted)',fontSize:'0.8rem',marginTop:12}}>Zero platform fees • 1% royalties on all trades • Keep 100% equity</p>
 </div>}
 </div>
 
