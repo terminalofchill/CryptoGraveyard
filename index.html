@@ -126,6 +126,23 @@ body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-h
 .badge.rug{background:rgba(255,45,85,0.15);color:var(--red)}
 .badge.hack{background:rgba(255,149,0,0.15);color:var(--orange)}
 .badge.collapse{background:rgba(191,90,242,0.15);color:var(--purple)}
+.badge.ponzi{background:rgba(255,59,48,0.15);color:#ff3b30}
+.badge.fraud{background:rgba(255,204,0,0.15);color:#ffcc00}
+[data-theme="light"] .badge.ponzi{background:rgba(255,59,48,0.12);color:#d62839}
+[data-theme="light"] .badge.fraud{background:rgba(204,163,0,0.15);color:#997a00}
+
+/* Type Filter Pills */
+.type-filters{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:16px}
+.type-pill{background:var(--card);border:2px solid var(--border);color:var(--text2);padding:8px 14px;border-radius:20px;cursor:pointer;font-size:0.8rem;font-weight:600;transition:all 0.2s;display:flex;align-items:center;gap:6px}
+.type-pill:hover{border-color:var(--text2);transform:translateY(-1px)}
+.type-pill.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+.type-pill .pill-count{background:var(--bg2);padding:2px 6px;border-radius:10px;font-size:0.7rem;font-family:'IBM Plex Mono'}
+.type-pill.active .pill-count{background:var(--bg);color:var(--text)}
+.type-pill.rug.active{background:var(--red);border-color:var(--red);color:#fff}
+.type-pill.hack.active{background:var(--orange);border-color:var(--orange);color:#fff}
+.type-pill.collapse.active{background:var(--purple);border-color:var(--purple);color:#fff}
+.type-pill.ponzi.active{background:#ff3b30;border-color:#ff3b30;color:#fff}
+.type-pill.fraud.active{background:#ffcc00;border-color:#ffcc00;color:#000}
 .phoenix-badge{position:absolute;top:12px;left:12px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;padding:4px 8px;border-radius:5px;font-size:0.65rem;font-weight:700;display:flex;align-items:center;gap:4px;z-index:2}
 .card-name{font-size:1.3rem;font-weight:700;margin-bottom:4px;padding-right:80px}
 .phoenix-card .card-name{padding-top:28px}
@@ -267,6 +284,8 @@ footer a{color:var(--gold);text-decoration:none}
 <script type="text/babel">
 const{useState,useMemo,useEffect}=React;
 const fmt=(a)=>!a?'?':a>=1e9?`$${(a/1e9).toFixed(1)}B`:a>=1e6?`$${(a/1e6).toFixed(0)}M`:`$${a.toLocaleString()}`;
+const typeLabels={rug:'🔪 Rug Pull',hack:'💻 Hack',collapse:'📉 Collapse',ponzi:'🔺 Ponzi',fraud:'🎭 Fraud'};
+const typeIcons={rug:'🔪',hack:'💻',collapse:'📉',ponzi:'🔺',fraud:'🎭'};
 const ScoreBars=({score,max=5})=>(
 <div className="score-bars">{[...Array(max)].map((_,i)=><div key={i} className={`score-bar ${i<score?'filled':''}`}/>)}</div>
 );
@@ -275,6 +294,7 @@ function App(){
 const[theme,setTheme]=useState('light');
 const[section,setSection]=useState('graveyard');
 const[search,setSearch]=useState('');
+const[typeFilter,setTypeFilter]=useState('all');
 const[selected,setSelected]=useState(null);
 const[shameModal,setShameModal]=useState(null);
 const[trenchModal,setTrenchModal]=useState(null);
@@ -286,7 +306,16 @@ useEffect(()=>{document.documentElement.setAttribute('data-theme',theme)},[theme
 
 const phoenixProjects=useMemo(()=>cryptoCorpses.filter(c=>c.phoenix?.enabled),[]);
 const sorted=useMemo(()=>[...cryptoCorpses].sort((a,b)=>(b.amount||0)-(a.amount||0)),[]);
-const filtered=useMemo(()=>sorted.filter(c=>!search||c.name.toLowerCase().includes(search.toLowerCase())),[sorted,search]);
+const filtered=useMemo(()=>sorted.filter(c=>{
+  const matchesSearch = !search||c.name.toLowerCase().includes(search.toLowerCase());
+  const matchesType = typeFilter==='all'||c.type===typeFilter;
+  return matchesSearch && matchesType;
+}),[sorted,search,typeFilter]);
+const typeCounts=useMemo(()=>{
+  const counts={all:cryptoCorpses.length,rug:0,hack:0,collapse:0,ponzi:0,fraud:0};
+  cryptoCorpses.forEach(c=>{if(c.type&&counts[c.type]!==undefined)counts[c.type]++});
+  return counts;
+},[]);
 const stats={total:cryptoCorpses.length,amount:cryptoCorpses.reduce((s,c)=>s+(c.amount||0),0),phoenix:phoenixProjects.length};
 
 return(<>
@@ -339,6 +368,14 @@ return(<>
 </nav>
 
 {section==='graveyard'&&<>
+<div className="type-filters">
+<button className={`type-pill ${typeFilter==='all'?'active':''}`} onClick={()=>setTypeFilter('all')}>All <span className="pill-count">{typeCounts.all}</span></button>
+<button className={`type-pill hack ${typeFilter==='hack'?'active':''}`} onClick={()=>setTypeFilter('hack')}>💻 Hacks <span className="pill-count">{typeCounts.hack}</span></button>
+<button className={`type-pill rug ${typeFilter==='rug'?'active':''}`} onClick={()=>setTypeFilter('rug')}>🔪 Rugs <span className="pill-count">{typeCounts.rug}</span></button>
+<button className={`type-pill ponzi ${typeFilter==='ponzi'?'active':''}`} onClick={()=>setTypeFilter('ponzi')}>🔺 Ponzis <span className="pill-count">{typeCounts.ponzi}</span></button>
+<button className={`type-pill collapse ${typeFilter==='collapse'?'active':''}`} onClick={()=>setTypeFilter('collapse')}>📉 Collapse <span className="pill-count">{typeCounts.collapse}</span></button>
+<button className={`type-pill fraud ${typeFilter==='fraud'?'active':''}`} onClick={()=>setTypeFilter('fraud')}>🎭 Fraud <span className="pill-count">{typeCounts.fraud}</span></button>
+</div>
 <input className="search" placeholder="Search dead projects..." value={search} onChange={e=>setSearch(e.target.value)}/>
 <div className="grid">{filtered.map(c=>(
 <div key={c.id} className={`card ${c.phoenix?.enabled?'phoenix-card':''}`} onClick={()=>setSelected(c)}>
