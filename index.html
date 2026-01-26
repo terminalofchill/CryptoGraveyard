@@ -353,12 +353,12 @@ return(<>
 {section==='graveyard'&&<>
 <input className="search" placeholder="Search dead projects..." value={search} onChange={e=>setSearch(e.target.value)}/>
 <div className="type-filters">
-<button className={`type-btn ${!typeFilter?'active-all':''}`} onClick={()=>setTypeFilter(null)}>All</button>
-<button className={`type-btn ${typeFilter==='rug'?'active-rug':''}`} onClick={()=>setTypeFilter('rug')}>💀 Rugs</button>
-<button className={`type-btn ${typeFilter==='hack'?'active-hack':''}`} onClick={()=>setTypeFilter('hack')}>🔓 Hacks</button>
-<button className={`type-btn ${typeFilter==='collapse'?'active-collapse':''}`} onClick={()=>setTypeFilter('collapse')}>📉 Collapses</button>
-<button className={`type-btn ${typeFilter==='ponzi'?'active-ponzi':''}`} onClick={()=>setTypeFilter('ponzi')}>🎰 Ponzis</button>
-<button className={`type-btn ${typeFilter==='fraud'?'active-fraud':''}`} onClick={()=>setTypeFilter('fraud')}>🎭 Frauds</button>
+<button className={`type-btn ${typeFilter===null?'active-all':''}`} onClick={function(){setTypeFilter(null)}}>All</button>
+<button className={`type-btn ${typeFilter==='rug'?'active-rug':''}`} onClick={function(){setTypeFilter('rug')}}>💀 Rugs</button>
+<button className={`type-btn ${typeFilter==='hack'?'active-hack':''}`} onClick={function(){setTypeFilter('hack')}}>🔓 Hacks</button>
+<button className={`type-btn ${typeFilter==='collapse'?'active-collapse':''}`} onClick={function(){setTypeFilter('collapse')}}>📉 Collapses</button>
+<button className={`type-btn ${typeFilter==='ponzi'?'active-ponzi':''}`} onClick={function(){setTypeFilter('ponzi')}}>🎰 Ponzis</button>
+<button className={`type-btn ${typeFilter==='fraud'?'active-fraud':''}`} onClick={function(){setTypeFilter('fraud')}}>🎭 Frauds</button>
 </div>
 <div className="grid">{filtered.map(c=>(
 <div key={c.id} className={`card ${c.phoenix?.enabled?'phoenix-card':''}`} onClick={()=>setSelected(c)}>
