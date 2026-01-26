@@ -119,11 +119,12 @@ body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-h
 .type-filters{display:flex;justify-content:center;gap:8px;margin-bottom:20px;flex-wrap:wrap}
 .type-btn{background:var(--card);border:2px solid var(--border);color:var(--text2);padding:8px 16px;border-radius:8px;font-family:'IBM Plex Mono';font-size:0.75rem;font-weight:600;cursor:pointer;transition:all 0.2s}
 .type-btn:hover{border-color:var(--text2);color:var(--text);transform:translateY(-1px)}
-.type-btn.active{background:var(--red);border-color:var(--red);color:#fff}
-.type-btn.active.hack{background:var(--orange);border-color:var(--orange)}
-.type-btn.active.collapse{background:var(--purple);border-color:var(--purple)}
-.type-btn.active.ponzi{background:var(--blue);border-color:var(--blue)}
-.type-btn.active.fraud{background:#e84393;border-color:#e84393}
+.type-btn.active-all{background:var(--red);border-color:var(--red);color:#fff}
+.type-btn.active-rug{background:var(--red);border-color:var(--red);color:#fff}
+.type-btn.active-hack{background:var(--orange);border-color:var(--orange);color:#fff}
+.type-btn.active-collapse{background:var(--purple);border-color:var(--purple);color:#fff}
+.type-btn.active-ponzi{background:var(--blue);border-color:var(--blue);color:#fff}
+.type-btn.active-fraud{background:#e84393;border-color:#e84393;color:#fff}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px;margin-bottom:40px}
 @media(max-width:380px){.grid{grid-template-columns:1fr}}
 .card{background:var(--card);border:2px solid var(--border);border-radius:12px;padding:20px;cursor:pointer;position:relative;transition:all 0.2s}
@@ -352,12 +353,12 @@ return(<>
 {section==='graveyard'&&<>
 <input className="search" placeholder="Search dead projects..." value={search} onChange={e=>setSearch(e.target.value)}/>
 <div className="type-filters">
-<button className={`type-btn ${!typeFilter?'active':''}`} onClick={()=>setTypeFilter(null)}>All</button>
-<button className={`type-btn ${typeFilter==='rug'?'active':''}`} onClick={()=>setTypeFilter('rug')}>💀 Rugs</button>
-<button className={`type-btn ${typeFilter==='hack'?'active hack':''}`} onClick={()=>setTypeFilter('hack')}>🔓 Hacks</button>
-<button className={`type-btn ${typeFilter==='collapse'?'active collapse':''}`} onClick={()=>setTypeFilter('collapse')}>📉 Collapses</button>
-<button className={`type-btn ${typeFilter==='ponzi'?'active ponzi':''}`} onClick={()=>setTypeFilter('ponzi')}>🎰 Ponzis</button>
-<button className={`type-btn ${typeFilter==='fraud'?'active fraud':''}`} onClick={()=>setTypeFilter('fraud')}>🎭 Frauds</button>
+<button className={`type-btn ${!typeFilter?'active-all':''}`} onClick={()=>setTypeFilter(null)}>All</button>
+<button className={`type-btn ${typeFilter==='rug'?'active-rug':''}`} onClick={()=>setTypeFilter('rug')}>💀 Rugs</button>
+<button className={`type-btn ${typeFilter==='hack'?'active-hack':''}`} onClick={()=>setTypeFilter('hack')}>🔓 Hacks</button>
+<button className={`type-btn ${typeFilter==='collapse'?'active-collapse':''}`} onClick={()=>setTypeFilter('collapse')}>📉 Collapses</button>
+<button className={`type-btn ${typeFilter==='ponzi'?'active-ponzi':''}`} onClick={()=>setTypeFilter('ponzi')}>🎰 Ponzis</button>
+<button className={`type-btn ${typeFilter==='fraud'?'active-fraud':''}`} onClick={()=>setTypeFilter('fraud')}>🎭 Frauds</button>
 </div>
 <div className="grid">{filtered.map(c=>(
 <div key={c.id} className={`card ${c.phoenix?.enabled?'phoenix-card':''}`} onClick={()=>setSelected(c)}>
