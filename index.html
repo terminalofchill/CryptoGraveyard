@@ -360,8 +360,8 @@ return(<>
 <button className={`type-btn ${typeFilter==='ponzi'?'active-ponzi':''}`} onClick={function(){setTypeFilter('ponzi')}}>🎰 Ponzis</button>
 <button className={`type-btn ${typeFilter==='fraud'?'active-fraud':''}`} onClick={function(){setTypeFilter('fraud')}}>🎭 Frauds</button>
 </div>
-<div className="grid">{filtered.map(c=>(
-<div key={c.id} className={`card ${c.phoenix?.enabled?'phoenix-card':''}`} onClick={()=>setSelected(c)}>
+<div className="grid">{filtered.map((c,idx)=>(
+<div key={`${c.id}-${idx}`} className={`card ${c.phoenix?.enabled?'phoenix-card':''}`} onClick={()=>setSelected(c)}>
 {c.phoenix?.enabled&&<div className="phoenix-badge">🔥 PHOENIX</div>}
 <span className={`badge ${c.type}`}>{typeLabels[c.type]}</span>
 <div className="card-name">{c.name}</div>
