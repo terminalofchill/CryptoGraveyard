@@ -114,8 +114,16 @@ body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-h
 .nav-btn.phoenix{border-color:var(--gold)}
 .nav-btn.phoenix:hover{border-color:var(--gold);background:rgba(0,214,114,0.1)}
 .nav-btn.phoenix.active{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000}
-.search{width:100%;max-width:400px;margin:0 auto 20px;display:block;background:var(--card);border:2px solid var(--border);color:var(--text);padding:12px 16px;border-radius:10px;font-size:1rem}
+.search{width:100%;max-width:400px;margin:0 auto 16px;display:block;background:var(--card);border:2px solid var(--border);color:var(--text);padding:12px 16px;border-radius:10px;font-size:1rem}
 .search:focus{outline:none;border-color:var(--red)}
+.type-filters{display:flex;justify-content:center;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.type-btn{background:var(--card);border:2px solid var(--border);color:var(--text2);padding:8px 16px;border-radius:8px;font-family:'IBM Plex Mono';font-size:0.75rem;font-weight:600;cursor:pointer;transition:all 0.2s}
+.type-btn:hover{border-color:var(--text2);color:var(--text);transform:translateY(-1px)}
+.type-btn.active{background:var(--red);border-color:var(--red);color:#fff}
+.type-btn.active.hack{background:var(--orange);border-color:var(--orange)}
+.type-btn.active.collapse{background:var(--purple);border-color:var(--purple)}
+.type-btn.active.ponzi{background:var(--blue);border-color:var(--blue)}
+.type-btn.active.fraud{background:#e84393;border-color:#e84393}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px;margin-bottom:40px}
 @media(max-width:380px){.grid{grid-template-columns:1fr}}
 .card{background:var(--card);border:2px solid var(--border);border-radius:12px;padding:20px;cursor:pointer;position:relative;transition:all 0.2s}
@@ -126,6 +134,8 @@ body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-h
 .badge.rug{background:rgba(255,45,85,0.15);color:var(--red)}
 .badge.hack{background:rgba(255,149,0,0.15);color:var(--orange)}
 .badge.collapse{background:rgba(191,90,242,0.15);color:var(--purple)}
+.badge.ponzi{background:rgba(10,132,255,0.15);color:var(--blue)}
+.badge.fraud{background:rgba(232,67,147,0.15);color:#e84393}
 .phoenix-badge{position:absolute;top:12px;left:12px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;padding:4px 8px;border-radius:5px;font-size:0.65rem;font-weight:700;display:flex;align-items:center;gap:4px;z-index:2}
 .card-name{font-size:1.3rem;font-weight:700;margin-bottom:4px;padding-right:80px}
 .phoenix-card .card-name{padding-top:28px}
@@ -275,6 +285,7 @@ function App(){
 const[theme,setTheme]=useState('light');
 const[section,setSection]=useState('graveyard');
 const[search,setSearch]=useState('');
+const[typeFilter,setTypeFilter]=useState(null);
 const[selected,setSelected]=useState(null);
 const[shameModal,setShameModal]=useState(null);
 const[trenchModal,setTrenchModal]=useState(null);
@@ -286,7 +297,7 @@ useEffect(()=>{document.documentElement.setAttribute('data-theme',theme)},[theme
 
 const phoenixProjects=useMemo(()=>cryptoCorpses.filter(c=>c.phoenix?.enabled),[]);
 const sorted=useMemo(()=>[...cryptoCorpses].sort((a,b)=>(b.amount||0)-(a.amount||0)),[]);
-const filtered=useMemo(()=>sorted.filter(c=>!search||c.name.toLowerCase().includes(search.toLowerCase())),[sorted,search]);
+const filtered=useMemo(()=>sorted.filter(c=>(!search||c.name.toLowerCase().includes(search.toLowerCase()))&&(!typeFilter||c.type===typeFilter)),[sorted,search,typeFilter]);
 const stats={total:cryptoCorpses.length,amount:cryptoCorpses.reduce((s,c)=>s+(c.amount||0),0),phoenix:phoenixProjects.length};
 
 return(<>
@@ -340,6 +351,14 @@ return(<>
 
 {section==='graveyard'&&<>
 <input className="search" placeholder="Search dead projects..." value={search} onChange={e=>setSearch(e.target.value)}/>
+<div className="type-filters">
+<button className={`type-btn ${!typeFilter?'active':''}`} onClick={()=>setTypeFilter(null)}>All</button>
+<button className={`type-btn ${typeFilter==='rug'?'active':''}`} onClick={()=>setTypeFilter('rug')}>💀 Rugs</button>
+<button className={`type-btn ${typeFilter==='hack'?'active hack':''}`} onClick={()=>setTypeFilter('hack')}>🔓 Hacks</button>
+<button className={`type-btn ${typeFilter==='collapse'?'active collapse':''}`} onClick={()=>setTypeFilter('collapse')}>📉 Collapses</button>
+<button className={`type-btn ${typeFilter==='ponzi'?'active ponzi':''}`} onClick={()=>setTypeFilter('ponzi')}>🎰 Ponzis</button>
+<button className={`type-btn ${typeFilter==='fraud'?'active fraud':''}`} onClick={()=>setTypeFilter('fraud')}>🎭 Frauds</button>
+</div>
 <div className="grid">{filtered.map(c=>(
 <div key={c.id} className={`card ${c.phoenix?.enabled?'phoenix-card':''}`} onClick={()=>setSelected(c)}>
 {c.phoenix?.enabled&&<div className="phoenix-badge">🔥 PHOENIX</div>}

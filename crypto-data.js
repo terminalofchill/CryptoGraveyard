@@ -696,5 +696,5 @@ aftermath:"Community tried 'Fight Back Apes'. Never caught.",
 tags:["nft"],photoUrl:"images/Evil_Ape.jpg",videoId:"jLBvfEdxjYU",videoType:"youtube"}
 ];
 
-const typeLabels = {rug:"RUG PULL",hack:"HACKED",collapse:"COLLAPSED"};
-const typeColors = {rug:"#ff2d55",hack:"#ff9500",collapse:"#bf5af2"};
+const typeLabels = {rug:"RUG PULL",hack:"HACKED",collapse:"COLLAPSED",ponzi:"PONZI",fraud:"FRAUD"};
+const typeColors = {rug:"#ff2d55",hack:"#ff9500",collapse:"#bf5af2",ponzi:"#0a84ff",fraud:"#e84393"};
