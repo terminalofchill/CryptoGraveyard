@@ -245,6 +245,9 @@ footer a{color:var(--gold);text-decoration:none}
 .story-card:hover{border-color:var(--gold);transform:translateY(-3px)}
 .story-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
 .story-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+.story-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.story-name-link{color:inherit;text-decoration:none}
+.story-name-link:hover{color:var(--gold)}
 .story-name{font-weight:700;font-size:1.1rem}
 .story-role{font-size:0.75rem;color:var(--muted)}
 .story-earned{font-family:'IBM Plex Mono';font-size:1.4rem;font-weight:700;color:var(--gold);margin:12px 0}
@@ -568,8 +571,8 @@ return(<>
 <div className="story-grid">
 <div className="story-card">
 <div className="story-header">
-<div className="story-avatar">🧠</div>
-<div><div className="story-name">Geoffrey Huntley</div><div className="story-role">Creator of Ralph Wiggum Technique</div></div>
+<div className="story-avatar"><img src="images/Geoffrey_Huntley.jpg" alt="Geoffrey Huntley"/></div>
+<div><a href="https://x.com/GeoffreyHuntley" target="_blank" className="story-name-link"><div className="story-name">Geoffrey Huntley</div></a><div className="story-role">Creator of Ralph Wiggum Technique</div></div>
 </div>
 <div className="story-earned">$300,000 in 7 days</div>
 <div className="story-desc">Built an open-source AI agent loop for Claude Code. Community launched a token celebrating his work. He verified his X account and claimed royalties — no equity given, no VC meetings.</div>
@@ -578,8 +581,8 @@ return(<>
 
 <div className="story-card">
 <div className="story-header">
-<div className="story-avatar">⚡</div>
-<div><div className="story-name">Steve Yegge</div><div className="story-role">Creator of Gas Town</div></div>
+<div className="story-avatar"><img src="images/steve_yegge.jpg" alt="Steve Yegge"/></div>
+<div><a href="https://x.com/Steve_Yegge" target="_blank" className="story-name-link"><div className="story-name">Steve Yegge</div></a><div className="story-role">Creator of Gas Town</div></div>
 </div>
 <div className="story-earned">$216K+ earned</div>
 <div className="story-desc">Built an orchestrator for 20-30 parallel AI coding agents. Found out through a LinkedIn comment he had fees waiting. Turned down VCs — the community funded him instead.</div>
@@ -588,8 +591,8 @@ return(<>
 
 <div className="story-card">
 <div className="story-header">
-<div className="story-avatar">💾</div>
-<div><div className="story-name">Alex Newman</div><div className="story-role">Creator of Claude-Mem</div></div>
+<div className="story-avatar"><img src="images/alex_newman.jfif" alt="Alex Newman"/></div>
+<div><a href="https://x.com/Claude_Memory" target="_blank" className="story-name-link"><div className="story-name">Alex Newman</div></a><div className="story-role">Creator of Claude-Mem</div></div>
 </div>
 <div className="story-earned">$97K+ claimed</div>
 <div className="story-desc">Built a plugin giving Claude Code persistent memory across sessions. $CMEM surged 543% alongside the AI dev tools meta. Royalties keep flowing.</div>
