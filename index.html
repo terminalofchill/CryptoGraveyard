@@ -270,6 +270,24 @@ footer a{color:var(--gold);text-decoration:none}
 [data-theme="light"] .nav-btn.rise{border-color:#1d1d1f}
 [data-theme="light"] .nav-btn.rise:hover{border-color:#00d672;background:rgba(0,214,114,0.1)}
 [data-theme="light"] .nav-btn.rise.active{background:#00d672;border-color:#00d672;color:#000}
+.playbook-btn{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:2px solid var(--gold);color:var(--gold);padding:12px 20px;border-radius:10px;font-weight:700;font-size:0.9rem;cursor:pointer;transition:all 0.2s;margin-top:16px}
+.playbook-btn:hover{background:var(--gold);color:#000;transform:translateY(-2px)}
+.email-popup{max-width:460px;border:2px solid var(--gold)}
+.email-popup-content{padding:28px}
+.email-popup-icon{font-size:2.5rem;text-align:center;margin-bottom:12px}
+.email-popup-title{font-size:1.4rem;font-weight:800;text-align:center;margin-bottom:6px;color:var(--gold)}
+.email-popup-sub{font-size:0.9rem;color:var(--text2);text-align:center;margin-bottom:16px}
+.email-popup-list{list-style:none;margin-bottom:20px}
+.email-popup-list li{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:0.85rem;color:var(--text2)}
+.email-popup-list li span{color:var(--gold)}
+.email-popup-input{width:100%;background:var(--bg);border:2px solid var(--border);color:var(--text);padding:12px;border-radius:8px;font-size:1rem;margin-bottom:12px}
+.email-popup-input:focus{outline:none;border-color:var(--gold)}
+.email-popup-submit{width:100%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;border:none;padding:14px;border-radius:8px;font-weight:700;font-size:1rem;cursor:pointer}
+.email-popup-submit:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,214,114,0.3)}
+.email-popup-submit:disabled{opacity:0.6;cursor:not-allowed;transform:none}
+.email-popup-skip{display:block;text-align:center;color:var(--muted);font-size:0.8rem;margin-top:12px;cursor:pointer;background:none;border:none;width:100%}
+.email-popup-skip:hover{color:var(--text2)}
+.email-popup-note{font-size:0.7rem;color:var(--muted);text-align:center;margin-top:8px}
 </style>
 </head>
 <body>
@@ -293,8 +311,37 @@ const[trenchModal,setTrenchModal]=useState(null);
 const[trenchTab,setTrenchTab]=useState('pump');
 const[submitModal,setSubmitModal]=useState(false);
 const[submitStatus,setSubmitStatus]=useState('');
+const[emailPopup,setEmailPopup]=useState(false);
+const[emailStatus,setEmailStatus]=useState('');
+const[emailVal,setEmailVal]=useState('');
 
 useEffect(()=>{document.documentElement.setAttribute('data-theme',theme)},[theme]);
+
+useEffect(()=>{
+const d=localStorage.getItem('cgDismissed');
+const s=localStorage.getItem('cgSubmitted');
+if(d||s)return;
+const t=setTimeout(()=>setEmailPopup(true),6000);
+return()=>clearTimeout(t);
+},[]);
+
+const closePopup=()=>{setEmailPopup(false);localStorage.setItem('cgDismissed',Date.now().toString());};
+
+const openPlaybook=()=>{
+if(localStorage.getItem('cgSubmitted')){window.open('rise-playbook.html','_blank');}
+else{setEmailPopup(true);}
+};
+
+const submitEmail=async(e)=>{
+e.preventDefault();
+if(!emailVal)return;
+setEmailStatus('sending');
+try{
+const r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({access_key:'be4f48cb-b87e-49b6-b743-1ff5e07741e0',subject:'[Crypto Graveyard] Playbook',email:emailVal})});
+if(r.ok){setEmailStatus('success');localStorage.setItem('cgSubmitted','1');}
+else{setEmailStatus('error');}
+}catch(err){setEmailStatus('error');}
+};
 
 const phoenixProjects=useMemo(()=>cryptoCorpses.filter(c=>c.phoenix?.enabled),[]);
 const sorted=useMemo(()=>[...cryptoCorpses].sort((a,b)=>(b.amount||0)-(a.amount||0)),[]);
@@ -513,6 +560,7 @@ return(<>
 <div className="rise-stat"><div className="rise-stat-val">1%</div><div className="rise-stat-label">Royalties Forever</div></div>
 <div className="rise-stat"><div className="rise-stat-val">0%</div><div className="rise-stat-label">Equity Given Up</div></div>
 </div>
+<button className="playbook-btn" onClick={openPlaybook}>📖 Get the Rise Playbook (Free)</button>
 </div>
 
 <div className="success-stories">
@@ -857,6 +905,37 @@ document.getElementById('project-fields').style.display=e.target.value==='Dead P
 <p style={{fontSize:'0.75rem',color:'var(--muted)',textAlign:'center',marginTop:12}}>We read every submission. Good ideas get built. 🫡</p>
 </form>}
 </div></div></div>}
+
+{emailPopup&&<div className="modal-overlay" onClick={closePopup}>
+<div className="modal email-popup" onClick={e=>e.stopPropagation()}>
+<button className="modal-close" onClick={closePopup}>×</button>
+<div className="email-popup-content">
+{emailStatus==='success'?<>
+<div className="email-popup-icon">🚀</div>
+<div className="email-popup-title">You're In!</div>
+<div className="email-popup-sub">Your playbook is ready.</div>
+<a href="rise-playbook.html" target="_blank" className="email-popup-submit" style={{display:'block',textAlign:'center',textDecoration:'none'}}>Open the Playbook →</a>
+</>:<>
+<div className="email-popup-icon">📖</div>
+<div className="email-popup-title">The Rise Playbook</div>
+<div className="email-popup-sub">How builders earn $100K-$300K without VCs or equity</div>
+<ul className="email-popup-list">
+<li><span>✅</span> Step-by-step launch guide</li>
+<li><span>✅</span> 3 case studies with earnings</li>
+<li><span>✅</span> How to claim royalties</li>
+<li><span>✅</span> 5 mistakes that kill launches</li>
+</ul>
+<form onSubmit={submitEmail}>
+<input type="email" className="email-popup-input" placeholder="Enter your email" value={emailVal} onChange={e=>setEmailVal(e.target.value)} required/>
+<button type="submit" className="email-popup-submit" disabled={emailStatus==='sending'}>{emailStatus==='sending'?'Sending...':'Get the Free Playbook'}</button>
+</form>
+{emailStatus==='error'&&<p style={{color:'var(--red)',fontSize:'0.8rem',textAlign:'center',marginTop:8}}>Error. Try again.</p>}
+<button className="email-popup-skip" onClick={closePopup}>Maybe later</button>
+<div className="email-popup-note">No spam. Unsubscribe anytime.</div>
+</>}
+</div>
+</div>
+</div>}
 </>);
 }
 ReactDOM.render(<App/>,document.getElementById('root'));
