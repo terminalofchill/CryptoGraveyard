@@ -533,9 +533,19 @@ return(<>
 <div className="story-avatar">⚡</div>
 <div><div className="story-name">Steve Yegge</div><div className="story-role">Creator of Gas Town</div></div>
 </div>
-<div className="story-earned">$49,000+ waiting</div>
-<div className="story-desc">Built an orchestrator for 20-30 parallel AI coding agents. Found out through a LinkedIn comment he had $49K in unclaimed fees. Turned down VCs — the community funded him instead.</div>
+<div className="story-earned">$216K+ earned</div>
+<div className="story-desc">Built an orchestrator for 20-30 parallel AI coding agents. Found out through a LinkedIn comment he had fees waiting. Turned down VCs — the community funded him instead.</div>
 <div className="story-token">$GAS · AI Infrastructure</div>
+</div>
+
+<div className="story-card">
+<div className="story-header">
+<div className="story-avatar">💾</div>
+<div><div className="story-name">Alex Newman</div><div className="story-role">Creator of Claude-Mem</div></div>
+</div>
+<div className="story-earned">$97K+ claimed</div>
+<div className="story-desc">Built a plugin giving Claude Code persistent memory across sessions. $CMEM surged 543% alongside the AI dev tools meta. Royalties keep flowing.</div>
+<div className="story-token">$CMEM · AI Memory</div>
 </div>
 </div>
 </div>
@@ -595,7 +605,7 @@ return(<>
 </div>
 </div>
 
-<a href={BAGS_REFERRAL} target="_blank" className="rise-cta">🚀 Launch Your Project on Bags →</a>
+<a href="https://bags.fm/?ref=cryptograveyrd" target="_blank" className="rise-cta">🚀 Launch Your Project on Bags →</a>
 <p style={{textAlign:'center',color:'var(--muted)',fontSize:'0.8rem',marginTop:12}}>Zero platform fees • 1% royalties on all trades • Keep 100% equity</p>
 </div>}
 </div>
@@ -605,7 +615,7 @@ return(<>
 <a href="https://x.com/cryptograveyrd" target="_blank" className="social-link">𝕏</a>
 </div>
 <p><strong>Crypto Graveyard</strong> · Phoenix Protocol</p>
-<p style={{marginTop:8}}>Resurrect dead ideas. <a href={BAGS_REFERRAL} target="_blank">Fair launch on Bags →</a></p>
+<p style={{marginTop:8}}>Resurrect dead ideas. <a href="https://bags.fm/?ref=cryptograveyrd" target="_blank">Fair launch on Bags →</a></p>
 </footer>
 
 {/* Graveyard/Phoenix Modal */}
@@ -701,7 +711,7 @@ return(<>
 <div className="risk-list">{selected.phoenix.risks.map((r,i)=><div key={i} className="risk-item"><span className="risk-icon">⚠️</span>{r}</div>)}</div>
 </div>}
 
-<a href={BAGS_REFERRAL} target="_blank" className="bags-cta">🚀 Launch This Idea on Bags →</a>
+<a href="https://bags.fm/?ref=cryptograveyrd" target="_blank" className="bags-cta">🚀 Launch This Idea on Bags →</a>
 </>}
 </div></div></div>}
 
@@ -767,7 +777,7 @@ e.preventDefault();
 const form=e.target;
 const subType=form.submission_type.value;
 const data={
-access_key:'YOUR_WEB3FORMS_KEY',
+access_key:'be4f48cb-b87e-49b6-b743-1ff5e07741e0',
 subject:`[Crypto Graveyard] ${subType}`,
 submission_type:subType,
 title:form.title.value,

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Rise Playbook | Crypto Graveyard</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#08080a;--bg2:#0f0f12;--card:#141417;--text:#fafafa;--text2:#a0a0a5;--muted:#606065;--border:#3a3a40;--gold:#00d672;--gold2:#00b860;--red:#ff2d55}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Outfit,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.container{max-width:800px;margin:0 auto;padding:40px 24px}
+.hero{text-align:center;padding:40px 0 50px;border-bottom:1px solid var(--border);margin-bottom:40px}
+.hero-icon{font-size:4rem;margin-bottom:16px}
+h1{font-size:2.8rem;font-weight:900;margin-bottom:12px;background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{font-size:1.2rem;color:var(--text2);max-width:500px;margin:0 auto}
+h2{font-size:1.5rem;font-weight:800;margin:50px 0 24px;color:var(--text);display:flex;align-items:center;gap:12px}
+h2::before{content:'';flex:1;height:2px;background:linear-gradient(90deg,transparent,var(--border))}
+h2::after{content:'';flex:1;height:2px;background:linear-gradient(90deg,var(--border),transparent)}
+h3{font-size:1.15rem;font-weight:700;margin:28px 0 14px;color:var(--gold)}
+p{color:var(--text2);margin-bottom:16px}
+strong{color:var(--text)}
+.highlight-box{background:linear-gradient(135deg,rgba(0,214,114,0.15),rgba(0,184,96,0.08));border:2px solid rgba(0,214,114,0.4);border-radius:16px;padding:28px;margin:28px 0;position:relative;overflow:hidden}
+.highlight-box::before{content:'💡';position:absolute;top:-10px;right:20px;font-size:2rem;opacity:0.3}
+.highlight-box h3{margin-top:0;color:var(--gold)}
+.highlight-box p:last-child{margin-bottom:0}
+.story-card{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:28px;margin:24px 0;transition:all 0.3s;position:relative;overflow:hidden}
+.story-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--gold),var(--gold2))}
+.story-card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,214,114,0.1)}
+.story-header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+.story-avatar{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-size:1.8rem;box-shadow:0 4px 12px rgba(0,214,114,0.3)}
+.story-name{font-weight:700;font-size:1.25rem}
+.story-role{font-size:0.85rem;color:var(--muted)}
+.story-earned{font-family:'IBM Plex Mono';font-size:1.8rem;font-weight:700;color:var(--gold);margin:18px 0;display:flex;align-items:center;gap:10px}
+.story-earned::before{content:'';width:10px;height:10px;background:var(--gold);border-radius:50%;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+.story-quote{background:rgba(0,214,114,0.08);border-left:4px solid var(--gold);padding:18px 20px;margin:18px 0;font-style:italic;border-radius:0 10px 10px 0;font-size:1rem}
+.steps{counter-reset:step;margin:24px 0}
+.step{position:relative;padding-left:70px;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)}
+.step:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.step::before{counter-increment:step;content:counter(step);position:absolute;left:0;top:0;width:48px;height:48px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.2rem;box-shadow:0 4px 12px rgba(0,214,114,0.3)}
+.step h4{font-weight:700;margin-bottom:10px;font-size:1.1rem;color:var(--text)}
+.step p{margin-bottom:0;color:var(--text2)}
+ul,ol{margin:16px 0 16px 24px}
+li{color:var(--text2);margin-bottom:10px}
+li strong{color:var(--text)}
+.warning-box{background:rgba(255,45,85,0.08);border:2px solid rgba(255,45,85,0.3);border-radius:16px;padding:24px;margin:28px 0}
+.warning-box h4{color:var(--red);margin-bottom:16px;font-size:1.1rem;display:flex;align-items:center;gap:8px}
+.warning-box ul{margin-bottom:0}
+.warning-box li{margin-bottom:12px}
+.warning-box li:last-child{margin-bottom:0}
+.math-box{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:24px;margin:24px 0}
+.math-box h4{margin-bottom:16px;color:var(--gold)}
+.math-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)}
+.math-row:last-child{border-bottom:none}
+.math-volume{color:var(--text2)}
+.math-daily{font-family:'IBM Plex Mono';color:var(--text)}
+.math-monthly{font-family:'IBM Plex Mono';font-weight:700;color:var(--gold)}
+.cta-box{background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:20px;padding:40px;text-align:center;margin:50px 0}
+.cta-box h3{color:#000;font-size:1.5rem;margin-bottom:12px}
+.cta-box p{color:rgba(0,0,0,0.7);margin-bottom:24px;font-size:1.05rem}
+.cta-btn{display:inline-block;background:#000;color:var(--gold);padding:18px 36px;border-radius:12px;text-decoration:none;font-weight:700;font-size:1.1rem;transition:all 0.2s}
+.cta-btn:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,0.3)}
+.footer{text-align:center;padding:50px 0;border-top:1px solid var(--border);margin-top:50px;color:var(--muted);font-size:0.9rem}
+.footer a{color:var(--gold);text-decoration:none}
+.back-link{display:inline-flex;align-items:center;gap:8px;color:var(--gold);text-decoration:none;font-weight:600;padding:10px 16px;background:var(--card);border:1px solid var(--border);border-radius:8px;transition:all 0.2s}
+.back-link:hover{border-color:var(--gold);transform:translateX(-4px)}
+.toc{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:28px;margin:32px 0}
+.toc h4{margin-bottom:18px;font-size:1.1rem;display:flex;align-items:center;gap:8px}
+.toc ul{margin:0;list-style:none;padding-left:0}
+.toc li{margin-bottom:10px;padding-left:20px;position:relative}
+.toc li::before{content:'→';position:absolute;left:0;color:var(--gold)}
+.toc a{color:var(--text2);text-decoration:none;transition:color 0.2s}
+.toc a:hover{color:var(--gold)}
+.tldr-box{background:linear-gradient(135deg,rgba(0,214,114,0.1),rgba(0,184,96,0.05));border:2px solid rgba(0,214,114,0.3);border-radius:16px;padding:24px;margin:32px 0}
+.tldr-box h4{color:var(--gold);margin-bottom:12px;font-size:1rem}
+.tldr-box p{margin-bottom:0;font-size:0.95rem}
+@media print{body{background:#fff;color:#000}.container{max-width:100%}h1{-webkit-text-fill-color:#00a65a}h3,.story-earned{color:#00a65a}.story-card,.highlight-box,.toc{border-color:#ccc}.cta-box{background:#00a65a}}
+@media(max-width:600px){h1{font-size:2rem}.story-earned{font-size:1.4rem}.step{padding-left:60px}.step::before{width:40px;height:40px;font-size:1rem}}
+</style>
+</head>
+<body>
+<div class="container">
+<a href="index.html" class="back-link">← Back to Crypto Graveyard</a>
+
+<div class="hero">
+<div class="hero-icon">🚀</div>
+<h1>The Rise Playbook</h1>
+<p class="subtitle">How builders are earning $100K-$300K from open source — without VCs, pitches, or giving up equity</p>
+</div>
+
+<div class="tldr-box">
+<h4>⚡ TL;DR</h4>
+<p>Build something useful → Community creates a token for you → Verify your identity → Earn 1% royalties on every trade, forever. Three builders have made $600K+ combined this way.</p>
+</div>
+
+<div class="toc">
+<h4>📖 What's Inside</h4>
+<ul>
+<li><a href="#why">Why This Works (And Why Now)</a></li>
+<li><a href="#stories">3 Real Success Stories with Numbers</a></li>
+<li><a href="#guide">Step-by-Step Launch Guide</a></li>
+<li><a href="#mistakes">5 Mistakes That Kill Launches</a></li>
+<li><a href="#claiming">How to Claim Your Royalties</a></li>
+<li><a href="#math">The Math: What You Can Actually Earn</a></li>
+</ul>
+</div>
+
+<h2 id="why">Why This Works</h2>
+<p>The crypto community is desperate to fund builders who actually ship. Not pitches. Not promises. <strong>Real, working projects.</strong></p>
+<p>Here's what changed: platforms like <strong>Bags.fm</strong> let communities create tokens celebrating developers and their work. The developer doesn't even need to launch the token — often the community does it for them. Then the developer verifies their identity and claims <strong>1% royalties on every single trade. Forever.</strong></p>
+<p>This isn't speculation. We've tracked builders earning six figures in days, not years. No equity given up. No VC meetings. No board seats. Just royalties flowing from a community that believes in what you're building.</p>
+
+<div class="highlight-box">
+<h3>The Key Insight</h3>
+<p>You don't need to launch a token yourself. Build something valuable, share it publicly, and the community will often do it for you. Your only job is to verify your identity and claim the fees. That's it.</p>
+</div>
+
+<h2 id="stories">3 Real Success Stories</h2>
+
+<div class="story-card">
+<div class="story-header">
+<div class="story-avatar">🧠</div>
+<div>
+<div class="story-name">Geoffrey Huntley</div>
+<div class="story-role">Creator of the Ralph Wiggum Technique</div>
+</div>
+</div>
+<div class="story-earned">$300,000 in 7 days</div>
+<p><strong>What he built:</strong> An open-source AI agent loop for Claude Code called the "Ralph Wiggum Technique" — a workflow that made AI coding dramatically more effective. He shared it freely on GitHub and Twitter.</p>
+<p><strong>What happened:</strong> The community launched $RALPH to celebrate his contribution. Geoffrey verified his X account, connected to Bags, and started receiving 1% of every trade.</p>
+<div class="story-quote">"I didn't ask for this. I just built something useful and shared it. The community did the rest."</div>
+<p><strong>Key takeaway:</strong> Build in public. Share your work freely. The community rewards genuine value.</p>
+</div>
+
+<div class="story-card">
+<div class="story-header">
+<div class="story-avatar">⚡</div>
+<div>
+<div class="story-name">Steve Yegge</div>
+<div class="story-role">Creator of Gas Town</div>
+</div>
+</div>
+<div class="story-earned">$216,000+ earned</div>
+<p><strong>What he built:</strong> An orchestration system for running 20-30 parallel AI coding agents simultaneously — critical infrastructure for the AI dev tools wave. Steve is a veteran engineer from Google and Amazon.</p>
+<p><strong>What happened:</strong> Someone commented on his LinkedIn post telling him he had $49K in unclaimed fees from $GAS. He'd been completely ignoring crypto. After verifying, he's now earned over $216K and counting.</p>
+<div class="story-quote">"VCs wanted meetings. The community just funded me. No strings attached."</div>
+<p><strong>Key takeaway:</strong> Your work might already have a token. Search Bags.fm for projects named after you or your tools.</p>
+</div>
+
+<div class="story-card">
+<div class="story-header">
+<div class="story-avatar">💾</div>
+<div>
+<div class="story-name">Alex Newman</div>
+<div class="story-role">Creator of Claude-Mem</div>
+</div>
+</div>
+<div class="story-earned">$97,000+ claimed</div>
+<p><strong>What he built:</strong> A plugin giving Claude Code persistent memory across sessions — solving a major pain point for AI developers who lost context between conversations.</p>
+<p><strong>What happened:</strong> $CMEM launched on Bags and surged 543% alongside the AI dev tools meta. Alex verified and started claiming royalties immediately.</p>
+<div class="story-quote">"Every time someone trades, I earn. It's like having thousands of tiny investors who want me to succeed."</div>
+<p><strong>Key takeaway:</strong> Solve real problems. The more useful your tool, the more the community wants to support you.</p>
+</div>
+
+<h2 id="guide">Step-by-Step Launch Guide</h2>
+<p>Ready to launch your own project? Here's exactly how to do it in under 10 minutes.</p>
+
+<div class="steps">
+<div class="step">
+<h4>Get 0.2 SOL (~$50)</h4>
+<p>Download <strong>Phantom wallet</strong> from phantom.app. Buy SOL on Coinbase, Binance, or any major exchange, then send it to your Phantom wallet address. You need at least 0.2 SOL to launch — this becomes your initial buy, making you the first holder of your own token.</p>
+</div>
+
+<div class="step">
+<h4>Connect to Bags.fm</h4>
+<p>Go to <a href="https://bags.fm/?ref=cryptograveyrd" style="color:var(--gold)">bags.fm</a> and connect your X (Twitter) account. This is how you'll verify ownership and claim royalties later. Your X handle becomes your on-chain identity.</p>
+</div>
+
+<div class="step">
+<h4>Create Your Token</h4>
+<p>Click "Launch" and fill in the basics: token name, ticker symbol (3-5 letters), and upload a logo. Pick something that represents your project clearly. The token launches instantly — your community can start trading within seconds.</p>
+</div>
+
+<div class="step">
+<h4>Share Your Launch</h4>
+<p>Post about it on X. Explain what you're building and why. Be authentic — the community can smell manufactured hype from miles away. Share your roadmap, your progress, your struggles. Your token holders become your marketing team.</p>
+</div>
+
+<div class="step">
+<h4>Build & Ship</h4>
+<p>Use your royalties to fund development. Every trade generates fees for you — the more active your community, the more you earn. Keep shipping updates and your holders stay engaged. Their success is tied to yours.</p>
+</div>
+</div>
+
+<h2 id="mistakes">5 Mistakes That Kill Launches</h2>
+
+<div class="warning-box">
+<h4>🚫 Avoid These At All Costs</h4>
+<ul>
+<li><strong>Launching without a real project:</strong> The community can smell vaporware instantly. Have something working before you launch, even if it's a prototype or MVP. "Coming soon" doesn't cut it.</li>
+<li><strong>Going dark after launch:</strong> Communication is everything. Post updates weekly at minimum. Silence kills momentum faster than bad news. Even "still working on X" is better than nothing.</li>
+<li><strong>Overpromising:</strong> Don't claim you're building "the next OpenAI." Be specific about what you're making and realistic about timelines. Underpromise, overdeliver.</li>
+<li><strong>Ignoring your community:</strong> These people are literally invested in your success. Answer questions. Take feedback seriously. Make them feel heard. They're your earliest supporters.</li>
+<li><strong>Selling too early:</strong> If you dump your tokens immediately after launch, trust evaporates instantly. You're in this for the long term — act like it. Your credibility is your most valuable asset.</li>
+</ul>
+</div>
+
+<h2 id="claiming">How to Claim Your Royalties</h2>
+<p>Already have a community token you didn't launch? Here's how to verify and start earning:</p>
+
+<ol>
+<li><strong>Search for your name/project on Bags.fm</strong> — Someone may have already created a token celebrating your work. Search your name, your project name, or your tool's name.</li>
+<li><strong>Click "Claim" on the token page</strong> — You'll see a button to claim ownership if you're the verified creator.</li>
+<li><strong>Connect your X account</strong> — This proves your identity. Make sure it's the account associated with your project or publicly known work.</li>
+<li><strong>Post verification tweet</strong> — Bags will ask you to tweet from your account to confirm ownership. This is a one-time step.</li>
+<li><strong>Start receiving royalties</strong> — Once verified, 1% of every single trade flows to your connected wallet automatically. Claim anytime.</li>
+</ol>
+
+<h2 id="math">The Math: What You Can Actually Earn</h2>
+
+<div class="math-box">
+<h4>💰 1% Royalties Add Up Fast</h4>
+<div class="math-row">
+<span class="math-volume">$10,000 daily volume</span>
+<span class="math-daily">$100/day</span>
+<span class="math-monthly">= $3,000/month</span>
+</div>
+<div class="math-row">
+<span class="math-volume">$25,000 daily volume</span>
+<span class="math-daily">$250/day</span>
+<span class="math-monthly">= $7,500/month</span>
+</div>
+<div class="math-row">
+<span class="math-volume">$50,000 daily volume</span>
+<span class="math-daily">$500/day</span>
+<span class="math-monthly">= $15,000/month</span>
+</div>
+<div class="math-row">
+<span class="math-volume">$100,000 daily volume</span>
+<span class="math-daily">$1,000/day</span>
+<span class="math-monthly">= $30,000/month</span>
+</div>
+</div>
+
+<div class="highlight-box">
+<h3>The Best Part</h3>
+<p>These royalties are <strong>forever</strong>. No expiration date. No renegotiation. As long as people trade your token, you earn. And you keep 100% equity in your actual project. Compare that to giving VCs 20-40% of your company for a similar amount of funding.</p>
+</div>
+
+<div class="cta-box">
+<h3>Ready to Rise?</h3>
+<p>Join the builders earning from their work. No VCs. No equity. Just royalties.</p>
+<a href="https://bags.fm/?ref=cryptograveyrd" class="cta-btn">🚀 Launch on Bags.fm →</a>
+</div>
+
+<div class="footer">
+<p><strong>The Rise Playbook</strong> by <a href="index.html">Crypto Graveyard</a></p>
+<p style="margin-top:8px">We document failures so you can build success.</p>
+<p style="margin-top:20px;font-size:0.8rem;color:var(--muted)">Disclaimer: This is not financial advice. Cryptocurrency involves significant risk. Do your own research. Past earnings of other builders don't guarantee future results for you.</p>
+</div>
+</div>
+</body>
+</html>
